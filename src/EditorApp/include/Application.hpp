@@ -1,0 +1,90 @@
+#ifndef APPLICATION_HPP
+#define APPLICATION_HPP
+
+#include <glad/glad.h>
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+#include <string>
+
+enum input_mode
+{
+
+EDITOR,
+WORLD
+
+};
+
+
+class Application
+{
+friend class Editor;
+//setting the same callback for different windows.
+public:
+//the state of the application
+    const char* m_acWindowTitle;//does it have to be constant.
+    int m_iXPosition, m_iYPosition;
+    static int m_iWidth, m_iHeight;
+    static int m_iFrameWidth, m_iFrameHeight;
+
+    static GLFWwindow *m_window;
+    int m_iWindowID;
+    double m_dTime, m_dDeltaTime;
+    static float lastX ;
+    static float lastY ;         
+    static bool firstMouse;
+
+// timing
+float deltaTime = 0.0f;	// time between current frame and last frame
+float lastFrame = 0.0f;
+    static input_mode imode;
+ 
+
+
+static unsigned int framebuffer;
+static unsigned int textureColorbuffer;
+static unsigned int rbo;
+unsigned int quadVAO, quadVBO;
+public:
+//factory method to encapsulate application creation
+Application* applicationFactory(const char* acWindowTitle, int iXPosition,
+        int iYPosition, int iWidth, int iHeight);
+
+Application(const char* acWindowTitle, int iXPosition,
+        int iYPosition, int iWidth, int iHeight);
+~Application();
+//a bunch of static methods to keep the code contained
+void init();
+void specifyContext();
+void passCallbacks();
+void createWindow();
+void loadGL();
+
+
+
+void allocateModules();
+void deallocateModules();
+
+int terminate();
+
+int Main (int iQuantity, char** apcArgument);
+int processInput();
+void showMainMenu();
+static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+static void character_callback(GLFWwindow* window, unsigned int codepoint);
+static void cursor_enter_callback(GLFWwindow* window, int entered);
+static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
+static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+static void drop_callback(GLFWwindow* window, int count, const char** paths);
+static std::string utf8chr(int cp);
+void EditTransform(float* cameraView, float* cameraProjection, float* matrix, bool editTransformDecomposition);
+
+void renderDock();
+void  resizeViewport(int width, int height);
+void getIMode();
+void loopEnd();
+void  loopContent();
+
+};
+#endif
