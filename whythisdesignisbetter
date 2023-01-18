@@ -1,0 +1,9 @@
+i can reuse the glfw app without the editor
+this is done by amking the application and the editorUI friends. So they modify eachothers states directly, but they are still contained in different modules.
+
+SO the Editor is like a layer on top of the application, that can modify its state.
+
+now i just need to plug those modules rom engine14 in here. it should be a brief operation, since those modules are self contained.
+
+some cleaning, of course.
+ill cerate an asset store just like before, for storing state related to the 3d world.

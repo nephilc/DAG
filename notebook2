@@ -1,0 +1,3 @@
+putting data in a central store that all components can access
+something commonly done in UI frameworks
+caomponents that do not share a parent-child relationship

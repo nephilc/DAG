@@ -1,0 +1,7 @@
+render all windows
+render scene to a framebuffer
+be able to add nodes to scene from ui
+choose type of node
+in case of model nodes add possibility for choosing the model
+saving the scene into a file
+importing scenes

@@ -20,9 +20,9 @@ int main(int argc, char** argv)
 	plog::init(plog::debug, &consoleAppender);
     #endif
 	const char *title = "this is the title";
-	application= new Application("editor application", 0, 0, 600 , 800);
-	application->init();
+	application=  Application::getApplication("editor application", 0, 0, 600 , 800);
 	application->Main(argc, argv);
+	delete application;
 
 
 	
@@ -32,5 +32,4 @@ int main(int argc, char** argv)
 void atexitWork()
 {
 	printf("EXITING APPLICATION\n");
-	delete application;
 }

@@ -1,77 +1,12 @@
-#include "Application.hpp"
-#include <iostream>
+#include<Application.hpp>
 #include <plog/Log.h>
-
-
-//when resizing we need to create a new framebuffer with different dimensions.
-//
-//mesh instance object
-//the instance object types.
-//draw state enum
-
-//no need to recreate the framebuffer, for now. ONe need to fix the camera projection, on resizing the rendering window.
-//could do it later.
-unsigned int Application::framebuffer = 0;
-unsigned int Application::textureColorbuffer = 0;
-unsigned int Application::rbo = 0;
-
-//TODO: Maybe, i'll make all modules static
-bool Application::firstMouse = true;
-float Application::lastX = 100.0f;//place holder values
-float Application::lastY = 100.0f;
-int Application::m_iWidth = 600;
-int Application::m_iHeight = 800;
-input_mode Application::imode = EDITOR;
-GLFWwindow *Application::m_window = 0;
-int Application::m_iFrameWidth = 600;
-int Application::m_iFrameHeight = 800;
-
-Application::Application 
-        (const char* acWindowTitle, int iXPosition,
-        int iYPosition, int iWidth, int iHeight): m_acWindowTitle(acWindowTitle), 
-        m_iXPosition(iXPosition), m_iYPosition(iYPosition)/*, m_iWidth(iWidth), m_iHeight(iHeight)*/    
-{
-lastX = m_iWidth / 2.0f;
-lastY = m_iHeight / 2.0f;         
-m_iWidth = iWidth;
-m_iHeight = iHeight;
-
-PLOGI<<"EDITOR APPLICATION:: ENGINE VERSION "/*<<ENGINE10_VERSION_MAJOR <<"."<< ENGINE10_VERSION_MINOR*/;
-//PLOGD<<"CALLING APPLICATION CONSTRUCTOR";
-}
-
-Application ::~Application ()
-{
-//    PLOGI<<"EXECUTED APP DESTRUCTOR";
-    deallocateModules();
-    terminate();
-}
-
-
-void Application::init()
-{
-    PLOGI<<"INITIALIZINNG THE APPLICATION";
-    specifyContext();
-    createWindow();
-    passCallbacks();
-    loadGL();
-
-    allocateModules();
-}
-
-void Application::allocateModules()
-{
-
-}
-
-void Application::deallocateModules()
-{   
-    
-}
 
 
 void Application::createWindow()
 {
+    //const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
     m_window = glfwCreateWindow(m_iWidth, m_iHeight, m_acWindowTitle, /*glfwGetPrimaryMonitor()*/ NULL, NULL);
     if (!m_window)
     {
@@ -120,35 +55,41 @@ void Application::passCallbacks()
     glfwSetScrollCallback(m_window, scroll_callback);
     glfwSetDropCallback(m_window, drop_callback);
 }
-int Application::Main (int iQuantity, char** apcArgument)
-{
-
-    while (!glfwWindowShouldClose(m_window))
-    {
-
-        glEnable(GL_DEPTH_TEST);    
-        glClearColor(1.0f, 1.0f, 0.0f, 1.0f); 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);    
-        glfwSwapBuffers(m_window);
-        glfwPollEvents();
-
-    }
-    return 0;
-}
 int Application::processInput()
 {
-	if(imode == WORLD)
-	{  
+    /*
+	if (glfwGetKey(m_window, GLFW_KEY_TAB) == GLFW_PRESS)
+	{
+	   if (imode == WORLD)
+	   { 
+	   	imode = EDITOR;
+	   	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	   	
+	   }
+	   else{ 
+	   imode = WORLD;
+	   glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	   
+	   }
+	}
+*/	 
+
+	
     if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(m_window, true);
 
     if (glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS)
+        camera->ProcessKeyboard(FORWARD, deltaTime);
     if (glfwGetKey(m_window, GLFW_KEY_S) == GLFW_PRESS)
+        camera->ProcessKeyboard(BACKWARD, deltaTime);
     if (glfwGetKey(m_window, GLFW_KEY_A) == GLFW_PRESS)
-    if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS);
-	}   
+        camera->ProcessKeyboard(LEFT, deltaTime);
+    if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS)
+        camera->ProcessKeyboard(RIGHT, deltaTime);
+	   
     return 0;
-}
+}  
+
 
 int Application::terminate()
 {
@@ -312,68 +253,4 @@ void Application::drop_callback(GLFWwindow* window, int count, const char** path
         PLOGD<<paths[i];
 
     }
-}
-
-
-std::string Application::utf8chr(int cp)
-{
-    char c[5]={ 0x00,0x00,0x00,0x00,0x00 };
-    if     (cp<=0x7F) { c[0] = cp;  }
-    else if(cp<=0x7FF) { c[0] = (cp>>6)+192; c[1] = (cp&63)+128; }
-    else if(0xd800<=cp && cp<=0xdfff) {} //invalid block of utf8
-    else if(cp<=0xFFFF) { c[0] = (cp>>12)+224; c[1]= ((cp>>6)&63)+128; c[2]=(cp&63)+128; }
-    else if(cp<=0x10FFFF) { c[0] = (cp>>18)+240; c[1] = ((cp>>12)&63)+128; c[2] = ((cp>>6)&63)+128; c[3]=(cp&63)+128; }
-    return std::string(c);
-}
-
-
-/*
-void Application::renderDock()
-{
-bool open = true;
-
-ImGui::Begin("docking window", &open);
-//ImGui::SetWindowSize(ImVec2(600, 600));
-
-ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-ImGui::DockSpace(dockspace_id);
-
-
-
-ImGui::SetNextWindowDockID(dockspace_id, ImGuiCond_FirstUseEver);
-ImGuiWindowFlags window_flags = ImGuiWindowFlags_UnsavedDocument;
-
-ImGui::Begin("dock test", &open, window_flags);
-ImGui::SetWindowSize(ImVec2(600, 600));
-
-ImGui::End();
-
-ImGui::SetNextWindowDockID(dockspace_id, ImGuiCond_FirstUseEver);
-ImGuiWindowFlags window_flags1 = ImGuiWindowFlags_UnsavedDocument;
-
-ImGui::Begin("child window", &open, window_flags1);
-ImGui::SetWindowSize(ImVec2(600, 600));
-
-ImGui::End();
-
-ImGui::End();
-  
-}
-*/
-
-void Application::getIMode()
-{
-
-}
-
-void Application::loopEnd()
-{
-
-}
-
-
-void Application::loopContent()
-{
-    
- 
 }

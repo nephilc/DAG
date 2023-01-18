@@ -1,0 +1,31 @@
+{
+  nodes: [{ id: 0 }, { id: 1 }],
+  edges: [{ id: 0, source: 0, target: 1 }]
+}JSON-LD 1.1
+ an object saving and  reloading its sate from a character array
+ mvc architecture, every part of the ui having acces to the state it modifies
+ saving the ui as xml
+ the model object and the view object joined in the controller object
+ All three joined in one class
+ 
+ build the graph recursively,
+ breath traversal
+ {
+ 
+ "rootnode" : "nodex",
+ "nodes":[
+ "nodex":{"type": "typedid", state:{var1:value, var2:value}, children:["node1", "node2"]},
+ "node1": samething,
+ "node2": samething,
+ ....
+ ]
+ 
+ }
+ setpath "path" //sets project path
+ readscene //reads scene
+ create object //creates objects and adds it to scene
+ save //saves scene to disk
+ print //prints scene content 
+ reload // reloads scene
+ 
+ a central store that can be modified by the ui as well as the CLI

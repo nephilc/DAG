@@ -2,12 +2,14 @@
 #define REPLApplication_HPP
 #include<Observer.hpp>
 #include<IStream.hpp>
+#include<Interpreter.hpp>
 class REPLApplication : public Observer
 {
     
 private:
 //add io handler
 IStream *inputStream;
+Interpreter *interpreter;
 public:
     REPLApplication(IStream *p_inputStream);
     void read();

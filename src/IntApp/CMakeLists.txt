@@ -5,5 +5,7 @@ add_executable(IntApp ${SOURCE_FILES})
 target_include_directories(IntApp PUBLIC ./include)
 target_link_libraries(
   IntApp
-  myInterpreter
+  PRIVATE
+  Interpreter
+  ProjectMgr
 )
