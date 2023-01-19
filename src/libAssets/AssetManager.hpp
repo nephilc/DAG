@@ -7,6 +7,7 @@
 #include<Shader.hpp>
 #include<vector>
 #include <Node.hpp>
+#include <FrameBuffer.hpp>
 //in the buffer you put the vertexdata.
 //genbuffer+bind buffer+bufferdata
 
@@ -49,10 +50,14 @@ private:
     //vector would be much more practical in certain cases
     map<string, Model*> models;
     map<string, Shader*> shaders;
+    map<string, FrameBuffer*> frameBuffers;
 
     vector<Model*> v_models;
     vector<Node*> v_scenes;
     vector<Shader*> v_shaders;
+    vector<FrameBuffer*> v_frameBuffers;
+
+    static FrameBuffer* mainBuffer;
 
     
 
@@ -66,9 +71,17 @@ public:
     const vector<Model*>& getModels() const;
     const vector<Node*>& getScenes() const;
     const vector<Shader*>& getShaders() const;
+    const vector<FrameBuffer*>& getFrameBuffers() const;
+
     void loadScene();
     Node* scene;
 
+    void createFrameBuffer(int width, int height, string name);
+    FrameBuffer* getFrameBuffer(string name);
+
+    void  recreateMainFB(int width, int height);
+    FrameBuffer* getMainBuffer();
+    void createmainFB(int width, int height);
 
 
 };

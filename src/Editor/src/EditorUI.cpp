@@ -42,8 +42,13 @@ void EditorUI::render()
     ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
     
-            editTransform();
-
+        showMainMenu();
+        ImGui::ShowDemoWindow(&show_demo_window);
+        ImportedModelsWindow(&show_demo_window);
+        editTransform();
+        ImportedScenesWindow(&show_demo_window);
+        shadersWindow(&show_demo_window);
+        
 }
 
 void EditorUI::editTransform()
@@ -112,4 +117,22 @@ PLOGI<<"DESTROYING IMGUI";
     ImGui::DestroyContext();
  
 
+}
+void EditorUI::updateInputFlags(int mode)
+{
+    if(    mode == 1)
+    {
+    keyflag = ImGuiConfigFlags_NavNoCaptureKeyboard;     // Enable Keyboard Controls
+    mouseflag = ImGuiConfigFlags_NoMouse;       // Enable Gamepad Controls
+    ImGui::GetIO().ConfigFlags ^= ImGuiConfigFlags_None | ImGuiConfigFlags_None ;
+    ImGui::GetIO().ConfigFlags |= mouseflag | keyflag ;
+
+    }
+    else
+    {
+    keyflag = ImGuiConfigFlags_None;
+    mouseflag = ImGuiConfigFlags_None;
+    ImGui::GetIO().ConfigFlags ^= ImGuiConfigFlags_NavNoCaptureKeyboard | ImGuiConfigFlags_NoMouse;
+    ImGui::GetIO().ConfigFlags |= mouseflag | keyflag;
+    }
 }

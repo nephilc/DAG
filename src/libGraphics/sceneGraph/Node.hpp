@@ -28,7 +28,7 @@ class Node : public Object
 
 
 
-protected:
+public:
     /* data */
 Shader* m_shader;
 Node* m_parent;
@@ -50,6 +50,14 @@ glm::vec3 m_euler;
 
 glm::mat4 m_guizmo;
 
+glm::mat4 m_editorWorld;
+glm::mat4 m_editorlocal;
+glm::vec3 m_localRotation, m_localTranslation, m_localScale;
+
+glm::mat4 m_WorldTranslation;
+glm::mat4 m_LocalTranslation;
+glm::mat4 m_localRotationMat, m_localTranslationMat, m_localScaleMat;
+glm::mat4 m_totalRotation;
 
 protected:
 nodeType type; 

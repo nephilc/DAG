@@ -14,6 +14,7 @@
 #include "ImGuiFileBrowser.h"
 
 #include "ImGuizmo.h"
+#include<AssetManager.hpp>
 
 
 /// @brief EACH METHOD IN THIS CLASS IS RESPONSIBLE FOR RENDERING A UI COMPONENT, THE COMPONENTS WILL ACCES THE APPLICATION CLASS AND OTHER CLASSES IN OTHER TO MODIFY THE STATE OF THE APPLICATION.
@@ -31,6 +32,8 @@ private:
     static ImGuizmo::MODE mCurrentGizmoMode;
     ImGuiConfigFlags_ keyflag ;
     ImGuiConfigFlags_ mouseflag;
+    imgui_addons::ImGuiFileBrowser file_dialog;
+    AssetManager* m_AM;
 public:
     EditorUI(/* args */);
     ~EditorUI();
@@ -45,8 +48,15 @@ public:
     /// @return 
     static EditorUI *getEditorUI(Application *p_app);
 
-
-
+void showMainMenu();
+void updateInputFlags(int mode);
+void ImportedModelsWindow(bool* p_open);
+void ImportedScenesWindow(bool* p_open);
+void selectableTree();
+void createNode();
+void  shadersWindow(bool* p_open);
+void sceneView(int itextureId,  int *width, int* height, float* view, float* projection, float* idm, float* model);
+void ShowPlaceholderObject(const char* prefix, int uid);
 };
 
 

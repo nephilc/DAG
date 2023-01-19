@@ -1,7 +1,7 @@
 #include "AssetManager.hpp"
 #include <plog/Log.h>
 
-
+FrameBuffer* AssetManager::mainBuffer = 0;
 AssetManager::AssetManager(/* args */)
 {
     PLOGI<<"CREATING ASSETMANAGER";
@@ -85,3 +85,59 @@ const vector<Shader*>& AssetManager::getShaders() const
 {
     return v_shaders;
 }
+
+
+void AssetManager::createFrameBuffer(int width, int height, string name)
+{
+    if(frameBuffers.count(name) > 0)
+    {
+        FrameBuffer* fb = new FrameBuffer(width, height);
+        v_frameBuffers.push_back(fb);
+        std::ostringstream oss;
+        oss << name <<fb->GetID();
+        string newName = oss.str();
+        
+        fb->SetName(newName);
+        frameBuffers[newName] = fb;
+    }
+    else
+    {
+        FrameBuffer* fb = new FrameBuffer(width, height);
+        v_frameBuffers.push_back(fb);
+        fb->SetName(name);
+        frameBuffers[name] = fb;
+    
+    }
+
+}
+
+
+FrameBuffer* AssetManager::getFrameBuffer(string name)
+{
+    return frameBuffers[name];
+}
+
+const vector<FrameBuffer*>& AssetManager::getFrameBuffers() const
+{
+    return v_frameBuffers;
+}
+
+
+void  AssetManager::recreateMainFB(int width, int height)
+{
+    PLOGE<<"RECREATED MAIN FB";
+    mainBuffer->recreate(width, height);
+}
+
+
+FrameBuffer* AssetManager::getMainBuffer()
+{
+    return mainBuffer;
+}
+
+void AssetManager::createmainFB(int width, int height)
+{
+    mainBuffer = new FrameBuffer(width, height);
+    PLOGE<<"CREATED MAIN FB";
+}
+

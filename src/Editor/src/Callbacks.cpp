@@ -108,6 +108,7 @@ void Application::framebuffer_size_callback(GLFWwindow* window, int width, int h
     glViewport(0, 0, width, height);
     m_iWidth = width;
     m_iHeight = height;
+    m_FB->recreate(width, height);
     
 
 }
@@ -118,6 +119,7 @@ void Application::resizeViewport(int width, int height)
     glViewport(0, 0, width, height);
     //m_iWidth = width;
     //m_iHeight = height;
+    assetManager->recreateMainFB(width, height);
 
 }
 
@@ -126,16 +128,20 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
 {
 	if(key == GLFW_KEY_TAB && action == GLFW_PRESS)
  	{
-        
+
 	   if (imode == WORLD)
 	   { 
 	   	imode = EDITOR;
 	   	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);	   	
+        editorUI->updateInputFlags(imode);
+
 	   }
 	   else{ 
+        
 	   imode = WORLD;
 	   glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	   
+	    editorUI->updateInputFlags(imode);
+
 	   }
 	}
 	if(imode == WORLD)
@@ -185,7 +191,7 @@ void Application::cursor_position_callback(GLFWwindow* window,  double xposIn, d
     lastY = ypos;
     if(imode == WORLD)
 	{
-    //camera->ProcessMouseMovement(xoffset, yoffset);
+    camera->ProcessMouseMovement(xoffset, yoffset);
 	}
 
 }

@@ -60,6 +60,10 @@ private:
     static unsigned int textureColorbuffer;
     static unsigned int rbo;
     unsigned int quadVAO, quadVBO;
+    static glm::mat4 model;
+    static glm::mat4 idm;
+    static FrameBuffer *m_FB;
+
 
 
     Application(const char* acWindowTitle, int iXPosition,

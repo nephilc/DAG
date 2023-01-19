@@ -29,10 +29,38 @@ int Application::Main (int iQuantity, char** apcArgument)
     Animator* animator  = new Animator(&danceAnimation);
     AnimatedNode* aniNode = new AnimatedNode(assetManager->getModel("arissa"), ourShader1, animator, danceAnimation);
     node1->attachChild(aniNode);
-    glEnable(GL_DEPTH_TEST);    
+    glEnable(GL_DEPTH_TEST);
+    Shader frameshader("shaderPrograms/framebuffer.vs", "shaderPrograms/framebuffer.fs");
+    float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+        // positions   // texCoords
+        -1.0f,  1.0f,  0.0f, 1.0f,
+        -1.0f, -1.0f,  0.0f, 0.0f,
+         1.0f, -1.0f,  1.0f, 0.0f,
+
+        -1.0f,  1.0f,  0.0f, 1.0f,
+         1.0f, -1.0f,  1.0f, 0.0f,
+         1.0f,  1.0f,  1.0f, 1.0f
+    };
+
+    glGenVertexArrays(1, &application->quadVAO);
+    glGenBuffers(1, &application->quadVBO);
+    glBindVertexArray(application->quadVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, application->quadVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+
+    frameshader.use();
+    //frameshader.setInt("screenTexture", 0);
+
+    
 
     while (!glfwWindowShouldClose(m_window))
     {
+        application->m_FB->use();
+        glEnable(GL_DEPTH_TEST);
 
         glClearColor(1.0f, 1.0f, 0.0f, 1.0f); 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
@@ -45,7 +73,7 @@ int Application::Main (int iQuantity, char** apcArgument)
 
         //PLOGD<<"starting render";
         
-        glm::mat4 projection = glm::perspective(glm::radians(camera->Zoom), (float)m_iWidth / (float)m_iHeight, 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(camera->Zoom), (float)m_iFrameWidth / (float)m_iFrameHeight, 0.1f, 100.0f);
         glm::mat4 view = camera->GetViewMatrix();
 
         node0->projection = projection;
@@ -54,11 +82,20 @@ int Application::Main (int iQuantity, char** apcArgument)
         //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
            node0->Draw(camera, deltaTime);
 
-        
-        //Application::editorUI->render();
+        glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+  //glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
+    glEnable(GL_DEPTH_TEST);    
+    glClearColor(1.0f, 1.0f, 0.0f, 1.0f); 
+    glClear(GL_COLOR_BUFFER_BIT);
 
-        //ImGui::Render();
-        //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        Application::editorUI->render();
+
+    editorUI->sceneView(application->textureColorbuffer, &application->m_iFrameWidth, &application->m_iFrameHeight, &view[0][0], &projection[0][0], &application->idm[0][0], &application->model[0][0]);
+    bool open = true;
+
+
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         glfwSwapBuffers(m_window);
         glfwPollEvents();
 

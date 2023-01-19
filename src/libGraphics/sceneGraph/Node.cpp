@@ -19,9 +19,10 @@ Node::Node(/* args */)
 {
     PLOGE<< "calling node constructor." ;
     m_parent = 0;//not initializing this pointer var, give a bug in the root node's tranform.
-    m_world = glm::mat4(1.0f);
+    //m_world = glm::mat4(1.0f);
     m_relToParent = glm::mat4(1.0f);
     m_guizmo = glm::mat4(1.0f);
+    m_world = m_local = m_editorlocal= m_editorWorld = m_WorldTranslation = m_LocalTranslation =m_localRotationMat= m_localTranslationMat=m_localScaleMat = glm::mat4(1.0f);
     this->SetName(to_string(this->GetID()));
     m_translation = glm::vec3(0.0f);
     m_rotation = glm::vec3(1.0f);
@@ -49,61 +50,33 @@ Node::~Node()
 void Node::updateTransforms()
 {
     //PLOGE<<"updating tranforms";
-    
-    if(selected == this & this->m_parent != 0 )
-    {
-        float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-        
-        ImGuizmo::DecomposeMatrixToComponents(&delta[0][0], matrixTranslation, matrixRotation, matrixScale);
-        
-        m_translation.x += matrixTranslation[0];
-        m_translation.y += matrixTranslation[1];
-        m_translation.z += matrixTranslation[2];
-        
-        m_euler.x += glm::radians(matrixRotation[0]);        
-        m_euler.y += glm::radians(matrixRotation[1]);        
-        m_euler.z += glm::radians(matrixRotation[2]);        
-//        m_angle += glm::radians(matrixRotation[1]);        
-        if(manipulated) PLOGD<<matrixRotation[0]<<" "<<matrixRotation[1]<<" "<<matrixRotation[2];
-        
-        
-        
-        //m_world = old_world;
-    
-    }
-    else if (selected == this & this->m_parent == 0 )
-    {
-
-        glm::mat4 old_world = m_relToParent;
-        glm::mat4 inv = glm::inverse(old_world);
-        //for the root node the vectors are in world coordinates
-        glm::mat4 coeff = m_world * inv;
-        //m_translation.x += coeff[3][0];
-        //m_translation.y += coeff[3][1];
-        //m_translation.z += coeff[3][2];
-        
-    }
-    
-    //glm::decompose
-    //recompose the matrix, this is what is generally, when not using the editor
-    //but in order to change the position of a node, one must change it's position relatif to its parent
     if(this->m_parent != 0)
     {
-        
-        m_local = getLocalModelMatrix();
+        //m_relToParent = glm::mat4(1.0f);
+        //m_relToParent = glm::translate(m_relToParent, m_translation); // translate it down so it's at the center of the scene
+        //m_relToParent = glm::scale(m_relToParent, m_scale);	// it's a bit too big for our scene, so scale it down
+        //m_relToParent = glm::rotate(m_relToParent,m_angle, m_rotation);
    
-        m_world = m_parent->m_world * m_local;
-
+//        m_world = m_parent->m_world /** m_guizmo **/ * m_relToParent;
+        //m_local= m_parent->m_local * m_local;
+        //trs
+        //since im storign orientation in a matrix, we should be avoiding gimball lock
+        m_local = m_localTranslationMat*m_localRotationMat*m_localScaleMat;
+        m_WorldTranslation = m_parent->m_WorldTranslation *  m_LocalTranslation;
+        m_world =  m_parent->m_world * m_local;
+        //m_world = m_local;
     }
     else
     {
+        /*
         m_relToParent = glm::mat4(1.0f);
         m_relToParent = glm::translate(m_relToParent, m_translation); // translate it down so it's at the center of the scene
         m_relToParent = glm::scale(m_relToParent, m_scale);	// it's a bit too big for our scene, so scale it down
         m_relToParent = glm::rotate(m_relToParent,m_angle, m_rotation);
    
         m_world = m_relToParent;
-        
+        */
+       m_world = m_local;
     }
 
 }
