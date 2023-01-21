@@ -94,6 +94,7 @@ public:
     Shader* getShader();    
     glm::mat4& getRelatifTransform();
     glm::mat4& getGuizmoTransform();
+    void handleDetachements();
 
 vector<Mesh*> m_meshData;
 

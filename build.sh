@@ -1,4 +1,4 @@
 cd build
-cmake ..  -DANDROID_MODULES=OFF
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DANDROID_MODULES=OFF
         
 make -j4

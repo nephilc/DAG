@@ -7,7 +7,7 @@ void Application::createWindow()
     //const GLFWvidmode* mode = glfwGetVideoMode(monitor);
      GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-    m_window = glfwCreateWindow(m_iWidth, m_iHeight, m_acWindowTitle, /*glfwGetPrimaryMonitor()*/ NULL, NULL);
+    m_window = glfwCreateWindow(mode->width, mode->height, m_acWindowTitle, /*glfwGetPrimaryMonitor()*/ NULL, NULL);
     if (!m_window)
     {
         glfwTerminate();

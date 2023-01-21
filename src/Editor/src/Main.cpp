@@ -96,8 +96,15 @@ int Application::Main (int iQuantity, char** apcArgument)
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        
         glfwSwapBuffers(m_window);
         glfwPollEvents();
+
+              //  PLOGE<<"about to handle detachements";
+
+        //assetManager->scene->handleDetachements();
+            PLOGE<<"MAIN AFTER HANDLING ALL DETACHS";
+
 
     }
 //    glDeleteVertexArrays(1, &application->quadVAO);

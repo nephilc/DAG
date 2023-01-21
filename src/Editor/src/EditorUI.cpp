@@ -48,6 +48,10 @@ void EditorUI::render()
         editTransform();
         ImportedScenesWindow(&show_demo_window);
         shadersWindow(&show_demo_window);
+        m_AM->scene->handleDetachements();
+            
+
+
         
 }
 

@@ -161,6 +161,8 @@ void EditorUI::ImportedScenesWindow(bool* p_open)
             ImGui::BeginChild("left pane", ImVec2(ImGui::GetWindowSize().x/2, 0), true); // Leave room for 1 line below us
 
             m_AM->scene->DrawTree();
+         
+            
             ImGui::EndChild();
 
         }
@@ -228,7 +230,9 @@ void EditorUI::ImportedScenesWindow(bool* p_open)
 
                     }
                     glm::vec4 worldx, worldy, worldz, world;
-                    glm::mat4 parentInverse = glm::inverse(Node::selected->m_parent->m_world);
+                    glm::mat4 parentInverse = glm::mat4(1.0f);
+                    if(Node::selected->m_parent!=0)
+                        parentInverse = glm::inverse(Node::selected->m_parent->m_world);
                     worldx = parentInverse * glm::vec4(1,0,0,0);
                     worldy = parentInverse * glm::vec4(0,1,0,0);
                     worldz = parentInverse * glm::vec4(0,0,1,0);
@@ -538,7 +542,9 @@ if(Node::selected !=0)
 
         //Node::selected->m_local = glm::scale(Node::selected->m_local, scale);
         if(mCurrentGizmoOperation == ImGuizmo::TRANSLATE){
-        glm::mat4 parentInverse = glm::inverse(Node::selected->m_parent->m_world);
+        glm::mat4 parentInverse = glm::mat4(1.0f);
+        if(Node::selected->m_parent!=0)
+        parentInverse = glm::inverse(Node::selected->m_parent->m_world);
         worldx = parentInverse * glm::vec4(1,0,0,0);
         worldy = parentInverse * glm::vec4(0,1,0,0);
         worldz = parentInverse * glm::vec4(0,0,1,0);

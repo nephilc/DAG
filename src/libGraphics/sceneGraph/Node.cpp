@@ -115,93 +115,21 @@ glm::mat4 Node::getLocalModelMatrix()
                 glm::scale(glm::mat4(1.0f), m_scale);
 }
 
-void Node::DrawTree()
-{        
-    static ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
-    static int selection_mask = (1 << 2);
-            static int node_clicked = -1;//we use this variable to update selection mask after the loop.
-                // Disable the default "open on single-click behavior" + set Selected flag according to our selection.
-                // To alter selection we use IsItemClicked() && !IsItemToggledOpen(), so clicking on an arrow doesn't alter selection.
-                ImGuiTreeNodeFlags node_flags = base_flags;
-                bool dragSource = false;
-                const bool is_selected = (selection_mask & (1 << this->GetID())) != 0;
-                static int frame_delay = 2;//dont process the drop until the frame delay, becomes 0
-                static int drag_source = -1;
-
-                if (is_selected)
-                {
-                    node_flags |= ImGuiTreeNodeFlags_Selected;
-                    selected = this;
-                    gizmo = this->m_world;
-                }   
-                    if(drag_source == this->GetID()) 
-                    {
-                        ImGui::SetNextItemOpen(false);
-                        std::cout<<this->GetID()<<" is drag SOURCE ID"<<std::endl;
-
-                    
-                    }
-                    bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)this->GetID(), node_flags, "Selectable Node %d", this->GetID());
-                    if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
-                        node_clicked = this->GetID();
-                        //here we can set a pointer to the object represented by this node.
-                    if (ImGui::BeginDragDropSource())
-                    {
-                        dragSource = true;
-                        drag_source = this->GetID();//this id solution works, maybe the only solution i need to use.
-                        ImGui::SetDragDropPayload("_TREENODE", NULL, 0);
-                        ImGui::Text("This is a drag and drop source");
-                        ImGui::EndDragDropSource();
-                    }
-                    else if(drag_source == this->GetID())//let the node that changed the state, change it back
-                    {
-                        dragSource = false;
-                        drag_source = -1;
-   
-                    }
-
-                    if (ImGui::BeginDragDropTarget())
-                    {
-                        std::cout<<this->GetName()<<" is drag drop target"<<std::endl;
-                        //Node* dropped = (Node*)ImGui::GetDragDropPayload()->Data;
-                        //std::cout<<dropped->GetName()<<" is dropped payload"<<std::endl;
-
-                    }
-
-                    if(dragSource & node_open)
-                    {
-                         //std::cout<<this->GetName()<<" is drag drag source"<<std::endl;
-                         node_open =false;
-
-                        ImGui::TreePop();
-
-                    }
-                    if (node_open & !dragSource)
-                    {
-                        for (int i = 0; i <m_children.size(); ++i)
-                        {
-            
-
-                        m_children[i]->DrawTree();
-                        }
-                        ImGui::TreePop();
-                    }
-            
-            if (node_clicked != -1)
-            {
-                // Update selection state
-                // (process outside of tree loop to avoid visual inconsistencies during the clicking frame)
-                if (ImGui::GetIO().KeyCtrl)
-                    selection_mask ^= (1 << node_clicked);          // CTRL+click to toggle
-                else //if (!(selection_mask & (1 << node_clicked))) // Depending on selection behavior you want, may want to preserve selection when clicking on item that is part of the selection
-                    selection_mask = (1 << node_clicked);           // Click to single-select
-            }
-
-}
-
 void Node::setParent (Node* parent)
 {
+    if(parent!=0){
+    PLOGD<<"SET PARENT METHOD";
+    //PLOGD<<"The parent would be "<<parent;
+
+    if(m_parent!=0)
+    //m_parent->detachChild(this);
+    PLOGD<<"The parent would be "<<parent;
+
+    if(parent!=0){
+    
     m_parent = parent;
+    }
+    }
 }
 Node* Node::getParent ()
 {
@@ -210,6 +138,8 @@ Node* Node::getParent ()
 int Node::attachChild (Node* child)
 {   
     //well, first, one needs to remove the child from it's parent's children aswell.
+    PLOGD<<"ABOUT  TO CALL SET PARENT ON CHILD " << child << " whose ID IS " << child->GetID();
+
 
     child->setParent(this);
 
@@ -229,6 +159,33 @@ int Node::attachChild (Node* child)
     return iQuantity;
 }
 
+void Node::handleDetachements()
+{
+                        for (int i = 0; i <m_children.size(); ++i)
+                        //for (vector::iterator it = m_children.begin(); it != m_childre.end(); it++)
+                        {
+                            
+                        if(m_children[i]!=0){
+                        PLOGI<<"GOING THORUGH CHILD "<<m_children[i]->GetID();
+                        //m_children[i]->handleDetachements();
+                        if(m_children[i]->m_parent!=this)
+                        {   
+                            
+                            m_children.erase(m_children.begin()+i);
+                            //int j = detachChild(m_children[i]);
+                            PLOGI<<"AFTER DETACH CHILD "<< i;
+                            PLOGI<<"CHILDREN SIZE IS "<< m_children.size();
+                            return;
+                        }
+                        m_children[i]->handleDetachements();
+                        
+                        }
+                        }
+                        
+
+                    }
+
+
 
 int Node::GetQuantity () const
 {
@@ -237,6 +194,7 @@ int Node::GetQuantity () const
 
 int Node::detachChild (Node* child)
 {
+    PLOGD<<"ABOUT TO CALL DETACH CHILD";
     if (child)
     {
         // search to see if child exists
@@ -244,9 +202,13 @@ int Node::detachChild (Node* child)
         {
             if (m_children[i] == child)
             {
+                    PLOGD<<"FOUND CHILD " << i;
+
                 // child found, detach it
-                child->setParent(0);
-                m_children[i] = 0;
+                //child->setParent(0);
+                m_children[i] = (Node*)0;
+                    PLOGD<<"just set it to 0";
+
                 return i;
             }
         }
@@ -380,4 +342,83 @@ glm::mat4& Node::getRelatifTransform()
 glm::mat4& Node::getGuizmoTransform()
 {
     return m_guizmo;
+}
+
+/*
+void Node::DrawTree(){
+    ImGui::TreeNodeEx(to_string(GetID()).c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick);
+    if (ImGui::IsItemClicked()) {
+        // handle user click on this node
+    }
+    for (Node* child : m_children) {
+        child->DrawTree();
+    }
+    ImGui::TreePop();
+}
+*/
+/*
+void Node::DrawTree(){
+    if (ImGui::Button("+")) {
+        // handle user click on this node
+    }
+    ImGui::SameLine();
+    
+    ImGui::Text("Node whose ID is %s", to_string(GetID()).c_str());
+    
+    if (ImGui::IsItemClicked()) {
+        // handle user click on this node
+    }
+    for (Node* child : m_children) {
+        ImGui::Indent();
+        child->DrawTree();
+        ImGui::Unindent();
+    
+    }
+    //ImGui::TreePop();
+}
+*/
+
+void Node::DrawTree() {
+    ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+    if (selected==this) {
+        node_flags |= ImGuiTreeNodeFlags_Selected;
+    }
+    bool node_open = ImGui::TreeNodeEx(to_string(GetID()).c_str(), node_flags);
+          if (ImGui::BeginDragDropTarget()) {
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_NODE")) {
+                Node* payload_node = *(Node**)payload->Data;
+                // handle the drop operation
+                PLOGI<<"this is the payload Node"<<payload_node;
+                PLOGI<<"payload ID"<<payload_node->GetID();
+                PLOGI<<"RECIPIENT IS"<<GetID();
+                if(payload_node->m_parent!=this)
+                    attachChild(payload_node);
+            
+                ImGui::EndDragDropTarget();
+        }
+          }
+    
+    if (ImGui::IsItemClicked()) {
+        selected = this;
+    }
+    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+        Node *dragsource = this;
+        PLOGI<<"this is the Source NODE "<<dragsource;
+
+        ImGui::SetDragDropPayload("SCENE_NODE", &dragsource, sizeof(Node*));
+        ImGui::Text("Drag %s", to_string(GetID()).c_str());
+        ImGui::EndDragDropSource();
+    }
+    if (node_open) {
+    
+
+        for (int j =0; j<m_children.size(); ++j) {
+            if(m_children[j]!=0)
+                m_children[j]->DrawTree();
+        }
+        ImGui::TreePop();
+         
+    }
+    
+    
 }
