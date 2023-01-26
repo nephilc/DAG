@@ -13,10 +13,8 @@
 #include"Mesh.hpp"
 #include<Object.hpp>
 
-#include "imgui.h"
 #include "Camera.hpp"
 
-#include "ImGuizmo.h"
 #include <RTTI.hpp>
 using namespace std;
 enum nodeType
@@ -32,6 +30,7 @@ public:
     /* data */
 Shader* m_shader;
 Node* m_parent;
+
 vector<Node*> m_children;
 
 //this one for TRS
@@ -43,21 +42,10 @@ float m_angle;
 
 //al relative to the parent node/ in world space
 //we will create a matrix that completes these transforms
-glm::mat4 m_relToParent;
 glm::vec3 m_rotation, m_translation, m_scale;
 
-glm::vec3 m_euler;
 
-glm::mat4 m_guizmo;
-
-glm::mat4 m_editorWorld;
-glm::mat4 m_editorlocal;
-glm::vec3 m_localRotation, m_localTranslation, m_localScale;
-
-glm::mat4 m_WorldTranslation;
-glm::mat4 m_LocalTranslation;
 glm::mat4 m_localRotationMat, m_localTranslationMat, m_localScaleMat;
-glm::mat4 m_totalRotation;
 
 protected:
 nodeType type; 
@@ -80,9 +68,8 @@ public:
     void setScale(float vec[3]);
     void setRotationAngle(float angle);
     
-    void DrawTree();
-
-    glm::mat4 getLocalModelMatrix();
+ 
+    //glm::mat4 getLocalModelMatrix();
 
     
     glm::vec3 getTranslation();

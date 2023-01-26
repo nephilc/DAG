@@ -3,7 +3,7 @@ set(SRCS Model/Mesh.cpp Model/Model.cpp MeshInstance.cpp Node.cpp AnimatedNode.c
 #Model1.cpp Model1.hpp
 add_library(sceneGraph SHARED ${HDRS} ${SRCS}) 
 target_include_directories(sceneGraph PUBLIC . ./Model)
-target_link_libraries(sceneGraph PUBLIC glm plog  shaders stb_image objectSystem assimp imgui backend)
+target_link_libraries(sceneGraph PUBLIC glm plog  shaders stb_image objectSystem assimp  backend)
 
 
 

@@ -39,6 +39,8 @@ private:
     //the parametre is the parent Node
     map<string, void(*)(Node*)> NodeFactory;
     AssetManager* m_AM;
+
+    Node* selected;
 public:
     EditorUI(/* args */);
     ~EditorUI();
@@ -57,6 +59,11 @@ void showMainMenu();
 void updateInputFlags(int mode);
 void ImportedModelsWindow(bool* p_open);
 void ImportedScenesWindow(bool* p_open);
+void ImportedScenesWindowLeft(bool* p_open);
+void ImportedScenesWindowRight(bool* p_open);
+void DrawTree(Node* scene);
+
+
 void selectableTree();
 void createNode();
 void  shadersWindow(bool* p_open);

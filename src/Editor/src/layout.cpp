@@ -123,192 +123,6 @@ void EditorUI::ImportedModelsWindow(bool* p_open)
     ImGui::End();
 }
 
-void EditorUI::createNode()
-{
-    static bool popup = false;
-    if(ImGui::Button("+") & Node::selected!=0)   ImGui::OpenPopup("my_select_popup");
-
-
-    if (ImGui::BeginPopup("my_select_popup"/*,  NULL*/, ImGuiWindowFlags_AlwaysAutoResize))
-    {
-            ImGui::Text("Aquarium");
-            ImGui::Separator();
-            if(ImGui::Button("add", ImVec2(120, 0))) ImGui::CloseCurrentPopup();
-            ImGui::SameLine();
-            if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
-        ImGui::EndPopup();
-    
-    }
-
-}
-
-
-void EditorUI::ImportedScenesWindow(bool* p_open)
-{
-    static float translation[3];
-    static float rotation[3];
-    static float scale[3];
-    static float angle;
-
-    ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
-    if (ImGui::Begin("AssetManager Imported scenes Vector", p_open, ImGuiWindowFlags_MenuBar))
-    {
-        createNode();
-        // Left
-        static int selected = 0;
-
-        {
-            ImGui::BeginChild("left pane", ImVec2(ImGui::GetWindowSize().x/2, 0), true); // Leave room for 1 line below us
-
-            m_AM->scene->DrawTree();
-         
-            
-            ImGui::EndChild();
-
-        }
-        ImGui::SameLine();
-        // Right
-        {
-            ImGui::BeginGroup();//this child window will scroll on it's own
-            ImGui::BeginChild("item view1", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
-            
-            if(Node::selected) ImGui::Text("MyObject: %s", Node::selected->GetName().c_str());
-            ImGui::Separator();
-            if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
-            {
-               //do this kind of thing
-               //if(Node::selected->GetType().isDerived(ParentNode::TYPE)) DISPLAY Section related to that parent
-                if (ImGui::BeginTabItem("Scene Details"))
-                {
-                    if(Node::selected){
-                    char text[128];
-                    //string text = string("object id") + string("%i", m_AM->getModels()[selected]->GetID()); 
-                    sprintf(text,"object ID : %i",  Node::selected->GetID());
-                    
-                    ImGui::Text("%s",text);
-                    ImGui::Text("Node type %s", Node::selected->GetType().GetName().c_str());
-
-                    translation[0] = Node::selected->getTranslation().x;  
-                    translation[1] = Node::selected->getTranslation().y;  
-                    translation[2] = Node::selected->getTranslation().z;  
-
-                    rotation[0] = Node::selected->getRotationAxis().x;  
-                    rotation[1] = Node::selected->getRotationAxis().y;  
-                    rotation[2] = Node::selected->getRotationAxis().z;  
-
-                    scale[0] = Node::selected->getScale().x;  
-                    scale[1] = Node::selected->getScale().y;  
-                    scale[2] = Node::selected->getScale().z;  
-
-                    angle = Node::selected->getRotationAngle();
-                    if(ImGui::InputFloat3("translation",translation))
-                    {
-                     Node::selected->setTranslation(translation);  
-                    }
-
-                    if(ImGui::InputFloat("rotation angle",&angle))
-                    {
-                     Node::selected->setRotationAngle(angle);  
-                    }
-
-                    if(ImGui::InputFloat3("rotation axis",rotation))
-                    {
-                     Node::selected->setRotationAxis(rotation);  
-                    }
-
-                    if(ImGui::InputFloat3("Scale",scale))
-                    {
-                     Node::selected->setScale(scale);  
-                    }
-                    ImGui::Text("Node's transform");
-                    for(int i = 0; i<=3; ++i)
-                    {
-                        for(int j = 0; j <=3; ++j)
-                        {
-                            ImGui::Text("%f", Node::selected->getWorldTransform()[i][j]);
-                            ImGui::SameLine();
-                        }
-                        ImGui::NewLine();
-
-                    }
-                    glm::vec4 worldx, worldy, worldz, world;
-                    glm::mat4 parentInverse = glm::mat4(1.0f);
-                    if(Node::selected->m_parent!=0)
-                        parentInverse = glm::inverse(Node::selected->m_parent->m_world);
-                    worldx = parentInverse * glm::vec4(1,0,0,0);
-                    worldy = parentInverse * glm::vec4(0,1,0,0);
-                    worldz = parentInverse * glm::vec4(0,0,1,0);
-                    
-                    ImGui::Text("the worldx in the parent frame");
-  
-                      for(int j = 0; j <=3; ++j)
-                        {
-                            ImGui::Text("%f", worldx[j]);
-                            ImGui::SameLine();
-                        }
-                        ImGui::NewLine();
-ImGui::Text("the worldy in the parent frame");
-  
-                      for(int j = 0; j <=3; ++j)
-                        {
-                            ImGui::Text("%f", worldy[j]);
-                            ImGui::SameLine();
-                        }
-                        ImGui::NewLine();
-ImGui::Text("the worldz in the parent frame");
-  
-                      for(int j = 0; j <=3; ++j)
-                        {
-                            ImGui::Text("%f", worldz[j]);
-                            ImGui::SameLine();
-                        }
-                        ImGui::NewLine();
-
-                    //shaders 
-                    static int item_current_idx = 0; // Here we store our selection data as an index.
-                    vector<Shader*> shaders = m_AM->getShaders();
-                    if (ImGui::BeginListBox("listbox 1"))
-                    {
-                    for (int n = 0; n < shaders.size(); n++)
-                        {
-                            //item_current_idx = n;
-
-                            const bool is_selected = (Node::selected->getShader() == shaders[n]);
-                            if (ImGui::Selectable(shaders[n]->GetName().c_str(), is_selected))
-                                Node::selected->setShader(shaders[n]);
-
-                    // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-                    if (is_selected)
-                    ImGui::SetItemDefaultFocus();
-                    }
-                    ImGui::EndListBox();
-                    }
-                    //end of shaders
-
-
-                    }
-                    ImGui::EndTabItem();
-
-                }
-                if (ImGui::BeginTabItem("Description"))
-                {
-                    if(Node::selected){
-                    ImGui::TextWrapped("Scene Node");
-                    }
-                    ImGui::EndTabItem();
-
-                }
-               
-                ImGui::EndTabBar();
-            }
-            
-            ImGui::EndChild();
-            
-            ImGui::EndGroup();
-        }
-    }
-    ImGui::End();
-}
 
 void  EditorUI::shadersWindow(bool* p_open)
 {   
@@ -523,7 +337,7 @@ static bool boundSizingSnap = false;
    //ImGuizmo::Manipulate(view, projection, mCurrentGizmoOperation, mCurrentGizmoMode, model, NULL, useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL);
 //manipulate is what draws the gizmo
 //glm::mat4 current = 
-if(Node::selected !=0)
+if(selected !=0)
 {
     
          glm::mat4 deltaMatrix;
@@ -532,9 +346,9 @@ if(Node::selected !=0)
     if (mCurrentGizmoMode == ImGuizmo::WORLD)
 {
 
-    if(ImGuizmo::Manipulate(view, projection, mCurrentGizmoOperation, ImGuizmo::WORLD, &(Node::selected->m_world)[0][0], &(deltaMatrix)[0][0], useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL) )
+    if(ImGuizmo::Manipulate(view, projection, mCurrentGizmoOperation, ImGuizmo::WORLD, &(selected->m_world)[0][0], &(deltaMatrix)[0][0], useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL) )
         {
-        Node::selected->manipulated = true;
+        selected->manipulated = true;
         ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(deltaMatrix), 
                                            glm::value_ptr(position), 
                                            glm::value_ptr(rotation), 
@@ -542,11 +356,11 @@ if(Node::selected !=0)
         glm::vec4 worldx, worldy, worldz, world, newrot;
         glm::vec4 worldx2, worldy2, worldz2;
 
-        //Node::selected->m_local = glm::scale(Node::selected->m_local, scale);
+        //selected->m_local = glm::scale(selected->m_local, scale);
         if(mCurrentGizmoOperation == ImGuizmo::TRANSLATE){
         glm::mat4 parentInverse = glm::mat4(1.0f);
-        if(Node::selected->m_parent!=0)
-        parentInverse = glm::inverse(Node::selected->m_parent->m_world);
+        if(selected->m_parent!=0)
+        parentInverse = glm::inverse(selected->m_parent->m_world);
         worldx = parentInverse * glm::vec4(1,0,0,0);
         worldy = parentInverse * glm::vec4(0,1,0,0);
         worldz = parentInverse * glm::vec4(0,0,1,0);
@@ -555,10 +369,10 @@ if(Node::selected !=0)
         glm::vec4 positionInParent = parentInverse * glm::vec4(position, 0);
 
         PLOGE<<"position in parent is "<<positionInParent.x<<" "<<positionInParent.y<<" "<<positionInParent.z;
-        Node::selected->m_LocalTranslation = glm::translate(Node::selected->m_LocalTranslation, position);
-        Node::selected->m_localTranslationMat = glm::translate(Node::selected->m_localTranslationMat, glm::vec3(positionInParent));
+        //selected->m_LocalTranslation = glm::translate(selected->m_LocalTranslation, position);
+        selected->m_localTranslationMat = glm::translate(selected->m_localTranslationMat, glm::vec3(positionInParent));
         
-        Node::selected->updateTransforms();
+        selected->updateTransforms();
         }
         if(mCurrentGizmoOperation == ImGuizmo::ROTATE)
         {
@@ -567,48 +381,48 @@ if(Node::selected !=0)
             //thisRotation = glm::rotate(thisRotation,glm::radians(rotation[0]), glm::vec3(1, 0 ,0) );
             //thisRotation = glm::rotate(thisRotation ,glm::radians(rotation[1]), glm::vec3(0, 1, 0) );
             //thisRotation = glm::rotate(thisRotation ,glm::radians(rotation[2]), glm::vec3(0, 0, 1) );
-            //Node::selected->m_localRotationMat = glm::rotate(Node::selected->m_localRotationMat,glm::radians(rotation[0]), glm::vec3(worldx2) );
+            //selected->m_localRotationMat = glm::rotate(selected->m_localRotationMat,glm::radians(rotation[0]), glm::vec3(worldx2) );
             float angle = glm::radians(glm::length(rotation));
-            glm::mat4 parentInverse2 = glm::inverse(Node::selected->m_world);
+            glm::mat4 parentInverse2 = glm::inverse(selected->m_world);
             worldx2 = parentInverse2 * glm::vec4(1,0,0,0);
             worldy2 = parentInverse2 * glm::vec4(0,1,0,0);
             worldz2 = parentInverse2 * glm::vec4(0,0,1,0);
 
             //newrot = inversePa
-            Node::selected->m_localRotationMat = glm::rotate(Node::selected->m_localRotationMat,glm::radians(rotation[0]), glm::vec3(worldx2));
-            Node::selected->m_localRotationMat = glm::rotate(Node::selected->m_localRotationMat,glm::radians(rotation[1]), glm::vec3(worldy2));
-            Node::selected->m_localRotationMat = glm::rotate(Node::selected->m_localRotationMat,glm::radians(rotation[2]), glm::vec3(worldz2) );
+            selected->m_localRotationMat = glm::rotate(selected->m_localRotationMat,glm::radians(rotation[0]), glm::vec3(worldx2));
+            selected->m_localRotationMat = glm::rotate(selected->m_localRotationMat,glm::radians(rotation[1]), glm::vec3(worldy2));
+            selected->m_localRotationMat = glm::rotate(selected->m_localRotationMat,glm::radians(rotation[2]), glm::vec3(worldz2) );
 
-            Node::selected->updateTransforms();//reset the translation matrix
+            selected->updateTransforms();//reset the translation matrix
 
-            //Node::selected->m_localRotationMat = Node::selected->m_localRotationMat * thisRotation; 
-            //Node::selected->updateTransforms();
+            //selected->m_localRotationMat = selected->m_localRotationMat * thisRotation; 
+            //selected->updateTransforms();
 
             
         }
-        //Node::selected->m_local = glm::rotate(Node::selected->m_local,glm::radians(rotation[0]), glm::vec3(1, 0, 0) );
-        //Node::selected->m_local = glm::rotate(Node::selected->m_local,glm::radians(rotation[1]), glm::vec3(0, 1, 0) );
-        //Node::selected->m_local = glm::rotate(Node::selected->m_local,glm::radians(rotation[2]), glm::vec3(0, 0, 1) );
+        //selected->m_local = glm::rotate(selected->m_local,glm::radians(rotation[0]), glm::vec3(1, 0, 0) );
+        //selected->m_local = glm::rotate(selected->m_local,glm::radians(rotation[1]), glm::vec3(0, 1, 0) );
+        //selected->m_local = glm::rotate(selected->m_local,glm::radians(rotation[2]), glm::vec3(0, 0, 1) );
         PLOGD<<"manipulated";
         }
-    else Node::selected->manipulated = false;
+    else selected->manipulated = false;
 
 }
     if (mCurrentGizmoMode == ImGuizmo::LOCAL)
 {
-    if(ImGuizmo::Manipulate(view, projection, mCurrentGizmoOperation, ImGuizmo::LOCAL, &(Node::selected->m_WorldTranslation)[0][0], &(deltaMatrix)[0][0],useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL))
-        {Node::selected->manipulated = true;
-    Node::selected->manipulated = true;
+    if(ImGuizmo::Manipulate(view, projection, mCurrentGizmoOperation, ImGuizmo::LOCAL, &(selected->m_world)[0][0], &(deltaMatrix)[0][0],useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL))
+        {selected->manipulated = true;
+    selected->manipulated = true;
         ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(deltaMatrix), 
                                            glm::value_ptr(position), 
                                            glm::value_ptr(rotation), 
                                            glm::value_ptr(scale));
         PLOGD<<position.x<<position.y<<position.z;
-        //Node::selected->m_local = glm::scale(Node::selected->m_local, scale);
-        Node::selected->m_local =glm::translate(Node::selected->m_local, position);
+        //selected->m_local = glm::scale(selected->m_local, scale);
+        selected->m_local =glm::translate(selected->m_local, position);
         PLOGD<<"LOCAL MANIPULATED";
         }
-    else Node::selected->manipulated = false;
+    else selected->manipulated = false;
 }
 
 }

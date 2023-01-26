@@ -6,7 +6,6 @@
 
 IMPLEMENT_RTTI(Node, Object)
 
-Node* Node::selected = 0;
 glm::mat4 Node::view = glm::mat4(1.0f);
 glm::mat4 Node::projection = glm::mat4(1.0f);
 bool Node::manipulated = false;
@@ -19,20 +18,13 @@ Node::Node(/* args */)
 {
     PLOGE<< "calling node constructor." ;
     m_parent = 0;//not initializing this pointer var, give a bug in the root node's tranform.
-    //m_world = glm::mat4(1.0f);
-    m_relToParent = glm::mat4(1.0f);
-    m_guizmo = glm::mat4(1.0f);
-    m_world = m_local = m_editorlocal= m_editorWorld = m_WorldTranslation = m_LocalTranslation =m_localRotationMat= m_localTranslationMat=m_localScaleMat = glm::mat4(1.0f);
+    m_world = m_local = m_localRotationMat= m_localTranslationMat=m_localScaleMat = glm::mat4(1.0f);
     this->SetName(to_string(this->GetID()));
     m_translation = glm::vec3(0.0f);
     m_rotation = glm::vec3(1.0f);
     m_scale = glm::vec3(1.0f);
     m_angle = 0.0f;
 
-    //we need to initialize it here, first, when using the editor.
-    m_relToParent = glm::translate(m_relToParent, m_translation); // translate it down so it's at the center of the scene
-    m_relToParent = glm::scale(m_relToParent, m_scale);	// it's a bit too big for our scene, so scale it down
-    m_relToParent = glm::rotate(m_relToParent,m_angle, m_rotation);
 
 }
 
@@ -52,30 +44,13 @@ void Node::updateTransforms()
     //PLOGE<<"updating tranforms";
     if(this->m_parent != 0)
     {
-        //m_relToParent = glm::mat4(1.0f);
-        //m_relToParent = glm::translate(m_relToParent, m_translation); // translate it down so it's at the center of the scene
-        //m_relToParent = glm::scale(m_relToParent, m_scale);	// it's a bit too big for our scene, so scale it down
-        //m_relToParent = glm::rotate(m_relToParent,m_angle, m_rotation);
-   
-//        m_world = m_parent->m_world /** m_guizmo **/ * m_relToParent;
-        //m_local= m_parent->m_local * m_local;
         //trs
         //since im storign orientation in a matrix, we should be avoiding gimball lock
         m_local = m_localTranslationMat*m_localRotationMat*m_localScaleMat;
-        m_WorldTranslation = m_parent->m_WorldTranslation *  m_LocalTranslation;
         m_world =  m_parent->m_world * m_local;
-        //m_world = m_local;
     }
     else
     {
-        /*
-        m_relToParent = glm::mat4(1.0f);
-        m_relToParent = glm::translate(m_relToParent, m_translation); // translate it down so it's at the center of the scene
-        m_relToParent = glm::scale(m_relToParent, m_scale);	// it's a bit too big for our scene, so scale it down
-        m_relToParent = glm::rotate(m_relToParent,m_angle, m_rotation);
-   
-        m_world = m_relToParent;
-        */
        m_world = m_local;
     }
 
@@ -94,8 +69,9 @@ void Node::Draw(Camera* camera, float deltaTime)
 
 }
 
+/*
 glm::mat4 Node::getLocalModelMatrix()
-{
+{   
     const glm::mat4 transformX = glm::rotate(glm::mat4(1.0f),
                          glm::radians(m_euler.x),
                          glm::vec3(1.0f, 0.0f, 0.0f));
@@ -113,8 +89,9 @@ glm::mat4 Node::getLocalModelMatrix()
     return glm::translate(glm::mat4(1.0f), m_translation) *
                 roationMatrix *
                 glm::scale(glm::mat4(1.0f), m_scale);
+    
 }
-
+*/
 void Node::setParent (Node* parent)
 {
     if(parent!=0){
@@ -332,102 +309,7 @@ Shader* Node::getShader()
 }    
 
 
-glm::mat4& Node::getRelatifTransform()
-{
-    return m_relToParent;
-}
 
 
 
-glm::mat4& Node::getGuizmoTransform()
-{
-    return m_guizmo;
-}
 
-/*
-void Node::DrawTree(){
-    ImGui::TreeNodeEx(to_string(GetID()).c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick);
-    if (ImGui::IsItemClicked()) {
-        // handle user click on this node
-    }
-    for (Node* child : m_children) {
-        child->DrawTree();
-    }
-    ImGui::TreePop();
-}
-*/
-/*
-void Node::DrawTree(){
-    if (ImGui::Button("+")) {
-        // handle user click on this node
-    }
-    ImGui::SameLine();
-    
-    ImGui::Text("Node whose ID is %s", to_string(GetID()).c_str());
-    
-    if (ImGui::IsItemClicked()) {
-        // handle user click on this node
-    }
-    for (Node* child : m_children) {
-        ImGui::Indent();
-        child->DrawTree();
-        ImGui::Unindent();
-    
-    }
-    //ImGui::TreePop();
-}
-*/
-
-void Node::DrawTree() {
-    static Node *dragsource2 = 0;
-    ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth ;
-    if (selected==this) {
-        node_flags |= ImGuiTreeNodeFlags_Selected;
-    }
-    if(dragsource2 ==this)  ImGui::SetNextItemOpen(false);
-    bool node_open = ImGui::TreeNodeEx(to_string(GetID()).c_str(), node_flags);
-          if (ImGui::BeginDragDropTarget()) {
-            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_NODE")) {
-                Node* payload_node = *(Node**)payload->Data;
-                // handle the drop operation
-                PLOGI<<"this is the payload Node"<<payload_node;
-                PLOGI<<"payload ID"<<payload_node->GetID();
-                PLOGI<<"RECIPIENT IS"<<GetID();
-                if(payload_node->m_parent!=this)
-                {
-                    attachChild(payload_node);
-                    dragsource2 = 0;
-                }
-                ImGui::EndDragDropTarget();
-        }
-          }
-    
-    if (ImGui::IsItemClicked()) {
-        selected = this;
-    }
-
-    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-        Node *dragsource = this;
-        dragsource2 = this;
-        PLOGI<<"this is the Source NODE "<<dragsource;
-
-        ImGui::SetDragDropPayload("SCENE_NODE", &dragsource, sizeof(Node*));
-        ImGui::Text("Drag %s", to_string(GetID()).c_str());
-        ImGui::EndDragDropSource();
-    } else if (dragsource2==this)
-    {
-            dragsource2 = 0;
-    }
-    if (node_open) {
-    
-
-        for (int j =0; j<m_children.size(); ++j) {
-            if(m_children[j]!=0)
-                m_children[j]->DrawTree();
-        }
-        ImGui::TreePop();
-         
-    }
-    
-    
-}
