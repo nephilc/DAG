@@ -1,6 +1,7 @@
 
 #include "AnimatedNode.hpp"
 
+IMPLEMENT_RTTI(AnimatedNode, Node)
 
 AnimatedNode::AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation& animation) : m_model(model),  m_animator(animator),
 m_animation(animation)

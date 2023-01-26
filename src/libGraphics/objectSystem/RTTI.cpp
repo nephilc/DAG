@@ -1,10 +1,9 @@
 #include "RTTI.hpp"
 
 //----------------------------------------------------------------------------
-Rtti::Rtti (const char* acName, const Rtti* pkBaseType)
+Rtti::Rtti (std::string name, const Rtti* pkBaseType): m_name(name), m_pkBaseType(pkBaseType)
 {
-    m_acName = acName;
-    m_pkBaseType = pkBaseType;
+
 }
 //----------------------------------------------------------------------------
 Rtti::~Rtti ()

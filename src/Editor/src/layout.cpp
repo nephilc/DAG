@@ -176,7 +176,8 @@ void EditorUI::ImportedScenesWindow(bool* p_open)
             ImGui::Separator();
             if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
             {
-               
+               //do this kind of thing
+               //if(Node::selected->GetType().isDerived(ParentNode::TYPE)) DISPLAY Section related to that parent
                 if (ImGui::BeginTabItem("Scene Details"))
                 {
                     if(Node::selected){
@@ -185,6 +186,7 @@ void EditorUI::ImportedScenesWindow(bool* p_open)
                     sprintf(text,"object ID : %i",  Node::selected->GetID());
                     
                     ImGui::Text("%s",text);
+                    ImGui::Text("Node type %s", Node::selected->GetType().GetName().c_str());
 
                     translation[0] = Node::selected->getTranslation().x;  
                     translation[1] = Node::selected->getTranslation().y;  

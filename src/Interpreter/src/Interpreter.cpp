@@ -3,6 +3,12 @@
 #include<CommandFunctions.hpp>
 /// @brief sdfsdfsdfdsf
 
+//create a  graph representing the type hierarchy, an ontology.
+//a static type member for every class
+//query the RTTI system about types
+//put an is method in the object class
+//let the object itself register it's type upon the creation of it's first instance
+
 
 using namespace std;
 Interpreter::Interpreter(/* args */)

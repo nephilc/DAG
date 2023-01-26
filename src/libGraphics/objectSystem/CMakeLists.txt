@@ -1,6 +1,6 @@
-set(HDRS  Object.hpp  Object.inl )
+set(HDRS  Object.hpp  Object.inl RTTI.hpp )
 #RTTI.hpp RTTI.inl RTTIMCR.h
-set(SRCS Object.cpp  )
+set(SRCS Object.cpp  RTTI.cpp)
 #RTTI.cpp
 add_library(objectSystem SHARED ${HDRS} ${SRCS}) 
 target_include_directories(objectSystem PUBLIC .)

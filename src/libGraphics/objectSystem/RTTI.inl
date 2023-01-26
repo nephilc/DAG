@@ -1,8 +1,9 @@
 //----------------------------------------------------------------------------
-inline const char* Rtti::GetName () const
+inline std::string Rtti::GetName () const
 {
-    return m_acName;
+    return m_name;
 }
+/*
 //----------------------------------------------------------------------------
 inline int Rtti::GetDiskUsed () const
 {
@@ -10,6 +11,8 @@ inline int Rtti::GetDiskUsed () const
     int iLength = (int)strlen(m_acName);
     return sizeof(iLength) + iLength*sizeof(char);
 }
+*/
+
 //----------------------------------------------------------------------------
 inline bool Rtti::IsExactly (const Rtti& rkType) const
 {

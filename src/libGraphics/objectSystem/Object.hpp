@@ -3,8 +3,10 @@
 
 #include<vector>
 #include<string>
+#include<RTTI.hpp>
 class Object
 {
+    DECLARE_RTTI
 private:
     /* data */
 public:

@@ -1,5 +1,7 @@
 #include "Object.hpp"
 
+
+const Rtti Object::TYPE("Object",0);
 unsigned int Object::ms_uiNextID = 0;
 
 Object::Object(/* args */)

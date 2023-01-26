@@ -6,6 +6,8 @@
 #include "Camera.hpp"
 #include "animation.h"
 #include "animator.h"
+
+#include<RTTI.hpp>
 //the node needs the camera
 
 //these seem to be unecessary, probably a residue from the early awesome face programs
@@ -16,6 +18,8 @@
 
 class AnimatedNode : public Node
 {
+
+DECLARE_RTTI
 private:
     /* data */
 

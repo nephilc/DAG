@@ -16,6 +16,7 @@
 #include "ImGuizmo.h"
 #include<AssetManager.hpp>
 
+#include <map>
 
 /// @brief EACH METHOD IN THIS CLASS IS RESPONSIBLE FOR RENDERING A UI COMPONENT, THE COMPONENTS WILL ACCES THE APPLICATION CLASS AND OTHER CLASSES IN OTHER TO MODIFY THE STATE OF THE APPLICATION.
 ///EDITOR SPECIFIC STATE CAN BE PLACED IN THIS CLASS
@@ -33,6 +34,10 @@ private:
     ImGuiConfigFlags_ keyflag ;
     ImGuiConfigFlags_ mouseflag;
     imgui_addons::ImGuiFileBrowser file_dialog;
+
+    //maps a type name to a factory method that creates an object, subtype of Node and adds it to the scene graph.
+    //the parametre is the parent Node
+    map<string, void(*)(Node*)> NodeFactory;
     AssetManager* m_AM;
 public:
     EditorUI(/* args */);

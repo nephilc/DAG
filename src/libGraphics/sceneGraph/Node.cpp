@@ -4,7 +4,7 @@
 //the world tranform is going to be passed to gpu, it should contain the transform in model space aswell.
 
 
-
+IMPLEMENT_RTTI(Node, Object)
 
 Node* Node::selected = 0;
 glm::mat4 Node::view = glm::mat4(1.0f);
@@ -379,10 +379,12 @@ void Node::DrawTree(){
 */
 
 void Node::DrawTree() {
-    ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+    static Node *dragsource2 = 0;
+    ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth ;
     if (selected==this) {
         node_flags |= ImGuiTreeNodeFlags_Selected;
     }
+    if(dragsource2 ==this)  ImGui::SetNextItemOpen(false);
     bool node_open = ImGui::TreeNodeEx(to_string(GetID()).c_str(), node_flags);
           if (ImGui::BeginDragDropTarget()) {
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_NODE")) {
@@ -392,8 +394,10 @@ void Node::DrawTree() {
                 PLOGI<<"payload ID"<<payload_node->GetID();
                 PLOGI<<"RECIPIENT IS"<<GetID();
                 if(payload_node->m_parent!=this)
+                {
                     attachChild(payload_node);
-            
+                    dragsource2 = 0;
+                }
                 ImGui::EndDragDropTarget();
         }
           }
@@ -401,13 +405,18 @@ void Node::DrawTree() {
     if (ImGui::IsItemClicked()) {
         selected = this;
     }
+
     if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
         Node *dragsource = this;
+        dragsource2 = this;
         PLOGI<<"this is the Source NODE "<<dragsource;
 
         ImGui::SetDragDropPayload("SCENE_NODE", &dragsource, sizeof(Node*));
         ImGui::Text("Drag %s", to_string(GetID()).c_str());
         ImGui::EndDragDropSource();
+    } else if (dragsource2==this)
+    {
+            dragsource2 = 0;
     }
     if (node_open) {
     

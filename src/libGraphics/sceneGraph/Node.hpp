@@ -17,7 +17,7 @@
 #include "Camera.hpp"
 
 #include "ImGuizmo.h"
-
+#include <RTTI.hpp>
 using namespace std;
 enum nodeType
 {
@@ -26,7 +26,7 @@ MESH
 class Node : public Object
 {
 
-
+DECLARE_RTTI
 
 public:
     /* data */
