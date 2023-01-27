@@ -18,6 +18,7 @@ public:
     bool IsExactly (const Rtti& rkType) const;
     bool IsDerived (const Rtti& rkType) const;
 
+
 private:
     const std::string m_name;
     const Rtti* m_pkBaseType;

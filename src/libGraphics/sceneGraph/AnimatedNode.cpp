@@ -8,7 +8,12 @@ m_animation(animation)
 {
     Node::m_shader = shader;
 }
-
+/*
+AnimatedNode::AnimatedNode()
+{
+    m_animation();//i'll need a class of defaults, defaults for every kind of class, these defaults will be provided by the asset manager
+}
+*/
 AnimatedNode::~AnimatedNode()
 {
 }
@@ -16,7 +21,7 @@ AnimatedNode::~AnimatedNode()
 void AnimatedNode::Draw(Camera* camera, float deltaTime) 
 {
     //PLOGD<<"Drawing node";
-    
+    //if(m_shader!=nullptr && m_animator!=nullptr &&m_model!=nullptr ){
     m_animator->UpdateAnimation(deltaTime);
 
     m_shader->use();
@@ -31,7 +36,7 @@ void AnimatedNode::Draw(Camera* camera, float deltaTime)
         
     m_shader->setMat4("model", m_world);
     m_model->Draw(m_shader);
-
+    //}
     Node::Draw(camera, deltaTime);
     //PLOGD<<"Node" <<this->GetName();
 

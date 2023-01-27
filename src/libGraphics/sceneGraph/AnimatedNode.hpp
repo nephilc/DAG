@@ -26,6 +26,7 @@ private:
 
 public:
     AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation& animation);
+    AnimatedNode();
     ~AnimatedNode();
     void Draw(Camera* camera, float deltaTime) override;
     Model* m_model;

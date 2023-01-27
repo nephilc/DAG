@@ -141,3 +141,9 @@ void AssetManager::createmainFB(int width, int height)
     PLOGE<<"CREATED MAIN FB";
 }
 
+void AssetManager::getDefault(const Rtti &type, Node *parent)
+{
+    //start with animated Node
+    //then Node
+    //model node
+}

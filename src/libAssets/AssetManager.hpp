@@ -8,6 +8,7 @@
 #include<vector>
 #include <Node.hpp>
 #include <FrameBuffer.hpp>
+#include <RTTI.hpp>
 //in the buffer you put the vertexdata.
 //genbuffer+bind buffer+bufferdata
 
@@ -83,7 +84,7 @@ public:
     FrameBuffer* getMainBuffer();
     void createmainFB(int width, int height);
 
-
+    void getDefault(const Rtti &type, Node* parent);
 };
 
 

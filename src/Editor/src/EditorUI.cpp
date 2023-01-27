@@ -12,6 +12,7 @@ EditorUI::EditorUI(/* args */)
 {
     PLOGI<<"INITIALIZING EDITORUI";
     init_imgui();
+    init_RTTI();
 
 
 }
