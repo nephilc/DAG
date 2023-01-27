@@ -10,7 +10,9 @@
 
 
 
-
+//we dont have a problem with instancing, since it is built into the engine from day1
+//for example, a ModelNode will use a model from thos loaded by the aset manager; on creatin it will use the default model
+//we will create defaults with the method createDefault(type, parent)
 void EditorUI::createNode()
 {
     static bool popup = false;

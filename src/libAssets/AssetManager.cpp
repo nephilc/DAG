@@ -5,6 +5,26 @@ FrameBuffer* AssetManager::mainBuffer = 0;
 AssetManager::AssetManager(/* args */)
 {
     PLOGI<<"CREATING ASSETMANAGER";
+    //CreateDefaults();
+
+}
+
+void AssetManager::CreateDefaults()
+{
+    PLOGI<<"CREATING DEFAULTS";
+
+    loadShader("shaderPrograms/animation.vs", "shaderPrograms/1.model_loading.fs", "ourShader1");
+    loadShader("shaderPrograms/1.model_loading.vs", "shaderPrograms/1.model_loading.fs", "ourShader2");
+    loadModel("3dmodels/arissa1/arissa1.dae", "arissa");
+
+    defaultShader = getShaders()[1];
+    defaultAniShader = getShaders()[0];
+
+    defaultModel = getModel("arissa");
+    defaultAnimation = Animation("3dmodels/Dying/Dying.dae", defaultModel);
+    defaultAnimator = new Animator(&defaultAnimation);
+    defaultaniNode = new AnimatedNode(defaultModel, defaultAniShader, defaultAnimator, defaultAnimation);
+    
 }
 
 AssetManager::~AssetManager()

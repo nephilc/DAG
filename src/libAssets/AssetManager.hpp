@@ -9,6 +9,11 @@
 #include <Node.hpp>
 #include <FrameBuffer.hpp>
 #include <RTTI.hpp>
+#include <animation.h>
+#include <animator.h>
+#include <AnimatedNode.hpp>
+
+
 //in the buffer you put the vertexdata.
 //genbuffer+bind buffer+bufferdata
 
@@ -74,6 +79,9 @@ public:
     const vector<Shader*>& getShaders() const;
     const vector<FrameBuffer*>& getFrameBuffers() const;
 
+    void CreateDefaults();
+
+
     void loadScene();
     Node* scene;
 
@@ -85,6 +93,18 @@ public:
     void createmainFB(int width, int height);
 
     void getDefault(const Rtti &type, Node* parent);
+    //#################################################
+    //################ D E F A U L T S ################
+    //#################################################
+    Model *defaultModel;
+    Animation defaultAnimation;
+    Animator* defaultAnimator;
+    AnimatedNode* defaultaniNode;
+    Shader* defaultShader;
+    Shader* defaultAniShader;
+    
+
+
 };
 
 

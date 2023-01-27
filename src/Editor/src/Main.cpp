@@ -8,13 +8,11 @@ int Application::Main (int iQuantity, char** apcArgument)
 {
     editorUI->test();
     glbe::getBackend()->displayTest();
+    assetManager->CreateDefaults();
+
     m_dTime = glfwGetTimerValue();
     glEnable(GL_DEPTH_TEST);
-    assetManager->loadShader("shaderPrograms/animation.vs", "shaderPrograms/1.model_loading.fs", "ourShader1");
-    assetManager->loadShader("shaderPrograms/1.model_loading.vs", "shaderPrograms/1.model_loading.fs", "ourShader2");
 
-    Shader* ourShader1 = assetManager->getShaders()[0];
-    assetManager->loadModel("3dmodels/arissa1/arissa1.dae", "arissa");
     
     Node* node0 =  new Node();
     Node* node1 =  new Node();
@@ -25,10 +23,9 @@ int Application::Main (int iQuantity, char** apcArgument)
     assetManager->scene = node0;
     
 
-    Animation danceAnimation ("3dmodels/Dying/Dying.dae", assetManager->getModel("arissa"));
-    Animator* animator  = new Animator(&danceAnimation);
-    AnimatedNode* aniNode = new AnimatedNode(assetManager->getModel("arissa"), ourShader1, animator, danceAnimation);
-    node1->attachChild(aniNode);
+    //node1->attachChild(aniNode);
+    node1->attachChild(assetManager->defaultaniNode);
+    
     glEnable(GL_DEPTH_TEST);
     Shader frameshader("shaderPrograms/framebuffer.vs", "shaderPrograms/framebuffer.fs");
     float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
