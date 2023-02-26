@@ -266,6 +266,7 @@ ImGui::Text("the worldz in the parent frame");
                     //end of shaders
 
 }
+void ObjectProperties(){}
 void EditorUI::WorldNodeProperties(){
 
 }

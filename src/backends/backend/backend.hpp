@@ -31,6 +31,7 @@ virtual    void setVec4(unsigned int ID,const std::string &name, float x, float 
 virtual    void setMat2(unsigned int ID,const std::string &name, const glm::mat2 &mat) const=0;
 virtual    void setMat3(unsigned int ID,const std::string &name, const glm::mat3 &mat) const=0;
 virtual    void setMat4(unsigned int ID,const std::string &name, const glm::mat4 &mat) const=0;
+virtual    void clearColorAndBuffersDC(float r, float g, float b, float a) const=0;
 
 
 virtual    void checkCompileErrors(unsigned int shader, std::string type) =0;

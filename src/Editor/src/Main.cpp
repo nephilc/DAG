@@ -1,6 +1,6 @@
 #include<Application.hpp>
 #include<glbe.hpp>
-
+#include<WorldNode.hpp>
 
 
 
@@ -13,14 +13,16 @@ int Application::Main (int iQuantity, char** apcArgument)
     m_dTime = glfwGetTimerValue();
     glEnable(GL_DEPTH_TEST);
 
-    
+    WorldNode *worldNode = new WorldNode(1.0, 0.0, 0.0, 1.0);    
+    worldNode->SetName("WORLD NODE");
     Node* node0 =  new Node();
     Node* node1 =  new Node();
     Node* node2 =  new Node();
+    worldNode->attachChild(node0);
     node0->attachChild(node1);//should do everything
     node0->attachChild(node2);//should do everything
 
-    assetManager->scene = node0;
+    assetManager->scene = worldNode;
     
 
     //node1->attachChild(aniNode);
@@ -38,7 +40,7 @@ int Application::Main (int iQuantity, char** apcArgument)
          1.0f, -1.0f,  1.0f, 0.0f,
          1.0f,  1.0f,  1.0f, 1.0f
     };
-
+/*
     glGenVertexArrays(1, &application->quadVAO);
     glGenBuffers(1, &application->quadVBO);
     glBindVertexArray(application->quadVAO);
@@ -51,7 +53,7 @@ int Application::Main (int iQuantity, char** apcArgument)
 
     frameshader.use();
     //frameshader.setInt("screenTexture", 0);
-
+*/
     
 
     while (!glfwWindowShouldClose(m_window))
@@ -60,10 +62,6 @@ int Application::Main (int iQuantity, char** apcArgument)
         //there is also the default frame buffer
         application->m_FB->use();
         glEnable(GL_DEPTH_TEST);
-
-        glClearColor(1.0f, 1.0f, 0.0f, 1.0f); 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
-
         //PLOGD<<"starting redner1";
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
@@ -74,11 +72,14 @@ int Application::Main (int iQuantity, char** apcArgument)
         
         glm::mat4 projection = glm::perspective(glm::radians(camera->Zoom), (float)m_iFrameWidth / (float)m_iFrameHeight, 0.1f, 100.0f);
         glm::mat4 view = camera->GetViewMatrix();
-        
+        /*
         node0->projection = projection;
 
         node0->Draw(camera, deltaTime);
+        */
+        worldNode->projection = projection;
 
+        worldNode->Draw(camera, deltaTime);
         glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
         //glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
         glEnable(GL_DEPTH_TEST);    
@@ -86,8 +87,8 @@ int Application::Main (int iQuantity, char** apcArgument)
         glClear(GL_COLOR_BUFFER_BIT);
 
         Application::editorUI->render();
-
-        editorUI->sceneView(application->textureColorbuffer, &application->m_iFrameWidth, &application->m_iFrameHeight, &view[0][0], &projection[0][0], &application->idm[0][0], &application->model[0][0]);
+        //i_fram... is used by the camera not the framebuffer
+        editorUI->sceneView(0, &application->m_iFrameWidth, &application->m_iFrameHeight, &view[0][0], &projection[0][0], &application->idm[0][0], &application->model[0][0]);
         bool open = true;
 
 
@@ -104,8 +105,9 @@ int Application::Main (int iQuantity, char** apcArgument)
 
 
     }
-//    glDeleteVertexArrays(1, &application->quadVAO);
-//    glDeleteBuffers(1, &application->quadVBO);
-
+    /*
+    glDeleteVertexArrays(1, &application->quadVAO);
+    glDeleteBuffers(1, &application->quadVBO);
+*/
     return 0;
 }

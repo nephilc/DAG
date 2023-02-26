@@ -13,6 +13,14 @@ glbe* glbe::getBackend()
     return (glbe*)be;
 }
 
+void glbe::clearColorAndBuffersDC(float r, float g, float b, float a) const
+{
+    glClearColor(r,g,b,a);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
+
+}
+
+
 void glbe::createTextureModel(unsigned int *textureID,int nrComponents, int width, int height, unsigned char *data)
 {
     glGenTextures(1, textureID);

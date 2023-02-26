@@ -15,10 +15,11 @@ EditorUI *Application::editorUI = nullptr;
 
 //no need to recreate the framebuffer, for now. ONe need to fix the camera projection, on resizing the rendering window.
 //could do it later.
+/*
 unsigned int Application::framebuffer = 0;
-unsigned int Application::textureColorbuffer = 0;
+unsigned int Application::textureColorbuffer = 1;
 unsigned int Application::rbo = 0;
-
+*/
 glm::mat4 Application::model = glm::mat4(1.0f);
 glm::mat4 Application::idm = glm::mat4(1.0f);
 FrameBuffer* Application::m_FB = 0;

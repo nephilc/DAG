@@ -19,6 +19,7 @@ public:
     void displayTest();
     void createTextureModel(unsigned int *textureID, int nrComponents, int width, int height, unsigned char *data);
 void use(unsigned int ID);
+void clearColorAndBuffersDC(float r, float g, float b, float a) const;
 
 void setBool(unsigned int ID,const std::string &name, bool value) const;
 void setInt(unsigned int ID,const std::string &name, int value) const;
