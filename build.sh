@@ -1,4 +1,5 @@
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Debug -DANDROID_MODULES=OFF
-        
-make -j4
+cd build1
+cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug -DANDROID_MODULES=OFF
+
+
+ninja -j4 

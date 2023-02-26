@@ -283,7 +283,7 @@ ImGui::Begin("OpenGL Texture Window",  &open);
 //ImGui::Text("size = %d x %d", m_iWidth, m_iHeight);
 
 //int frame_dims[2]; 
-
+//static int previousWidth, previousHeight;
 *width = (float)ImGui::GetWindowWidth();
 *height = (float)ImGui::GetWindowHeight();
 

@@ -13,6 +13,7 @@
 //we dont have a problem with instancing, since it is built into the engine from day1
 //for example, a ModelNode will use a model from thos loaded by the aset manager; on creatin it will use the default model
 //we will create defaults with the method createDefault(type, parent)
+//we are not reusing the nodes, we are resusing data, as it should be done. And we have some default data.
 void EditorUI::createNode()
 {
     static bool popup = false;
@@ -101,10 +102,6 @@ void EditorUI::ImportedScenesWindowLeft(bool* p_open)
 
 void EditorUI::ImportedScenesWindowRight(bool* p_open)
 {
-        static float translation[3];
-        static float rotation[3];
-        static float scale[3];
-        static float angle;
 
             ImGui::BeginGroup();//this child window will scroll on it's own
             ImGui::BeginChild("item view1", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
@@ -124,6 +121,52 @@ void EditorUI::ImportedScenesWindowRight(bool* p_open)
                     
                     ImGui::Text("%s",text);
                     ImGui::Text("Node type %s", selected->GetType().GetName().c_str());
+                    if(selected->TYPE.IsDerived(Node::TYPE)) NodeProperties();
+
+
+                    }
+                    ImGui::EndTabItem();
+
+                }
+                if (ImGui::BeginTabItem("Description"))
+                {
+                    if(selected){
+                    ImGui::TextWrapped("Scene Node");
+                    }
+                    ImGui::EndTabItem();
+
+                }
+               
+                ImGui::EndTabBar();
+            }
+            
+            ImGui::EndChild();
+            
+            ImGui::EndGroup();
+
+}
+
+void EditorUI::ImportedScenesWindow(bool* p_open)
+{
+
+    ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
+    if (ImGui::Begin("AssetManager Imported scenes Vector", p_open, ImGuiWindowFlags_MenuBar))
+    {
+        createNode();
+        // Left
+        ImportedScenesWindowLeft(p_open);
+        ImGui::SameLine();
+        // Right
+        ImportedScenesWindowRight(p_open);
+    }
+    ImGui::End();
+}
+
+void EditorUI::NodeProperties(){
+            static float translation[3];
+            static float rotation[3];
+            static float scale[3];
+            static float angle;
 
                     translation[0] = selected->getTranslation().x;  
                     translation[1] = selected->getTranslation().y;  
@@ -222,41 +265,10 @@ ImGui::Text("the worldz in the parent frame");
                     }
                     //end of shaders
 
-
-                    }
-                    ImGui::EndTabItem();
-
-                }
-                if (ImGui::BeginTabItem("Description"))
-                {
-                    if(selected){
-                    ImGui::TextWrapped("Scene Node");
-                    }
-                    ImGui::EndTabItem();
-
-                }
-               
-                ImGui::EndTabBar();
-            }
-            
-            ImGui::EndChild();
-            
-            ImGui::EndGroup();
+}
+void EditorUI::WorldNodeProperties(){
 
 }
+void EditorUI::AnimatedNodeProperties(){
 
-void EditorUI::ImportedScenesWindow(bool* p_open)
-{
-
-    ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
-    if (ImGui::Begin("AssetManager Imported scenes Vector", p_open, ImGuiWindowFlags_MenuBar))
-    {
-        createNode();
-        // Left
-        ImportedScenesWindowLeft(p_open);
-        ImGui::SameLine();
-        // Right
-        ImportedScenesWindowRight(p_open);
-    }
-    ImGui::End();
 }

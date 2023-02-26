@@ -37,6 +37,7 @@ void AssetManager::loadModel(string path, string name)
 {
     if(models.count(name) > 0)
     {
+        //if name already exists append the object id to it.
         Model *model = new Model(path);
         std::ostringstream oss;
         oss << name <<model->GetID();

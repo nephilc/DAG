@@ -64,6 +64,10 @@ void ImportedScenesWindowRight(bool* p_open);
 void DrawTree(Node* scene);
 void init_RTTI();
 
+void NodeProperties();
+void WorldNodeProperties();
+void AnimatedNodeProperties();
+
 
 
 void selectableTree();

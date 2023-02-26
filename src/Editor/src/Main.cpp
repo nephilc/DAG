@@ -56,6 +56,8 @@ int Application::Main (int iQuantity, char** apcArgument)
 
     while (!glfwWindowShouldClose(m_window))
     {
+        //m_FB is where you draw the nodes
+        //there is also the default frame buffer
         application->m_FB->use();
         glEnable(GL_DEPTH_TEST);
 
@@ -72,23 +74,21 @@ int Application::Main (int iQuantity, char** apcArgument)
         
         glm::mat4 projection = glm::perspective(glm::radians(camera->Zoom), (float)m_iFrameWidth / (float)m_iFrameHeight, 0.1f, 100.0f);
         glm::mat4 view = camera->GetViewMatrix();
-
+        
         node0->projection = projection;
 
-        //ImGui::Render();
-        //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-           node0->Draw(camera, deltaTime);
+        node0->Draw(camera, deltaTime);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
-  //glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
-    glEnable(GL_DEPTH_TEST);    
-    glClearColor(1.0f, 1.0f, 0.0f, 1.0f); 
-    glClear(GL_COLOR_BUFFER_BIT);
+        //glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
+        glEnable(GL_DEPTH_TEST);    
+        glClearColor(1.0f, 1.0f, 0.0f, 1.0f); 
+        glClear(GL_COLOR_BUFFER_BIT);
 
         Application::editorUI->render();
 
-    editorUI->sceneView(application->textureColorbuffer, &application->m_iFrameWidth, &application->m_iFrameHeight, &view[0][0], &projection[0][0], &application->idm[0][0], &application->model[0][0]);
-    bool open = true;
+        editorUI->sceneView(application->textureColorbuffer, &application->m_iFrameWidth, &application->m_iFrameHeight, &view[0][0], &projection[0][0], &application->idm[0][0], &application->model[0][0]);
+        bool open = true;
 
 
         ImGui::Render();
@@ -100,7 +100,7 @@ int Application::Main (int iQuantity, char** apcArgument)
               //  PLOGE<<"about to handle detachements";
 
         //assetManager->scene->handleDetachements();
-            PLOGE<<"MAIN AFTER HANDLING ALL DETACHS";
+            //PLOGE<<"MAIN AFTER HANDLING ALL DETACHS";
 
 
     }

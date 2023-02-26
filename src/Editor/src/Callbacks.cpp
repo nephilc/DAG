@@ -106,10 +106,13 @@ void Application::framebuffer_size_callback(GLFWwindow* window, int width, int h
     // height will be significantly larger than specified on retina displays.
     //glViewport(0, 0, width, height);
     glViewport(0, 0, width, height);
-    m_iWidth = width;
-    m_iHeight = height;
-    m_FB->recreate(width, height);
-    
+    m_iWidth = m_iFrameWidth ;//these are for the camera
+    m_iHeight = m_iFrameHeight ;
+    PLOGD<<width <<" " <<height;
+    PLOGD<<m_iWidth <<"   ii " <<m_iHeight;
+
+    m_FB->recreate(width, height);//this is the one we render to
+    //i think the framebuffer callback is called on the currently bound framebuffer.    
 
 }
 

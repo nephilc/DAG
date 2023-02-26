@@ -143,15 +143,15 @@ void Node::handleDetachements()
                         {
                             
                         if(m_children[i]!=0){
-                        PLOGI<<"GOING THORUGH CHILD "<<m_children[i]->GetID();
+                        //PLOGI<<"GOING THORUGH CHILD "<<m_children[i]->GetID();
                         //m_children[i]->handleDetachements();
                         if(m_children[i]->m_parent!=this)
                         {   
                             
                             m_children.erase(m_children.begin()+i);
                             //int j = detachChild(m_children[i]);
-                            PLOGI<<"AFTER DETACH CHILD "<< i;
-                            PLOGI<<"CHILDREN SIZE IS "<< m_children.size();
+                          //  PLOGI<<"AFTER DETACH CHILD "<< i;
+                            //PLOGI<<"CHILDREN SIZE IS "<< m_children.size();
                             return;
                         }
                         m_children[i]->handleDetachements();

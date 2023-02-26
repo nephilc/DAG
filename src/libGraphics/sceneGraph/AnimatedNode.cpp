@@ -29,7 +29,7 @@ void AnimatedNode::Draw(Camera* camera, float deltaTime)
     auto transforms = m_animator->GetFinalBoneMatrices();
 	for (int i = 0; i < transforms.size(); ++i)
 		m_shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
-
+        //set the time, among other things
     
     m_shader->setMat4("projection", Node::projection);
 	m_shader->setMat4("view", camera->GetViewMatrix());
