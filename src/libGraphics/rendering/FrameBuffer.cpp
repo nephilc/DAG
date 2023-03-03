@@ -47,6 +47,14 @@ void FrameBuffer::createFB(int width, int height)
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 }
+int FrameBuffer::getWidth()
+{
+    return m_iWidth;
+}
+int FrameBuffer::getHeight()
+{
+    return m_iHeight;
+}
 void FrameBuffer::use()
 {
 glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);

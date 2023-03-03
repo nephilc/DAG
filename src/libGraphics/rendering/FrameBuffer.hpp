@@ -21,7 +21,8 @@ unsigned int rbo;
     ~FrameBuffer();
     void recreate(int width, int height);
     void createFB(int width, int height);
-
+    int getWidth();
+    int getHeight();
 
 void use();
 

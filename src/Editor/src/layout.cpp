@@ -278,20 +278,23 @@ void EditorUI::selectableTree()
 void EditorUI::sceneView(int itextureId, int *width, int* height, float* view, float* projection, float* idm, float* model)
 {
 bool open = true;
+ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
 ImGui::Begin("OpenGL Texture Window",  &open);
 //ImGui::Text("pointer = %p", textureColorbuffer);
 //ImGui::Text("size = %d x %d", m_iWidth, m_iHeight);
 
 //int frame_dims[2]; 
 //static int previousWidth, previousHeight;
-*width = (float)ImGui::GetWindowWidth();
-*height = (float)ImGui::GetWindowHeight();
-
+*width = (float)ImGui::GetWindowWidth();//
+*height = (float)ImGui::GetWindowHeight();//
+ImVec2 windowSize = ImGui::GetContentRegionAvail();
 //m_iFrameWidth = frame_dims[0];
 //m_iFrameHeight = frame_dims[1];
 //fit the image to the window
 //it is the image object that causes the iverflow, it needs to be smaller than the windows dimensions
-ImGui::Image((void*)(intptr_t)app->m_FB->textureColorbuffer, ImVec2((*width)-600, (*height)-50), ImVec2(0, 1), ImVec2(1, 0));
+//ImGui::Image((void*)(intptr_t)app->m_FB->textureColorbuffer, ImVec2(float(app->m_FB->getWidth()), (app->m_FB->getHeight())), ImVec2(0, 1), ImVec2(1, 0));
+ImGui::Image((void*)(intptr_t)app->m_FB->textureColorbuffer, windowSize, ImVec2(0, 1), ImVec2(1, 0));
 
 
 
@@ -332,7 +335,7 @@ static bool boundSizingSnap = false;
   
 
     
-    ImGuizmo::DrawGrid(view, projection, idm, 100.f);
+    //ImGuizmo::DrawGrid(view, projection, idm, 100.f);
 
    //ImGuizmo::DrawCubes(view, projection, model, 1);
    //ImGuizmo::Manipulate(view, projection, mCurrentGizmoOperation, mCurrentGizmoMode, model, NULL, useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL);
@@ -440,7 +443,7 @@ ImGuizmo::ViewManipulate(view, camDistance, ImVec2(viewManipulateRight - 128, vi
 
 
 ImGui::End();
-
+ImGui::PopStyleVar(2);
 
 }
 
