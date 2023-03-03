@@ -12,6 +12,8 @@ float clearColor[4];
 public:
     WorldNode(float r, float g, float b, float a);
     void Draw(Camera* camera, float deltaTime) override;
+    void setClearColor(float r, float g, float b, float a);
+
     ~WorldNode();
 };
 

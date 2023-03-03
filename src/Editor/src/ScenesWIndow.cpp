@@ -1,5 +1,6 @@
 #include<EditorUI.hpp>
 #include <gtc/type_ptr.hpp>
+#include<WorldNode.hpp>
 
 
 
@@ -21,17 +22,24 @@ void EditorUI::createNode()
 
 
     if (ImGui::BeginPopup("my_select_popup"/*,  NULL*/, ImGuiWindowFlags_AlwaysAutoResize))
-    {
-            ImGui::Text("Aquarium");
+    {       
+            static Rtti *selectedType = nullptr;
+            for(Rtti* type : Rtti::typeList){
+            if (ImGui::Selectable(type->GetName().c_str(), selectedType == type, ImGuiSelectableFlags_DontClosePopups))
+                    selectedType = type;
+            }
+            
             ImGui::Separator();
-            if(ImGui::Button("add", ImVec2(120, 0))) ImGui::CloseCurrentPopup();
+            if(ImGui::Button("add", ImVec2(120, 0))) {
+                //add node here depedning on the type of the selected node
+                ImGui::CloseCurrentPopup();}
             ImGui::SameLine();
             if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
         ImGui::EndPopup();
     
     }
-
 }
+
 
 
 void EditorUI::DrawTree(Node* scene) {
@@ -111,7 +119,7 @@ void EditorUI::ImportedScenesWindowRight(bool* p_open)
             if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
             {
                //do this kind of thing
-               //if(selected->GetType().isDerived(ParentNode::TYPE)) DISPLAY Section related to that parent
+               //if(selected->GetType().isDerived(::TYPE)) DISPLAY Section related to that parent
                 if (ImGui::BeginTabItem("Scene Details"))
                 {
                     if(selected){
@@ -121,9 +129,12 @@ void EditorUI::ImportedScenesWindowRight(bool* p_open)
                     
                     ImGui::Text("%s",text);
                     ImGui::Text("Node type %s", selected->GetType().GetName().c_str());
-                    if(selected->TYPE.IsDerived(Node::TYPE)) NodeProperties();
-
-
+                    if(selected->GetType().IsExactly(WorldNode::TYPE)){
+                        WorldNodeProperties();
+                    }
+                    else{
+                        NodeProperties();
+                    }
                     }
                     ImGui::EndTabItem();
 
@@ -268,6 +279,20 @@ ImGui::Text("the worldz in the parent frame");
 }
 void ObjectProperties(){}
 void EditorUI::WorldNodeProperties(){
+    
+    WorldNode *localPointer = dynamic_cast<WorldNode*>(selected);
+    static float afCLearColor[4];
+    if(ImGui::InputFloat4("Clear Color",afCLearColor))
+    {
+                     if(localPointer!=nullptr)
+                     {
+                        localPointer->setClearColor(afCLearColor[0],afCLearColor[1],afCLearColor[2],afCLearColor[3]);
+                     }  
+                     else{
+                        PLOGE<<"DYNAMIC CAST FAILED  TO TYPE" <<WorldNode::TYPE.GetName();
+                     }
+    }
+
 
 }
 void EditorUI::AnimatedNodeProperties(){

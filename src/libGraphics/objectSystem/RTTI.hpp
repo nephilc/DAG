@@ -1,6 +1,7 @@
 #ifndef RTTI_H
 #define RTTI_H
 #include <string>
+#include<vector>
 #include "RTTIMCR.h"
 
 class  Rtti
@@ -11,7 +12,7 @@ public:
     // another namespace, SomeName, then the name should be "SomeName.Foo".
     Rtti (std::string name, const Rtti* pkBaseType);
     ~Rtti ();
-
+    static std::vector<Rtti*> typeList;
     std::string GetName () const;
     int GetDiskUsed () const;
 

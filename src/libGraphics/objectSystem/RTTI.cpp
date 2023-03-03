@@ -1,9 +1,11 @@
 #include "RTTI.hpp"
 
+
+std::vector<Rtti*> Rtti::typeList;
 //----------------------------------------------------------------------------
 Rtti::Rtti (std::string name, const Rtti* pkBaseType): m_name(name), m_pkBaseType(pkBaseType)
 {
-
+    typeList.push_back(this);
 }
 //----------------------------------------------------------------------------
 Rtti::~Rtti ()

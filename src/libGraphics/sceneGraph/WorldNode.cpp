@@ -16,6 +16,15 @@ void WorldNode::Draw(Camera *camera, float deltaTime)
 
 }
 
+void WorldNode::setClearColor(float r, float g, float b, float a)
+{
+    clearColor[0] = r;
+    clearColor[1] = g;
+    clearColor[2] = b;
+    clearColor[3] = a;
+
+}
+
 WorldNode::~WorldNode()
 {
 }
