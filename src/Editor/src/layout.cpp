@@ -289,8 +289,9 @@ ImGui::Begin("OpenGL Texture Window",  &open);
 
 //m_iFrameWidth = frame_dims[0];
 //m_iFrameHeight = frame_dims[1];
-
-ImGui::Image((void*)(intptr_t)app->m_FB->textureColorbuffer, ImVec2(*width, *height), ImVec2(0, 1), ImVec2(1, 0));
+//fit the image to the window
+//it is the image object that causes the iverflow, it needs to be smaller than the windows dimensions
+ImGui::Image((void*)(intptr_t)app->m_FB->textureColorbuffer, ImVec2((*width)-600, (*height)-50), ImVec2(0, 1), ImVec2(1, 0));
 
 
 
