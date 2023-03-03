@@ -1,7 +1,7 @@
 #include<EditorUI.hpp>
 #include <gtc/type_ptr.hpp>
 #include<WorldNode.hpp>
-
+#include<NodeFactory.hpp>
 
 
 
@@ -30,9 +30,13 @@ void EditorUI::createNode()
             }
             
             ImGui::Separator();
-            if(ImGui::Button("add", ImVec2(120, 0))) {
+            if(ImGui::Button("add", ImVec2(120, 0)) && selectedType!=nullptr) {
                 //add node here depedning on the type of the selected node
-                ImGui::CloseCurrentPopup();}
+                if(Node * createdNode = NodeFactory::create(selectedType))
+                    selected->attachChild(createdNode);
+                ImGui::CloseCurrentPopup();
+                
+            }
             ImGui::SameLine();
             if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
         ImGui::EndPopup();
