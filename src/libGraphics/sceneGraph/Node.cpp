@@ -19,7 +19,9 @@ Node::Node(/* args */)
     PLOGE<< "calling node constructor." ;
     m_parent = 0;//not initializing this pointer var, give a bug in the root node's tranform.
     m_world = m_local = m_localRotationMat= m_localTranslationMat=m_localScaleMat = glm::mat4(1.0f);
-    this->SetName(to_string(this->GetID()));
+    //this->SetName(to_string(this->GetID()));
+    SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
+
     m_translation = glm::vec3(0.0f);
     m_rotation = glm::vec3(1.0f);
     m_scale = glm::vec3(1.0f);

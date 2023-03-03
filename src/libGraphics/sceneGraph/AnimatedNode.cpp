@@ -6,6 +6,7 @@ IMPLEMENT_RTTI(AnimatedNode, Node)
 AnimatedNode::AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation& animation) : m_model(model),  m_animator(animator),
 m_animation(animation)
 {
+    SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
     Node::m_shader = shader;
 }
 /*
@@ -16,6 +17,8 @@ AnimatedNode::AnimatedNode()
 */
 AnimatedNode::~AnimatedNode()
 {
+    SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
+
 }
 
 void AnimatedNode::Draw(Camera* camera, float deltaTime) 

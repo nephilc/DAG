@@ -14,7 +14,7 @@ int Application::Main (int iQuantity, char** apcArgument)
     glEnable(GL_DEPTH_TEST);
 
     WorldNode *worldNode = new WorldNode(1.0, 0.0, 0.0, 1.0);    
-    worldNode->SetName("WORLD NODE");
+    //worldNode->SetName("WORLD NODE");
     Node* node0 =  new Node();
     Node* node1 =  new Node();
     Node* node2 =  new Node();

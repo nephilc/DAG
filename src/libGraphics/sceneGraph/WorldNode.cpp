@@ -3,6 +3,8 @@
 IMPLEMENT_RTTI(WorldNode, Node)
 WorldNode::WorldNode(float r, float g, float b, float a)
 {
+    SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
+
     clearColor[0] = r;
     clearColor[1] = g;
     clearColor[2] = b;

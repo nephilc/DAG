@@ -49,7 +49,7 @@ void EditorUI::DrawTree(Node* scene) {
         node_flags |= ImGuiTreeNodeFlags_Selected;
     }
     if(dragsource2 ==scene)  ImGui::SetNextItemOpen(false);
-    bool node_open = ImGui::TreeNodeEx(to_string(scene->GetID()).c_str(), node_flags);
+    bool node_open = ImGui::TreeNodeEx(scene->GetName().c_str(), node_flags);
           if (ImGui::BeginDragDropTarget()) {
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_NODE")) {
                 Node* payload_node = *(Node**)payload->Data;
