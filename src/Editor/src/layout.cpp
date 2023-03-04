@@ -227,7 +227,7 @@ void  EditorUI::FramebuffersWindow(bool* p_open)
                 {
                     ObjectProperties(selectedfb);
                     ImGui::Separator();
-                    if(ImGui::Button("Reload", ImVec2(100, 50)))
+                    if(ImGui::Button("Show in Window", ImVec2(100, 50)))
                     {
                         //selectedfb->reload();
                     }
