@@ -149,8 +149,10 @@ void  EditorUI::shadersWindow(bool* p_open)
             ImGui::EndChild();
         }
         ImGui::SameLine();
+        if(vlshaders.size()>0)
         selectedS = vlshaders[selected];
         // Right
+        if(vlshaders.size()>0)
         {
             ImGui::BeginGroup();//this child window will scroll on it's own
             ImGui::BeginChild("item view", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
@@ -161,10 +163,7 @@ void  EditorUI::shadersWindow(bool* p_open)
                
                 if (ImGui::BeginTabItem("Shader Details"))
                 {
-                    char text[128];
-                    //string text = string("object id") + string("%i", m_AM->getModels()[selected]->GetID()); 
-                    sprintf(text,"objec ID : %i",  selectedS->GetID());
-                    ImGui::Text(" %s", text);
+                    ObjectProperties(selectedS);
                     ImGui::Separator();
                     if(ImGui::Button("Reload", ImVec2(100, 50)))
                     {
@@ -224,12 +223,9 @@ void  EditorUI::FramebuffersWindow(bool* p_open)
             if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
             {
                
-                if (ImGui::BeginTabItem("Shader Details"))
+                if (ImGui::BeginTabItem("FB Details"))
                 {
-                    char text[128];
-                    //string text = string("object id") + string("%i", m_AM->getModels()[selected]->GetID()); 
-                    sprintf(text,"objec ID : %i",  selectedfb->GetID());
-                    ImGui::Text(" %s", text);
+                    ObjectProperties(selectedfb);
                     ImGui::Separator();
                     if(ImGui::Button("Reload", ImVec2(100, 50)))
                     {

@@ -128,7 +128,7 @@ void EditorUI::ImportedScenesWindowRight(bool* p_open)
                 {
                     if(selected){
                     ImGui::Text("Node type %s", selected->GetType().GetName().c_str());
-                    ObjectProperties();
+                    ObjectProperties(selected);
                     if(selected->GetType().IsExactly(WorldNode::TYPE)){
                         WorldNodeProperties();
                     }
@@ -283,20 +283,20 @@ ImGui::Text("the worldz in the parent frame");
                     }
 
 }
-void EditorUI::ObjectProperties(){
+void EditorUI::ObjectProperties(Object* object){
         if (ImGui::CollapsingHeader("Object Properties", ImGuiTreeNodeFlags_None))
         {
                     char text[128];
                     //string text = string("object id") + string("%i", m_AM->getModels()[selected]->GetID()); 
-                    sprintf(text,"object ID : %i",  selected->GetID());
+                    sprintf(text,"object ID : %i",  object->GetID());
                     
                     ImGui::Text("%s",text);
 
             static char str0[128] = "Object Name";
-            sprintf(str0,"%s",  selected->GetName().c_str());
+            sprintf(str0,"%s",  object->GetName().c_str());
 
             if(ImGui::InputText("Object Name", str0, IM_ARRAYSIZE(str0)))
-                selected->SetName(string(str0));
+                object->SetName(string(str0));
         }
 }
 void EditorUI::WorldNodeProperties(){

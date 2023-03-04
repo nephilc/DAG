@@ -65,7 +65,7 @@ void DrawTree(Node* scene);
 void init_RTTI();
 void FramebuffersWindow(bool *p_open);
 
-
+void ObjectProperties(Object *object);
 void NodeProperties();
 void WorldNodeProperties();
 void AnimatedNodeProperties();
