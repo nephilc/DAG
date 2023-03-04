@@ -173,9 +173,69 @@ void  EditorUI::shadersWindow(bool* p_open)
                     
                     ImGui::EndTabItem();
                 }
-                if (ImGui::BeginTabItem("Description"))
+                ImGui::EndTabBar();
+            }
+            ImGui::EndChild();
+            /*
+            if (ImGui::Button("Revert")) {}
+            ImGui::SameLine();
+            if (ImGui::Button("Save")) {}
+            */
+            ImGui::EndGroup();
+        }
+    }
+    ImGui::End();
+}
+void  EditorUI::FramebuffersWindow(bool* p_open)
+{   
+
+    ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
+    if (ImGui::Begin("AssetManager Created Framebuffers Vector", p_open, ImGuiWindowFlags_MenuBar))
+    {
+        vector<FrameBuffer*> vlfbs = m_AM->getFrameBuffers();
+        // Left
+        static int selected = 0;
+        FrameBuffer* selectedfb;
+        {
+            FrameBuffer* fb;
+            ImGui::BeginChild("left pane", ImVec2(150, 0), true);
+            for (int i = 0; i < vlfbs.size(); i++)
+            {
+                // FIXME: Good candidate to use ImGuiSelectableFlags_SelectOnNav
+                fb = vlfbs[i];
+                char label[128];
+                sprintf(label, "%s", fb->GetName().c_str());
+                if (ImGui::Selectable(label, selected == i))
+                    selected = i;
+            }
+            ImGui::EndChild();
+        }
+        ImGui::SameLine();
+        if(vlfbs.size()>0)
+        selectedfb = vlfbs[selected];
+        // Right
+                if(vlfbs.size()>0)
+
+        {
+            ImGui::BeginGroup();//this child window will scroll on it's own
+            ImGui::BeginChild("item view", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
+            ImGui::Text("Object Name: %s", selectedfb->GetName().c_str());
+            ImGui::Separator();
+            if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
+            {
+               
+                if (ImGui::BeginTabItem("Shader Details"))
                 {
-                    ImGui::TextWrapped("One can reload shaders");
+                    char text[128];
+                    //string text = string("object id") + string("%i", m_AM->getModels()[selected]->GetID()); 
+                    sprintf(text,"objec ID : %i",  selectedfb->GetID());
+                    ImGui::Text(" %s", text);
+                    ImGui::Separator();
+                    if(ImGui::Button("Reload", ImVec2(100, 50)))
+                    {
+                        //selectedfb->reload();
+                    }
+                    
                     ImGui::EndTabItem();
                 }
                 ImGui::EndTabBar();
