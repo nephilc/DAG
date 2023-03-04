@@ -127,12 +127,8 @@ void EditorUI::ImportedScenesWindowRight(bool* p_open)
                 if (ImGui::BeginTabItem("Scene Details"))
                 {
                     if(selected){
-                    char text[128];
-                    //string text = string("object id") + string("%i", m_AM->getModels()[selected]->GetID()); 
-                    sprintf(text,"object ID : %i",  selected->GetID());
-                    
-                    ImGui::Text("%s",text);
                     ImGui::Text("Node type %s", selected->GetType().GetName().c_str());
+                    ObjectProperties();
                     if(selected->GetType().IsExactly(WorldNode::TYPE)){
                         WorldNodeProperties();
                     }
@@ -182,7 +178,7 @@ void EditorUI::NodeProperties(){
             static float rotation[3];
             static float scale[3];
             static float angle;
-
+                    
                     translation[0] = selected->getTranslation().x;  
                     translation[1] = selected->getTranslation().y;  
                     translation[2] = selected->getTranslation().z;  
@@ -196,6 +192,10 @@ void EditorUI::NodeProperties(){
                     scale[2] = selected->getScale().z;  
 
                     angle = selected->getRotationAngle();
+                    
+                        if (ImGui::CollapsingHeader("Node Properties", ImGuiTreeNodeFlags_None))
+        {
+
                     if(ImGui::InputFloat3("translation",translation))
                     {
                      selected->setTranslation(translation);  
@@ -279,13 +279,31 @@ ImGui::Text("the worldz in the parent frame");
                     ImGui::EndListBox();
                     }
                     //end of shaders
+                    }
 
 }
-void ObjectProperties(){}
+void EditorUI::ObjectProperties(){
+        if (ImGui::CollapsingHeader("Object Properties", ImGuiTreeNodeFlags_None))
+        {
+                    char text[128];
+                    //string text = string("object id") + string("%i", m_AM->getModels()[selected]->GetID()); 
+                    sprintf(text,"object ID : %i",  selected->GetID());
+                    
+                    ImGui::Text("%s",text);
+
+            static char str0[128] = "Object Name";
+            sprintf(str0,"%s",  selected->GetName().c_str());
+
+            if(ImGui::InputText("Object Name", str0, IM_ARRAYSIZE(str0)))
+                selected->SetName(string(str0));
+        }
+}
 void EditorUI::WorldNodeProperties(){
-    
-    WorldNode *localPointer = dynamic_cast<WorldNode*>(selected);
-    static float afCLearColor[4];
+        WorldNode *localPointer = dynamic_cast<WorldNode*>(selected);
+        static float afCLearColor[4];
+
+    if (ImGui::CollapsingHeader("WorldNode Properties", ImGuiTreeNodeFlags_None))
+        {
     if(ImGui::InputFloat4("Clear Color",afCLearColor))
     {
                      if(localPointer!=nullptr)
@@ -296,6 +314,10 @@ void EditorUI::WorldNodeProperties(){
                         PLOGE<<"DYNAMIC CAST FAILED  TO TYPE" <<WorldNode::TYPE.GetName();
                      }
     }
+
+        }
+        
+    
 
 
 }

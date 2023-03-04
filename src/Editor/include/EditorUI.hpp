@@ -67,6 +67,8 @@ void init_RTTI();
 void NodeProperties();
 void WorldNodeProperties();
 void AnimatedNodeProperties();
+void ObjectProperties();
+
 
 
 
