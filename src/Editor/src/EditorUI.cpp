@@ -125,13 +125,13 @@ PLOGI<<"DESTROYING IMGUI";
 }
 void EditorUI::updateInputFlags(int mode)
 {
-    if(    mode == 1)
+    if(    mode == WORLD)
     {
+    PLOGD<<mode;
     keyflag = ImGuiConfigFlags_NavNoCaptureKeyboard;     // Enable Keyboard Controls
     mouseflag = ImGuiConfigFlags_NoMouse;       // Enable Gamepad Controls
     ImGui::GetIO().ConfigFlags ^= ImGuiConfigFlags_None | ImGuiConfigFlags_None ;
     ImGui::GetIO().ConfigFlags |= mouseflag | keyflag ;
-
     }
     else
     {
@@ -139,5 +139,7 @@ void EditorUI::updateInputFlags(int mode)
     mouseflag = ImGuiConfigFlags_None;
     ImGui::GetIO().ConfigFlags ^= ImGuiConfigFlags_NavNoCaptureKeyboard | ImGuiConfigFlags_NoMouse;
     ImGui::GetIO().ConfigFlags |= mouseflag | keyflag;
+    
+    
     }
 }

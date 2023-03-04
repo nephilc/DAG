@@ -164,6 +164,7 @@ void EditorUI::ImportedScenesWindow(bool* p_open)
     if (ImGui::Begin("AssetManager Imported scenes Vector", p_open, ImGuiWindowFlags_MenuBar))
     {
         createNode();
+        playButton();
         // Left
         ImportedScenesWindowLeft(p_open);
         ImGui::SameLine();
@@ -323,4 +324,14 @@ void EditorUI::WorldNodeProperties(){
 }
 void EditorUI::AnimatedNodeProperties(){
 
+}
+
+
+void EditorUI::playButton(){
+ImGui::SameLine();
+// Create the button
+if (ImGui::Button("play", ImVec2(40, 20)))
+{
+    // Handle button press here
+}
 }

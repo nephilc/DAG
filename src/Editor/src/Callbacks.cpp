@@ -74,7 +74,7 @@ int Application::processInput()
 	}
 */	 
 
-	
+	if(imode ==WORLD){
     if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(m_window, true);
 
@@ -86,7 +86,7 @@ int Application::processInput()
         camera->ProcessKeyboard(LEFT, deltaTime);
     if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS)
         camera->ProcessKeyboard(RIGHT, deltaTime);
-	   
+    }
     return 0;
 }  
 
@@ -129,6 +129,7 @@ void Application::resizeViewport(int width, int height)
 //the editor will get the imode from the application and update itself
 void Application::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+
 	if(key == GLFW_KEY_TAB && action == GLFW_PRESS)
  	{
 
@@ -149,7 +150,7 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
 	}
 	if(imode == WORLD)
 	{ 
-    switch (action)
+        switch (action)
     {
     case GLFW_PRESS:
         //PLOGD<<"KEY CALLBACK WITH KEY CODE "<<  glfwGetKeyName(key, 0) << " ACTION PRESS" ;

@@ -68,10 +68,7 @@ void NodeProperties();
 void WorldNodeProperties();
 void AnimatedNodeProperties();
 void ObjectProperties();
-
-
-
-
+void playButton();
 void selectableTree();
 void createNode();
 void  shadersWindow(bool* p_open);
