@@ -350,7 +350,7 @@ ImVec2 windowSize = ImGui::GetContentRegionAvail();
 //fit the image to the window
 //it is the image object that causes the iverflow, it needs to be smaller than the windows dimensions
 //ImGui::Image((void*)(intptr_t)app->m_FB->textureColorbuffer, ImVec2(float(app->m_FB->getWidth()), (app->m_FB->getHeight())), ImVec2(0, 1), ImVec2(1, 0));
-ImGui::Image((void*)(intptr_t)app->m_FB->textureColorbuffer, windowSize, ImVec2(0, 1), ImVec2(1, 0));
+ImGui::Image((void*)(intptr_t)m_AM->getCurrentFrameBuffer()->textureColorbuffer, windowSize, ImVec2(0, 1), ImVec2(1, 0));
 
 
 //playButton();

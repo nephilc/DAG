@@ -89,9 +89,9 @@ public:
 
     void createFrameBuffer(int width, int height, string name);
     FrameBuffer* getFrameBuffer(string name);
-
-    void  recreateMainFB(int width, int height);
-    FrameBuffer* getMainBuffer();
+    //these will have to be static for they have to be accessed from non static members of other classes
+    static FrameBuffer* getMainBuffer();    
+    static void  recreateMainFB(int width, int height);
     void createmainFB(int width, int height);
 
     void getDefault(const Rtti &type, Node* parent);

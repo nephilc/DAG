@@ -7,7 +7,7 @@ AssetManager::AssetManager(/* args */)
     PLOGI<<"CREATING ASSETMANAGER";
     mainBuffer = new FrameBuffer(800, 600);
     v_frameBuffers.push_back(mainBuffer);
-    
+
     makeBufferCurrent(mainBuffer);
     //CreateDefaults();
 
@@ -169,13 +169,21 @@ void  AssetManager::recreateMainFB(int width, int height)
 
 FrameBuffer* AssetManager::getMainBuffer()
 {
+    if(mainBuffer)
     return mainBuffer;
+    else
+    PLOGE<<"TRYING TO ACCESS MAIN FB BEFORE ITS CREATION";
+    return nullptr;
 }
 
 void AssetManager::createmainFB(int width, int height)
 {
-    mainBuffer = new FrameBuffer(width, height);
+    if(mainBuffer)
+    {mainBuffer = new FrameBuffer(width, height);
     PLOGE<<"CREATED MAIN FB";
+    }
+    else
+    PLOGE<<"TRYING TO RECREATE MAIN FB BEFORE ITS CREATION";
 }
 
 void AssetManager::getDefault(const Rtti &type, Node *parent)

@@ -111,7 +111,8 @@ void Application::framebuffer_size_callback(GLFWwindow* window, int width, int h
     PLOGD<<width <<" " <<height;
     PLOGD<<m_iWidth <<"   ii " <<m_iHeight;
 
-    m_FB->recreate(width, height);//this is the one we render to
+    //m_FB->recreate(width, height);//this is the one we render to
+    AssetManager::getMainBuffer()->recreate(width, height);
     //i think the framebuffer callback is called on the currently bound framebuffer.    
 
 }
