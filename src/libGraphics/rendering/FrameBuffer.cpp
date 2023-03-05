@@ -4,10 +4,12 @@
 #include <glad/glad.h>
 #include <plog/Log.h>
 
+IMPLEMENT_RTTI(FrameBuffer, Object)
 
 
 FrameBuffer::FrameBuffer(int width, int height):m_iWidth(width), m_iHeight(height)
 {
+    SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
     createFB(width, height);
  
 }

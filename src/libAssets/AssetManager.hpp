@@ -64,7 +64,7 @@ private:
     vector<FrameBuffer*> v_frameBuffers;
 
     static FrameBuffer* mainBuffer;
-
+    FrameBuffer *currentFrameBuffer;
     
 
 public:
@@ -78,6 +78,8 @@ public:
     const vector<Node*>& getScenes() const;
     const vector<Shader*>& getShaders() const;
     const vector<FrameBuffer*>& getFrameBuffers() const;
+    FrameBuffer* getCurrentFrameBuffer();
+    void makeBufferCurrent(FrameBuffer *buffer);
 
     void CreateDefaults();
 

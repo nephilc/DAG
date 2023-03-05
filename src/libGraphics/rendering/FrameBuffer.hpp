@@ -2,11 +2,13 @@
 #define FRAMEBUFFER_HPP
 
 #include <Object.hpp>
+#include<RTTI.hpp>
 
 
 
 class FrameBuffer : public Object
 {
+    DECLARE_RTTI
 private:
 
 int m_iWidth  , m_iHeight;

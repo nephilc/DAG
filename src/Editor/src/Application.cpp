@@ -22,7 +22,7 @@ unsigned int Application::rbo = 0;
 */
 glm::mat4 Application::model = glm::mat4(1.0f);
 glm::mat4 Application::idm = glm::mat4(1.0f);
-FrameBuffer* Application::m_FB = 0;
+//FrameBuffer* Application::m_FB = 0;
 
 Camera* Application::camera = 0;
 
@@ -86,7 +86,7 @@ void Application::init()
     loadGL();
 
     allocateModules();
-    m_FB = new FrameBuffer(m_iWidth, m_iHeight);
+    //m_FB = new FrameBuffer(m_iWidth, m_iHeight);
     PLOGD<<"allocated modules";
 }
 

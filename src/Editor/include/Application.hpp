@@ -63,7 +63,7 @@ private:
 */
     static glm::mat4 model;
     static glm::mat4 idm;
-    static FrameBuffer *m_FB;
+    //static FrameBuffer *m_FB;
 
 
 

@@ -60,7 +60,7 @@ int Application::Main (int iQuantity, char** apcArgument)
     {
         //m_FB is where you draw the nodes
         //there is also the default frame buffer
-        application->m_FB->use();
+        //application->m_FB->use();
         glEnable(GL_DEPTH_TEST);
         //PLOGD<<"starting redner1";
         float currentFrame = static_cast<float>(glfwGetTime());

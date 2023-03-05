@@ -5,6 +5,10 @@ FrameBuffer* AssetManager::mainBuffer = 0;
 AssetManager::AssetManager(/* args */)
 {
     PLOGI<<"CREATING ASSETMANAGER";
+    mainBuffer = new FrameBuffer(800, 600);
+    v_frameBuffers.push_back(mainBuffer);
+    
+    makeBufferCurrent(mainBuffer);
     //CreateDefaults();
 
 }
@@ -143,6 +147,18 @@ const vector<FrameBuffer*>& AssetManager::getFrameBuffers() const
     return v_frameBuffers;
 }
 
+FrameBuffer *AssetManager::getCurrentFrameBuffer()
+{
+    return currentFrameBuffer;
+}
+
+void AssetManager::makeBufferCurrent(FrameBuffer *buffer)
+{
+    if(buffer)
+    currentFrameBuffer = buffer;
+    else
+    PLOGE<<"TRYING TO MAKE CURRENT FRAMEBUFFER NULL BUFFER NAME "<< buffer->GetName();
+}
 
 void  AssetManager::recreateMainFB(int width, int height)
 {
