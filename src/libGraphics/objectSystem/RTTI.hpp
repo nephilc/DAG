@@ -26,7 +26,7 @@ private:
     const Rtti* m_pkBaseType;
 };
 //extern std::vector<Rtti*> typeList;
-
+//std::vector<Rtti*> Rtti::typeList;
 #include "RTTI.inl"
 
 #endif
