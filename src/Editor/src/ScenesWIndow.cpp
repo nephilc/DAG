@@ -24,6 +24,7 @@ void EditorUI::createNode()
     if (ImGui::BeginPopup("my_select_popup"/*,  NULL*/, ImGuiWindowFlags_AlwaysAutoResize))
     {       
             static Rtti *selectedType = nullptr;
+            ImGui::Text("%d", Node::TYPE.typeList.size());
             for(Rtti* type : Rtti::typeList){
             if (ImGui::Selectable(type->GetName().c_str(), selectedType == type, ImGuiSelectableFlags_DontClosePopups))
                     selectedType = type;

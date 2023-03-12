@@ -10,5 +10,5 @@ target_link_libraries(
   glfw
   stb_image
   glad
-  Assets Graphics backend
+  Assets Graphics backend objectSystem
   )

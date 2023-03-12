@@ -10,9 +10,10 @@ public:
     // The name must be unique among all objects in the system.  In the Wm4
     // namespace, a class Foo should use "Wm4.Foo".  If an application has
     // another namespace, SomeName, then the name should be "SomeName.Foo".
+    static std::vector<Rtti*> typeList;
+
     Rtti (std::string name, const Rtti* pkBaseType);
     ~Rtti ();
-    static std::vector<Rtti*> typeList;
     std::string GetName () const;
     int GetDiskUsed () const;
 
@@ -24,6 +25,7 @@ private:
     const std::string m_name;
     const Rtti* m_pkBaseType;
 };
+//extern std::vector<Rtti*> typeList;
 
 #include "RTTI.inl"
 

@@ -12,10 +12,12 @@ inline int Rtti::GetDiskUsed () const
     return sizeof(iLength) + iLength*sizeof(char);
 }
 */
-
+#include<iostream>
 //----------------------------------------------------------------------------
 inline bool Rtti::IsExactly (const Rtti& rkType) const
 {
+    std::cout<<"rtti const"<<typeList.size()<<std::endl;
+
     return &rkType == this;
 }
 //----------------------------------------------------------------------------

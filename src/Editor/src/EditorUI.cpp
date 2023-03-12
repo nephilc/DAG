@@ -14,6 +14,7 @@ EditorUI::EditorUI(/* args */)
     init_imgui();
     init_RTTI();
     selected = nullptr;
+    PLOGD<<"editor const"<<Node::TYPE.typeList.size();
 
 }
 

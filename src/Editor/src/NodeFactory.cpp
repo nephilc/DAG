@@ -1,4 +1,5 @@
 #include "NodeFactory.hpp"
+std::vector<Rtti*> Rtti::typeList;
 
 Node *NodeFactory::create(const Rtti *type)
 {
