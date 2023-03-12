@@ -1,7 +1,9 @@
 ThirdParty
 build
 bin
+.vs
 .vscode
 lib
 EditorBin
 build1
+out

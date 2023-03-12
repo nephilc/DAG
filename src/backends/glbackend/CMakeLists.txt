@@ -5,7 +5,7 @@
 #set(CMAKE_CXX_STANDARD 14)
 #configure_file(Config.h.in Config.h)
 
-add_library(glbackend SHARED glbe.cpp glbe.hpp)
+add_library(glbackend STATIC glbe.cpp glbe.hpp)
 target_link_libraries(glbackend PRIVATE plog glad glm PUBLIC backendInterface)
 target_include_directories(glbackend PUBLIC .  )
 
