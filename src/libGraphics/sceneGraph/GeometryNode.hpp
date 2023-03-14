@@ -8,13 +8,8 @@
 #include "animator.h"
 
 #include<RTTI.hpp>
-//the node needs the camera
 
-//these seem to be unecessary, probably a residue from the early awesome face programs
-//we used two textures and blended them together.
-//ourShader1.setInt("texture1", 0);
-    //ourShader1.setInt("texture2", 1);
-
+//the objectif of this class is to handle some generic stuff related to shaders, and any operations to be perfored by objects that use shaders, and/or render any geometry.
 
 class GeometryNode : public Node
 {
