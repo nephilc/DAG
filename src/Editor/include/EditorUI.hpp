@@ -68,6 +68,7 @@ void FramebuffersWindow(bool *p_open);
 void ObjectProperties(Object *object);
 void NodeProperties();
 void WorldNodeProperties();
+void GeometryNodeProperties();
 void AnimatedNodeProperties();
 void ObjectProperties();
 void playButton();

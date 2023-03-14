@@ -1,6 +1,6 @@
-#ifndef ANIMATED_NODE_HPP
-#define ANIMATED_NODE_HPP
-#include "GeometryNode.hpp"
+#ifndef GEOMETRYNODE_HPP
+#define GEOMETRYNODE_HPP
+#include "Node.hpp"
 #include "Model.hpp"
 #include "Shader.hpp"
 #include "Camera.hpp"
@@ -16,24 +16,27 @@
     //ourShader1.setInt("texture2", 1);
 
 
-class AnimatedNode : public GeometryNode
+class GeometryNode : public Node
 {
 
 DECLARE_RTTI
-private:
+protected:
     /* data */
+    Shader* m_shader;
+
 
 
 public:
-    AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation& animation);
-    AnimatedNode();
-    ~AnimatedNode();
-    void Draw(Camera* camera, float deltaTime) override;
-    Model* m_model;
-    //Shader& m_shader;
-    Animator* m_animator;
-    Animation& m_animation;
+    GeometryNode(Shader* shader);
+    GeometryNode();
+    ~GeometryNode();
+    void setShader(Shader* shader);    
+    Shader* getShader();    
 
+    void Draw(Camera* camera, float deltaTime) override;
+    //only call this, starting from child methods
+    virtual void GeometryDraw(Camera* camera, float deltaTime);
+    //Shader& m_shader;
 
 
 };

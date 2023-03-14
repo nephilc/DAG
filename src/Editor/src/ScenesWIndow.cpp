@@ -261,26 +261,7 @@ ImGui::Text("the worldz in the parent frame");
                         }
                         ImGui::NewLine();
 
-                    //shaders 
-                    static int item_current_idx = 0; // Here we store our selection data as an index.
-                    vector<Shader*> shaders = m_AM->getShaders();
-                    if (ImGui::BeginListBox("listbox 1"))
-                    {
-                    for (int n = 0; n < shaders.size(); n++)
-                        {
-                            //item_current_idx = n;
-
-                            const bool is_selected = (selected->getShader() == shaders[n]);
-                            if (ImGui::Selectable(shaders[n]->GetName().c_str(), is_selected))
-                                selected->setShader(shaders[n]);
-
-                    // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-                    if (is_selected)
-                    ImGui::SetItemDefaultFocus();
-                    }
-                    ImGui::EndListBox();
-                    }
-                    //end of shaders
+                    
                     }
 
 }
@@ -324,6 +305,34 @@ void EditorUI::WorldNodeProperties(){
 
 }
 void EditorUI::AnimatedNodeProperties(){
+
+}
+void EditorUI::GeometryNodeProperties(){
+    GeometryNode *localPointer = dynamic_cast<GeometryNode*>(selected);
+    if (ImGui::CollapsingHeader("GeometryNode Properties", ImGuiTreeNodeFlags_None))
+    {
+        //shaders 
+                    static int item_current_idx = 0; // Here we store our selection data as an index.
+                    vector<Shader*> shaders = m_AM->getShaders();
+                    if (ImGui::BeginListBox("listbox 1"))
+                    {
+                    for (int n = 0; n < shaders.size(); n++)
+                        {
+                            //item_current_idx = n;
+
+                            const bool is_selected = (localPointer->getShader() == shaders[n]);
+                            if (ImGui::Selectable(shaders[n]->GetName().c_str(), is_selected))
+                                localPointer->setShader(shaders[n]);
+
+                    // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                    if (is_selected)
+                    ImGui::SetItemDefaultFocus();
+                    }
+                    ImGui::EndListBox();
+                    }
+                    //end of shaders
+
+    }
 
 }
 

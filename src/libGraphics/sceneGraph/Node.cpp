@@ -300,16 +300,6 @@ glm::mat4& Node::getWorldTransform()
 {
     return m_world;
 }
-void Node::setShader(Shader* shader)
-{
-    m_shader = shader;
-}    
-
-Shader* Node::getShader()
-{
-    return m_shader;
-}    
-
 
 
 

@@ -28,7 +28,6 @@ DECLARE_RTTI
 
 public:
     /* data */
-Shader* m_shader;
 Node* m_parent;
 
 vector<Node*> m_children;
@@ -77,8 +76,6 @@ public:
     glm::vec3 getScale();
     float getRotationAngle();
     glm::mat4& getWorldTransform();
-    void setShader(Shader* shader);    
-    Shader* getShader();    
     glm::mat4& getRelatifTransform();
     glm::mat4& getGuizmoTransform();
     void handleDetachements();

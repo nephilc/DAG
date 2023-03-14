@@ -1,13 +1,13 @@
 
 #include "AnimatedNode.hpp"
 
-IMPLEMENT_RTTI(AnimatedNode, Node)
+IMPLEMENT_RTTI(AnimatedNode, GeometryNode)
 
-AnimatedNode::AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation& animation) : m_model(model),  m_animator(animator),
+AnimatedNode::AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation& animation) : m_model(model),  m_animator(animator), GeometryNode(shader),
 m_animation(animation)
 {
     SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
-    Node::m_shader = shader;
+    
 }
 /*
 AnimatedNode::AnimatedNode()
