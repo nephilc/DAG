@@ -135,6 +135,9 @@ void EditorUI::ImportedScenesWindowRight(bool* p_open)
                     }
                     else{
                         NodeProperties();
+                        if(selected->GetType().IsDerived(GeometryNode::TYPE)){
+                        GeometryNodeProperties();
+                    }
                     }
                     }
                     ImGui::EndTabItem();
