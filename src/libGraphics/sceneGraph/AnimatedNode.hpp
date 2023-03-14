@@ -29,6 +29,7 @@ public:
     AnimatedNode();
     ~AnimatedNode();
     void Draw(Camera* camera, float deltaTime) override;
+    void GeometryDraw(Camera* camera, float deltaTime) override;
     Model* m_model;
     //Shader& m_shader;
     Animator* m_animator;
