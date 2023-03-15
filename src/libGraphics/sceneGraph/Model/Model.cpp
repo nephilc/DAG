@@ -66,6 +66,7 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
         m_scene = new Node();
         // process ASSIMP's root node recursively
         processNode(scene->mRootNode, scene);
+
     }
     //
 

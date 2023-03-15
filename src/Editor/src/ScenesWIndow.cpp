@@ -137,7 +137,10 @@ void EditorUI::ImportedScenesWindowRight(bool* p_open)
                         NodeProperties();
                         if(selected->GetType().IsDerived(GeometryNode::TYPE)){
                         GeometryNodeProperties();
+                                            }
                     }
+                    if(selected->GetType().IsDerived(ModelNode::TYPE)){
+                        ModelNodeProperties();
                     }
                     }
                     ImGui::EndTabItem();
@@ -313,7 +316,8 @@ void EditorUI::AnimatedNodeProperties(){
 void EditorUI::GeometryNodeProperties(){
     GeometryNode *localPointer = dynamic_cast<GeometryNode*>(selected);
     if (ImGui::CollapsingHeader("GeometryNode Properties", ImGuiTreeNodeFlags_None))
-    {
+    {               if(ImGui::Button("set null") & selected!=0)   localPointer->setShader(nullptr);
+
         //shaders 
                     static int item_current_idx = 0; // Here we store our selection data as an index.
                     vector<Shader*> shaders = m_AM->getShaders();
@@ -326,6 +330,35 @@ void EditorUI::GeometryNodeProperties(){
                             const bool is_selected = (localPointer->getShader() == shaders[n]);
                             if (ImGui::Selectable(shaders[n]->GetName().c_str(), is_selected))
                                 localPointer->setShader(shaders[n]);
+
+                    // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                    if (is_selected)
+                    ImGui::SetItemDefaultFocus();
+                    }
+                    ImGui::EndListBox();
+                    }
+                    //end of shaders
+
+    }
+
+}
+void EditorUI::ModelNodeProperties(){
+    ModelNode *localPointer = dynamic_cast<ModelNode*>(selected);
+    if (ImGui::CollapsingHeader("ModelNode Properties", ImGuiTreeNodeFlags_None))
+    {               if(ImGui::Button("set null") & selected!=0)   localPointer->setModel(nullptr);
+
+        //shaders 
+                    static int item_current_idx = 0; // Here we store our selection data as an index.
+                    vector<Model*> models = m_AM->getModels();
+                    if (ImGui::BeginListBox("listbox models"))
+                    {
+                    for (int n = 0; n < models.size(); n++)
+                        {
+                            //item_current_idx = n;
+
+                            const bool is_selected = (localPointer->getModel() == models[n]);
+                            if (ImGui::Selectable(models[n]->GetName().c_str(), is_selected))
+                                localPointer->setModel(models[n]);
 
                     // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
                     if (is_selected)

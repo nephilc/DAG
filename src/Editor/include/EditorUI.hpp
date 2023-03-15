@@ -69,6 +69,7 @@ void ObjectProperties(Object *object);
 void NodeProperties();
 void WorldNodeProperties();
 void GeometryNodeProperties();
+void ModelNodeProperties();
 void AnimatedNodeProperties();
 void ObjectProperties();
 void playButton();

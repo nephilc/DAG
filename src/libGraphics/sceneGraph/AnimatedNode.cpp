@@ -26,15 +26,11 @@ void AnimatedNode::Draw(Camera* camera, float deltaTime)
     //PLOGD<<"Drawing node";
     //if(m_shader!=nullptr && m_animator!=nullptr &&m_model!=nullptr ){
     
-    GeometryDraw(camera, deltaTime);
+    if(m_shader!=nullptr) GeometryDraw(camera, deltaTime);
     m_animator->UpdateAnimation(deltaTime);
 
 
-    auto transforms = m_animator->GetFinalBoneMatrices();
-	for (int i = 0; i < transforms.size(); ++i)
-		m_shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
-        //set the time, among other things
-    m_model->Draw(m_shader);
+    
     
     GeometryNode::Draw(camera, deltaTime);
 
@@ -43,4 +39,9 @@ void AnimatedNode::Draw(Camera* camera, float deltaTime)
 void AnimatedNode::GeometryDraw(Camera *camera, float deltaTime)
 {
     GeometryNode::GeometryDraw(camera, deltaTime);
+    auto transforms = m_animator->GetFinalBoneMatrices();
+	for (int i = 0; i < transforms.size(); ++i)
+		m_shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+        //set the time, among other things
+    m_model->Draw(m_shader);
 }

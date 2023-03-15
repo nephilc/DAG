@@ -7,8 +7,8 @@ Node *NodeFactory::create(const Rtti *type)
     if(type->IsExactly(Node::TYPE)){
         return new Node();
     }
-    else if(type->IsExactly(AnimatedNode::TYPE)){
-        
+    else if(type->IsExactly(ModelNode::TYPE)){
+    return new ModelNode();
     }
     else{
 

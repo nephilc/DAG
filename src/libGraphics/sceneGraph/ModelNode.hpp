@@ -2,10 +2,10 @@
 #ifndef MODELNODE_HPP
 #define MODELNODE_HPP
 
-#include"Node.hpp"
+#include"GeometryNode.hpp"
 #include"Model.hpp"
 #include "RTTI.hpp"
-class ModelNode : public Node
+class ModelNode : public GeometryNode
 {
     DECLARE_RTTI
 private:
@@ -14,6 +14,11 @@ public:
     ModelNode();
     ModelNode(Model* model);
     void Draw(Camera* camera, float deltaTime) override;
+    void GeometryDraw(Camera* camera, float deltaTime) override;
+    void setModel(Model *model);
+
+    Model *getModel();
+
     ~ModelNode();
 };
 
