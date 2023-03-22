@@ -137,10 +137,42 @@ void AssetManager::createFrameBuffer(int width, int height, string name)
 }
 
 
+
+void AssetManager::createScreenCanvas(int width, int height, string name)
+{
+    if (screenCanavases.count(name) > 0)
+    {
+        ScreenCanvas* sc = new ScreenCanvas(width, height);
+        v_ScreenCanvases.push_back(sc);
+        std::ostringstream oss;
+        oss << name << sc->GetID();
+        string newName = oss.str();
+
+        sc->SetName(newName);
+        screenCanavases[newName] = sc;
+    }
+    else
+    {
+        ScreenCanvas* sc = new ScreenCanvas(width, height);
+        v_ScreenCanvases.push_back(sc);
+        sc->SetName(name);
+        screenCanavases[name] = sc;
+
+    }
+
+}
+
+const vector<ScreenCanvas*>& AssetManager::getScreenCanvases() const 
+{
+    return  v_ScreenCanvases;
+}
+
+
 FrameBuffer* AssetManager::getFrameBuffer(string name)
 {
     return frameBuffers[name];
 }
+
 
 const vector<FrameBuffer*>& AssetManager::getFrameBuffers() const
 {

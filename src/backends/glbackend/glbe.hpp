@@ -36,6 +36,7 @@ void setMat3(unsigned int ID,const std::string &name, const glm::mat3 &mat) cons
 void setMat4(unsigned int ID,const std::string &name, const glm::mat4 &mat) const;
 void checkCompileErrors(unsigned int shader, std::string type);
 void useProgram(unsigned int ID);
+void create2DSquare(unsigned int* VAO, unsigned int* VBO, const float* vertices, unsigned int size) const;
 int createProgram(const char* vShaderCode, const char* fShaderCode);
 void deleteProgram(unsigned int ID);
 void createMesh(unsigned int *VAO,unsigned int *VBO,unsigned int *EBO, unsigned int offsets[6], const void* vertices, unsigned int size

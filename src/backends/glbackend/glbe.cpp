@@ -175,6 +175,20 @@ int glbe::createProgram(const char* vShaderCode, const char* fShaderCode)
         return ID;
 }
 
+void glbe::create2DSquare(unsigned int* VAO, unsigned int* VBO, const float* vertices, unsigned int size) const 
+{
+    glGenVertexArrays(1, VAO);
+    glGenBuffers(1, VBO);
+    glBindVertexArray(*VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, *VBO);
+    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glBindVertexArray(0);
+}
+
 void glbe::deleteProgram(unsigned int ID)
 {
     glDeleteProgram(ID);
