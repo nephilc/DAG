@@ -33,6 +33,7 @@ virtual    void setMat3(unsigned int ID,const std::string &name, const glm::mat3
 virtual    void setMat4(unsigned int ID,const std::string &name, const glm::mat4 &mat) const=0;
 virtual    void clearColorAndBuffersDC(float r, float g, float b, float a) const=0;
 virtual void drawSurface(unsigned int VAO, unsigned int sindex)=0;
+virtual    void viewport(float x, float y, float width, float height) const = 0;
 
 
 virtual void create2DSquare(unsigned int* VAO, unsigned int* VBO, const float* vertices, unsigned int size) const=0;

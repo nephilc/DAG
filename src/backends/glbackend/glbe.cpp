@@ -280,3 +280,8 @@ void glbe::setTexture(unsigned int unit, unsigned int textureID, unsigned int sh
             //you bind a texture to a texture unit and, then set the sampler to the correct texture unit.
        
 }
+
+void glbe::viewport(float x, float y, float width, float height) const
+{
+    glViewport(x, y, width, height);
+}

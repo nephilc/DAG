@@ -27,8 +27,7 @@ int Application::Main (int iQuantity, char** apcArgument)
     //ScreenCanvas sc();
 
     //node1->attachChild(aniNode);
-    node1->attachChild(assetManager->defaultaniNode);
-    
+    node1->attachChild(assetManager->defaultaniNode);    
     glEnable(GL_DEPTH_TEST);
     //Shader frameshader("shaderPrograms/framebuffer.vs", "shaderPrograms/framebuffer.fs");
  
@@ -48,7 +47,7 @@ int Application::Main (int iQuantity, char** apcArgument)
         //m_FB is where you draw the nodes
         //there is also the default frame buffer
         //application->m_FB->use();
-        assetManager->getScreenCanvas("sc1")->draw(deltaTime);
+        assetManager->getScreenCanvas("sc1")->draw(currentFrame, deltaTime);
 
         assetManager->getMainBuffer()->use();
         glEnable(GL_DEPTH_TEST);

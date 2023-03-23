@@ -295,8 +295,14 @@ void  EditorUI::ScreenCanvasesWindow(bool* p_open)
                     if (ImGui::Button("Show in Window", ImVec2(100, 50)))
                     {
                         m_AM->makeBufferCurrent(selectedsc->getFrameBuffer());
-                        //selectedfb->reload();
                     }
+                    ImGui::SameLine();
+                    if (ImGui::Button("reload shader", ImVec2(100, 50)))
+                    {
+                        selectedsc->getShader()->reload();
+                    }
+                    //#######################################################
+                    //##############change the shader vs and fs shader path
 
                     ImGui::EndTabItem();
                 }

@@ -32,7 +32,7 @@ public:
     void setShader(Shader *shader);
     Shader* getShader();
     
-    void draw(float deltaTime);
+    void draw(float time, float deltaTime);
     void setFrameBuffer(FrameBuffer* fb);
     FrameBuffer* getFrameBuffer();
 
