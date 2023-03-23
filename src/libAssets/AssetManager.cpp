@@ -35,6 +35,10 @@ AssetManager::~AssetManager()
 {
     PLOGI<<"DESTROYING ASSETMANAGER";
 }
+ScreenCanvas* AssetManager::getScreenCanvas(const string name)
+{
+    return screenCanavases[name];
+}
 
 
 void AssetManager::loadModel(string path, string name)

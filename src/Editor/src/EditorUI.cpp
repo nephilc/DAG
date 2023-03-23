@@ -51,6 +51,7 @@ void EditorUI::render()
         ImportedScenesWindow(&show_demo_window);
         shadersWindow(&show_demo_window);
         FramebuffersWindow(&show_demo_window);
+        ScreenCanvasesWindow(&show_demo_window);
         m_AM->scene->handleDetachements();
             
 

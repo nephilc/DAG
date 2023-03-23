@@ -79,6 +79,8 @@ public:
 
 
     Model* getModel(const string name);
+    ScreenCanvas* getScreenCanvas(const string name);
+
     const vector<Model*>& getModels() const;
     const vector<Node*>& getScenes() const;
     const vector<Shader*>& getShaders() const;

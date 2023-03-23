@@ -253,6 +253,18 @@ void glbe::drawMesh(unsigned int VAO, unsigned int sindex)
 
 
 }
+void glbe::drawSurface(unsigned int VAO, unsigned int sindex)
+{
+    // draw mesh
+    glBindVertexArray(VAO);
+    glDisable(GL_DEPTH_TEST);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    
+    glEnable(GL_DEPTH_TEST);
+
+
+}
+
 //texture unit, texture ID, shader ID, uniform sampler name
 void glbe::setTexture(unsigned int unit, unsigned int textureID, unsigned int shaderID, const char* name)
 {

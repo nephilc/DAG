@@ -229,6 +229,7 @@ void  EditorUI::FramebuffersWindow(bool* p_open)
                     ImGui::Separator();
                     if(ImGui::Button("Show in Window", ImVec2(100, 50)))
                     {
+                        m_AM->makeBufferCurrent(selectedfb);
                         //selectedfb->reload();
                     }
                     
@@ -247,6 +248,73 @@ void  EditorUI::FramebuffersWindow(bool* p_open)
     }
     ImGui::End();
 }
+
+
+void  EditorUI::ScreenCanvasesWindow(bool* p_open)
+{
+
+    ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
+    if (ImGui::Begin("AssetManager Created ScreenCanvases Vector", p_open, ImGuiWindowFlags_MenuBar))
+    {
+        vector<ScreenCanvas*> vlscs = m_AM->getScreenCanvases();
+        // Left
+        static int selected = 0;
+        ScreenCanvas* selectedsc;
+        {
+            ScreenCanvas* sc;
+            ImGui::BeginChild("left pane", ImVec2(150, 0), true);
+            for (int i = 0; i < vlscs.size(); i++)
+            {
+                // FIXME: Good candidate to use ImGuiSelectableFlags_SelectOnNav
+                sc = vlscs[i];
+                char label[128];
+                sprintf(label, "%s", sc->GetName().c_str());
+                if (ImGui::Selectable(label, selected == i))
+                    selected = i;
+            }
+            ImGui::EndChild();
+        }
+        ImGui::SameLine();
+        if (vlscs.size() > 0)
+            selectedsc = vlscs[selected];
+        // Right
+        if (vlscs.size() > 0)
+
+        {
+            ImGui::BeginGroup();//this child window will scroll on it's own
+            ImGui::BeginChild("item view", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
+            ImGui::Text("Object Name: %s", selectedsc->GetName().c_str());
+            ImGui::Separator();
+            if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
+            {
+
+                if (ImGui::BeginTabItem("SC Details"))
+                {
+                    ObjectProperties(selectedsc);
+                    ImGui::Separator();
+                    if (ImGui::Button("Show in Window", ImVec2(100, 50)))
+                    {
+                        m_AM->makeBufferCurrent(selectedsc->getFrameBuffer());
+                        //selectedfb->reload();
+                    }
+
+                    ImGui::EndTabItem();
+                }
+                ImGui::EndTabBar();
+            }
+            ImGui::EndChild();
+            /*
+            if (ImGui::Button("Revert")) {}
+            ImGui::SameLine();
+            if (ImGui::Button("Save")) {}
+            */
+            ImGui::EndGroup();
+        }
+    }
+    ImGui::End();
+}
+
+
 void EditorUI::ShowPlaceholderObject(const char* prefix, int uid)
 {
     // Use object uid as identifier. Most commonly you could also use the object pointer as a base ID.
