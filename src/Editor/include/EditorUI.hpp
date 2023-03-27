@@ -15,7 +15,7 @@
 
 #include "ImGuizmo.h"
 #include<AssetManager.hpp>
-
+#include<TextEditor.h>
 #include <map>
 
 /// @brief EACH METHOD IN THIS CLASS IS RESPONSIBLE FOR RENDERING A UI COMPONENT, THE COMPONENTS WILL ACCES THE APPLICATION CLASS AND OTHER CLASSES IN OTHER TO MODIFY THE STATE OF THE APPLICATION.
@@ -41,6 +41,13 @@ private:
     AssetManager* m_AM;
 
     Node* selected;
+    TextEditor editor;
+    TextEditor::LanguageDefinition lang;
+    TextEditor::ErrorMarkers markers;
+
+    bool enableEditing;
+
+
 public:
     EditorUI(/* args */);
     ~EditorUI();
@@ -65,7 +72,9 @@ void DrawTree(Node* scene);
 void init_RTTI();
 void FramebuffersWindow(bool *p_open);
 void  ScreenCanvasesWindow(bool* p_open);
+void  TextEditorWindow();
 
+void saveText();
 
 void ObjectProperties(Object *object);
 void NodeProperties();

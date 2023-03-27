@@ -79,6 +79,8 @@ int Application::Main (int iQuantity, char** apcArgument)
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        //ImGui::UpdatePlatformWindows();
+        //ImGui::RenderPlatformWindowsDefault();
         
         glfwSwapBuffers(m_window);
         glfwPollEvents();

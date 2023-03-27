@@ -1,6 +1,21 @@
 #include<EditorUI.hpp>
 #include <gtc/type_ptr.hpp>
 
+void EditorUI::saveText()
+{
+    auto textToSave = editor.GetText();
+    PLOGD << textToSave;
+    std::ofstream file("shaderPrograms/framebuffer.fs"); // create file object
+    if (file.is_open()) { // check if file is open
+        file << textToSave;
+        file.close(); // close file
+    }
+    else {
+        std::cerr << "Unable to open file." << std::endl;
+    }
+
+
+}
 
 void EditorUI::showMainMenu()
 {
@@ -13,8 +28,18 @@ void EditorUI::showMainMenu()
                 open = true;
         if (ImGui::MenuItem("Import scene", NULL))
                 save = true;
-            
         ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Edit"))
+        {
+            static bool s_enableEditing= false;
+            if (ImGui::Checkbox("Enable Editing", &s_enableEditing))
+                enableEditing = s_enableEditing;
+            if (ImGui::MenuItem("Save", "Ctrl-S") || (ImGui::GetIO().KeyCtrl && ImGui::IsKeyPressed('S')))
+            {
+                saveText();
+            }
+            ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
     }
@@ -577,3 +602,21 @@ ImGui::PopStyleVar(2);
 
 }
 
+
+void  EditorUI::TextEditorWindow()
+{
+    if (ImGui::GetIO().KeyCtrl && ImGui::IsKeyPressed('S'))
+    {
+        saveText();
+    }
+    else if (ImGui::GetIO().KeyCtrl && ImGui::IsKeyPressed('R')) {
+        saveText();
+        m_AM->getScreenCanvas("sc1")->getShader()->reload();
+    }
+
+    editor.Render("TextEditor");
+
+
+
+
+}
