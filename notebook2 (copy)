@@ -1,0 +1,20 @@
+so these functions will implement the game logic, ad they will be acting primarily on the game assets, so they will need access to the asset manager.
+the engine user will need to implement endless actions and map them to keys, using the key map.
+
+two maps one for the keyboard and mouse, and another one for the controller. and another key map that maps action names to action functions.
+
+the map ist that large, i could use an unordered map, or just a map, and get comparable performance.
+
+the use can register actions.
+the key callbacks will call these actions, what ever they are.
+depending on mode the actions to be taken are different. For example, in ui mode, a right mouse click, will mean something different in game mode. we will have two maps one for ui mode and one for game mode. we would usuallyonly need these two modes.
+
+the game logic class tha contains and registers actions, should be in the app itself instead of the engine.
+
+the key map in the application, the action map in the asset manager.
+in certain cases we can register lambdas as action function since the actions already exist as member functions of some objects. we would need the asset manager tot access those objects.
+
+now some actions will need some input if triggerd by mouse or joystick, can change the signature of the actions , to accept certain params.
+and simply ignore them if not needed.
+
+since there will be some repetition, i can use macros.
