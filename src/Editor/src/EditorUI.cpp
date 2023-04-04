@@ -11,9 +11,27 @@ ImGuizmo::MODE EditorUI::mCurrentGizmoMode(ImGuizmo::WORLD);
 EditorUI::EditorUI(/* args */)
 {
     PLOGI<<"INITIALIZING EDITORUI";
+    enableEditing = false;
     init_imgui();
     init_RTTI();
+    //ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     selected = nullptr;
+    lang = TextEditor::LanguageDefinition::GLSL();
+    editor.SetLanguageDefinition(lang);
+    markers.insert(std::make_pair<int, std::string>(6, "Example error here:\nInclude file not found: \"TextEditor.h\""));
+    markers.insert(std::make_pair<int, std::string>(41, "Another example error"));
+    editor.SetErrorMarkers(markers);
+    static const char* fileToEdit = "shaderPrograms/framebuffer.fs";
+    {
+        std::ifstream t(fileToEdit);
+        if (t.good())
+        {
+            std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+            editor.SetText(str);//set the text to edit
+        }
+    }
+
+
     PLOGD<<"editor const"<<Node::TYPE.typeList.size();
 
 }
@@ -51,6 +69,9 @@ void EditorUI::render()
         ImportedScenesWindow(&show_demo_window);
         shadersWindow(&show_demo_window);
         FramebuffersWindow(&show_demo_window);
+        ScreenCanvasesWindow(&show_demo_window);
+        if(enableEditing) TextEditorWindow();
+
         m_AM->scene->handleDetachements();
             
 

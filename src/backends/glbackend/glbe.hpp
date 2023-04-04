@@ -34,14 +34,21 @@ void setVec4(unsigned int ID,const std::string &name, float x, float y, float z,
 void setMat2(unsigned int ID,const std::string &name, const glm::mat2 &mat) const;
 void setMat3(unsigned int ID,const std::string &name, const glm::mat3 &mat) const;
 void setMat4(unsigned int ID,const std::string &name, const glm::mat4 &mat) const;
+void drawSurface(unsigned int VAO, unsigned int sindex);
+
+
+
 void checkCompileErrors(unsigned int shader, std::string type);
 void useProgram(unsigned int ID);
+void create2DSquare(unsigned int* VAO, unsigned int* VBO, const float* vertices, unsigned int size) const;
 int createProgram(const char* vShaderCode, const char* fShaderCode);
 void deleteProgram(unsigned int ID);
 void createMesh(unsigned int *VAO,unsigned int *VBO,unsigned int *EBO, unsigned int offsets[6], const void* vertices, unsigned int size
 , const void* indices, unsigned int isize, unsigned int vsize);
 void drawMesh(unsigned int VAO, unsigned int sindex);
 void setTexture(unsigned int unit, unsigned int textureID, unsigned int shaderID, const char* name);
+void viewport(float x, float y, float width, float height) const;
+
     ~glbe();
 };
 

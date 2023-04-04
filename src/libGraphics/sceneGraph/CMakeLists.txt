@@ -1,9 +1,9 @@
-set(HDRS Model/Mesh.hpp Camera.hpp Model/Model.hpp MeshInstance.hpp Node.hpp  animData.h assimp_glm_helpers.h animator.h WorldNode.hpp SceneElements.hpp ModelNode.hpp)
-set(SRCS Model/Mesh.cpp Model/Model.cpp MeshInstance.cpp Node.cpp AnimatedNode.cpp WorldNode.cpp ModelNode.cpp GeometryNode.cpp)
+set(HDRS Model/Mesh.hpp Camera.hpp Model/Model.hpp MeshInstance.hpp Node.hpp  animData.h assimp_glm_helpers.h animator.h WorldNode.hpp SceneElements.hpp ModelNode.hpp ScreenCanvas.hpp)
+set(SRCS Model/Mesh.cpp Model/Model.cpp MeshInstance.cpp Node.cpp AnimatedNode.cpp WorldNode.cpp ModelNode.cpp GeometryNode.cpp ScreenCanvas.cpp)
 #Model1.cpp Model1.hpp
 add_library(sceneGraph STATIC ${HDRS} ${SRCS}) 
 target_include_directories(sceneGraph PUBLIC . ./Model)
-target_link_libraries(sceneGraph PUBLIC glm plog  shaders stb_image objectSystem assimp  backend)
+target_link_libraries(sceneGraph PUBLIC glm plog  shaders stb_image objectSystem assimp  backend Rendering)
 
 
 

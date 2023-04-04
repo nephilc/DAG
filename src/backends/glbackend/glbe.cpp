@@ -175,6 +175,20 @@ int glbe::createProgram(const char* vShaderCode, const char* fShaderCode)
         return ID;
 }
 
+void glbe::create2DSquare(unsigned int* VAO, unsigned int* VBO, const float* vertices, unsigned int size) const 
+{
+    glGenVertexArrays(1, VAO);
+    glGenBuffers(1, VBO);
+    glBindVertexArray(*VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, *VBO);
+    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glBindVertexArray(0);
+}
+
 void glbe::deleteProgram(unsigned int ID)
 {
     glDeleteProgram(ID);
@@ -239,6 +253,18 @@ void glbe::drawMesh(unsigned int VAO, unsigned int sindex)
 
 
 }
+void glbe::drawSurface(unsigned int VAO, unsigned int sindex)
+{
+    // draw mesh
+    glBindVertexArray(VAO);
+    glDisable(GL_DEPTH_TEST);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    
+    glEnable(GL_DEPTH_TEST);
+
+
+}
+
 //texture unit, texture ID, shader ID, uniform sampler name
 void glbe::setTexture(unsigned int unit, unsigned int textureID, unsigned int shaderID, const char* name)
 {
@@ -253,4 +279,9 @@ void glbe::setTexture(unsigned int unit, unsigned int textureID, unsigned int sh
 
             //you bind a texture to a texture unit and, then set the sampler to the correct texture unit.
        
+}
+
+void glbe::viewport(float x, float y, float width, float height) const
+{
+    glViewport(x, y, width, height);
 }

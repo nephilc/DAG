@@ -1,7 +1,7 @@
 #include<Application.hpp>
 #include<glbe.hpp>
 #include<WorldNode.hpp>
-
+#include<ScreenCanvas.hpp>
 
 
 int Application::Main (int iQuantity, char** apcArgument)
@@ -23,51 +23,35 @@ int Application::Main (int iQuantity, char** apcArgument)
     node0->attachChild(node2);//should do everything
 
     assetManager->scene = worldNode;
-    
+    assetManager->createScreenCanvas(800, 600, "sc1");
+    //ScreenCanvas sc();
 
     //node1->attachChild(aniNode);
-    node1->attachChild(assetManager->defaultaniNode);
-    
+    node1->attachChild(assetManager->defaultaniNode);    
     glEnable(GL_DEPTH_TEST);
-    Shader frameshader("shaderPrograms/framebuffer.vs", "shaderPrograms/framebuffer.fs");
-    float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-        // positions   // texCoords
-        -1.0f,  1.0f,  0.0f, 1.0f,
-        -1.0f, -1.0f,  0.0f, 0.0f,
-         1.0f, -1.0f,  1.0f, 0.0f,
-
-        -1.0f,  1.0f,  0.0f, 1.0f,
-         1.0f, -1.0f,  1.0f, 0.0f,
-         1.0f,  1.0f,  1.0f, 1.0f
-    };
-/*
-    glGenVertexArrays(1, &application->quadVAO);
-    glGenBuffers(1, &application->quadVBO);
-    glBindVertexArray(application->quadVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, application->quadVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-
-    frameshader.use();
+    //Shader frameshader("shaderPrograms/framebuffer.vs", "shaderPrograms/framebuffer.fs");
+ 
+    //frameshader.use();
     //frameshader.setInt("screenTexture", 0);
-*/
+
     
 
     while (!glfwWindowShouldClose(m_window))
     {
-        //m_FB is where you draw the nodes
-        //there is also the default frame buffer
-        //application->m_FB->use();
-        assetManager->getMainBuffer()->use();
-        glEnable(GL_DEPTH_TEST);
-        //PLOGD<<"starting redner1";
+
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         processInput();
+
+        //m_FB is where you draw the nodes
+        //there is also the default frame buffer
+        //application->m_FB->use();
+        assetManager->getScreenCanvas("sc1")->draw(currentFrame, deltaTime);
+
+        assetManager->getMainBuffer()->use();
+        glEnable(GL_DEPTH_TEST);
+        //PLOGD<<"starting redner1";
 
         //PLOGD<<"starting render";
         
@@ -95,6 +79,8 @@ int Application::Main (int iQuantity, char** apcArgument)
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        //ImGui::UpdatePlatformWindows();
+        //ImGui::RenderPlatformWindowsDefault();
         
         glfwSwapBuffers(m_window);
         glfwPollEvents();

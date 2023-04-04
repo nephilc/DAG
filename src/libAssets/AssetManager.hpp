@@ -12,7 +12,7 @@
 #include <animation.h>
 #include <animator.h>
 #include <AnimatedNode.hpp>
-
+#include <ScreenCanvas.hpp>
 
 //in the buffer you put the vertexdata.
 //genbuffer+bind buffer+bufferdata
@@ -57,11 +57,13 @@ private:
     map<string, Model*> models;
     map<string, Shader*> shaders;
     map<string, FrameBuffer*> frameBuffers;
+    map<string, ScreenCanvas*> screenCanavases;
 
     vector<Model*> v_models;
     vector<Node*> v_scenes;
     vector<Shader*> v_shaders;
     vector<FrameBuffer*> v_frameBuffers;
+    vector<ScreenCanvas*> v_ScreenCanvases;
 
     static FrameBuffer* mainBuffer;
     FrameBuffer *currentFrameBuffer;
@@ -73,11 +75,18 @@ public:
     void loadModel(string path, string name);
     void loadScene(string path, string name);
     void loadShader(string vpath, string fpath, string name);
+
+
+
     Model* getModel(const string name);
+    ScreenCanvas* getScreenCanvas(const string name);
+
     const vector<Model*>& getModels() const;
     const vector<Node*>& getScenes() const;
     const vector<Shader*>& getShaders() const;
     const vector<FrameBuffer*>& getFrameBuffers() const;
+    const vector<ScreenCanvas*>& getScreenCanvases() const;
+
     FrameBuffer* getCurrentFrameBuffer();
     void makeBufferCurrent(FrameBuffer *buffer);
 
@@ -86,6 +95,9 @@ public:
 
     void loadScene();
     Node* scene;
+
+
+    void createScreenCanvas(int width, int height, string name);
 
     void createFrameBuffer(int width, int height, string name);
     FrameBuffer* getFrameBuffer(string name);

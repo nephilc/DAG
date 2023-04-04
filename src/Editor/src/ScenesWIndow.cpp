@@ -345,10 +345,10 @@ void EditorUI::GeometryNodeProperties(){
 void EditorUI::ModelNodeProperties(){
     ModelNode *localPointer = dynamic_cast<ModelNode*>(selected);
     if (ImGui::CollapsingHeader("ModelNode Properties", ImGuiTreeNodeFlags_None))
-    {               if(ImGui::Button("set null") & selected!=0)   localPointer->setModel(nullptr);
+    {               if(ImGui::Button("set null2") & selected != 0)   localPointer->setModel(nullptr);
 
         //shaders 
-                    static int item_current_idx = 0; // Here we store our selection data as an index.
+                    static int item_current_idx1 = 0; // Here we store our selection data as an index.
                     vector<Model*> models = m_AM->getModels();
                     if (ImGui::BeginListBox("listbox models"))
                     {
@@ -357,6 +357,7 @@ void EditorUI::ModelNodeProperties(){
                             //item_current_idx = n;
 
                             const bool is_selected = (localPointer->getModel() == models[n]);
+
                             if (ImGui::Selectable(models[n]->GetName().c_str(), is_selected))
                                 localPointer->setModel(models[n]);
 
