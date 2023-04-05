@@ -53,7 +53,7 @@ private:
  
     static Camera *camera;
     AssetManager *assetManager;
-
+    void populateScanCodeMap();
 
 /*
     static unsigned int framebuffer;

@@ -84,11 +84,64 @@ void Application::init()
     createWindow();
     passCallbacks();
     loadGL();
-
     allocateModules();
     //m_FB = new FrameBuffer(m_iWidth, m_iHeight);
     PLOGD<<"allocated modules";
+    populateScanCodeMap();//make sure to call this after module allocation
+
+
+
 }
+//since the code and the character are different
+//ill workk with just the characters, and get the key from within
+//it is a map i can create on my own
+//whe i want to call an action i will call it with the 
+//^put all the kays in a vector
+void Application::populateScanCodeMap() {
+
+
+    std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
+    for (char c : alphabet) {
+        assetManager->charActionMap[std::string(1, c)] = string("NO ACTION");
+
+        PLOGD << c << " : " << assetManager->charActionMap[std::string(1, c)];
+
+    }
+    for (int i = 0; i <= 9; i++) 
+    {
+        assetManager->charActionMap[to_string(i)] = string("NO ACTION");
+
+        PLOGD << i << " : " << assetManager->charActionMap[to_string(i)];
+
+        
+    }
+
+    assetManager->charActionMap["space"] = string("NO ACTION");
+    assetManager->charActionMap["escape"] = string("NO ACTION");
+    assetManager->charActionMap["enter"] = string("NO ACTION");
+    assetManager->charActionMap["tab"] = string("NO ACTION");
+    assetManager->charActionMap["space"] = string("NO ACTION");
+    assetManager->charActionMap["Caps Lock"] = string("NO ACTION");
+
+    assetManager->charActionMap["shift left"] = string("NO ACTION");
+
+    assetManager->charActionMap["up"] = string("NO ACTION");
+    assetManager->charActionMap["down"] = string("NO ACTION");
+    assetManager->charActionMap["left"] = string("NO ACTION");
+    assetManager->charActionMap["right"] = string("NO ACTION");
+
+    assetManager->charActionMap["Mouse Left"] = string("NO ACTION");
+    assetManager->charActionMap["Mouse Right"] = string("NO ACTION");
+
+    for (const auto& action : assetManager->charActionMap) {
+
+        PLOGD << action.first << ": " << action.second << endl;
+    }
+
+
+
+}
+
 
 void Application::allocateModules()
 {

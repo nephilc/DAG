@@ -131,6 +131,15 @@ void Application::resizeViewport(int width, int height)
 void Application::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 
+    if (key <= GLFW_KEY_Z && key >= GLFW_KEY_A)
+    {
+        std::string keyString = std::string(glfwGetKeyName(key, scancode));
+        PLOGD<< application->assetManager->charActionMap.at(keyString);
+        PLOGD << keyString;
+        PLOGD << application->assetManager->charActionMap.size();
+    }
+
+
 	if(key == GLFW_KEY_TAB && action == GLFW_PRESS)
  	{
 

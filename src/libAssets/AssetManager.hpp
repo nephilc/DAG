@@ -70,6 +70,24 @@ private:
     
 
 public:
+
+    //this is the one i will use################################################
+    //map : char====> Action string;
+    std::map<string, string> charActionMap;
+
+
+
+    //map : key I====> Action string;
+    std::map<unsigned int, std::string> keyActionMap;
+
+    //map : Action string I====> Action ;
+    std::map<unsigned int, std::string> ActionsMap;
+
+    //
+    //map : Action string I====> Action ;
+    std::map<unsigned int, std::string> scanCodeMap;
+
+
     AssetManager(/* args */);
     ~AssetManager();
     void loadModel(string path, string name);
