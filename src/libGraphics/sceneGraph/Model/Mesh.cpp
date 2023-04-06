@@ -33,8 +33,9 @@ void Mesh::setupMesh()
 
 //the mesh will have its own shader, possessing certain attributes and uniforms, it will know about.
 //one mesh can have many textures of the same kind.
-void Mesh::Draw(Shader *shader)
+void Mesh::Draw(Shader *shader, DrawMode MD)
 {
+    PLOGD << MD << "mode";
  // bind appropriate textures
         unsigned int diffuseNr  = 1;
         unsigned int specularNr = 1;
@@ -57,5 +58,5 @@ void Mesh::Draw(Shader *shader)
     backend::getBackend()->setTexture(i, textures[i].id, shader->ID, (name + number).c_str());
 
             }
-    backend::getBackend()->drawMesh(VAO, indices.size());        
+    backend::getBackend()->drawMesh(VAO, indices.size(), MD);        
 }

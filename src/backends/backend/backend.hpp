@@ -4,6 +4,17 @@
 #include <gtc/matrix_transform.hpp>
 #include<string>
 #include<iostream>
+
+enum DrawMode
+{
+    MD_FIRST,// used for iterating over the enum
+    MD_POINTS,
+    MD_LINES,
+    MD_TRI,
+    MD_LAST// used for iterating over the enum
+};
+extern const char* DrawModeStrings[8];
+
 class backend
 {
 protected:
@@ -45,7 +56,7 @@ virtual int createProgram(const char* vShaderCode, const char* fShaderCode)=0;
 virtual void deleteProgram(unsigned int ID)=0;
 virtual void createMesh(unsigned int *VAO,unsigned int *VBO,unsigned int *EBO, unsigned int offsets[6], const void* vertices, unsigned int size
 , const void* indices, unsigned int isize, unsigned int vsize)=0;
-virtual void drawMesh(unsigned int VAO, unsigned int sindex)=0;
+virtual void drawMesh(unsigned int VAO, unsigned int sindex, DrawMode MD)=0;
 virtual void setTexture(unsigned int unit, unsigned int textureID, unsigned int shaderID, const char* name)=0;
 
 //a render call that takes the framebufferas a parametre

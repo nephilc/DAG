@@ -30,7 +30,7 @@ void ModelNode::GeometryDraw(Camera *camera, float deltaTime)
     if(m_shader!=nullptr)
     {
         GeometryNode::GeometryDraw(camera, deltaTime);
-        m_model->Draw(m_shader);
+        m_model->Draw(m_shader, drawMode);
     }
 }
 

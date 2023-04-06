@@ -7,11 +7,11 @@ Model::Model(string const &path, bool gamma) : gammaCorrection(gamma)
         cout<<"calling model constructor"<<endl;
         loadModel(path);
 }
- void Model::Draw(Shader *shader)
+ void Model::Draw(Shader *shader, DrawMode MD)
  {
         //shader.setMat4("model", model);
         for(unsigned int i = 0; i < meshes.size(); i++)
-            meshes[i].Draw(shader);
+            meshes[i].Draw(shader, MD);
 }
    
 //loading texture image from file and putting it in opengl.

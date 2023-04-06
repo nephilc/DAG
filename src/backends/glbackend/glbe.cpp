@@ -241,11 +241,27 @@ void glbe::createMesh(unsigned int *VAO,unsigned int *VBO,unsigned int *EBO, uns
 
 }
 
-void glbe::drawMesh(unsigned int VAO, unsigned int sindex)
+void glbe::drawMesh(unsigned int VAO, unsigned int sindex, DrawMode MD)
 {
             // draw mesh
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(sindex), GL_UNSIGNED_INT, 0);
+        PLOGD << MD;
+        switch (MD) {
+        case MD_TRI:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(sindex), GL_UNSIGNED_INT, 0);
+            break;
+        case MD_LINES:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(sindex), GL_UNSIGNED_INT, 0);
+            break;
+        default:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(sindex), GL_UNSIGNED_INT, 0);
+            break;
+        }
+                
+        
         glBindVertexArray(0);
 
         // always good practice to set everything back to defaults once configured.
@@ -258,6 +274,7 @@ void glbe::drawSurface(unsigned int VAO, unsigned int sindex)
     // draw mesh
     glBindVertexArray(VAO);
     glDisable(GL_DEPTH_TEST);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     
     glEnable(GL_DEPTH_TEST);

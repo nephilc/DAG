@@ -74,6 +74,7 @@ void FramebuffersWindow(bool *p_open);
 void  ScreenCanvasesWindow(bool* p_open);
 void  TextEditorWindow();
 
+
 void saveText();
 
 void ObjectProperties(Object *object);

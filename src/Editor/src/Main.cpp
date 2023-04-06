@@ -6,6 +6,7 @@
 
 int Application::Main (int iQuantity, char** apcArgument)
 {
+    
     editorUI->test();
     glbe::getBackend()->displayTest();
     assetManager->CreateDefaults();

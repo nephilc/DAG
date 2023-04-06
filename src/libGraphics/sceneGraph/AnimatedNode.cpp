@@ -43,5 +43,5 @@ void AnimatedNode::GeometryDraw(Camera *camera, float deltaTime)
 	for (int i = 0; i < transforms.size(); ++i)
 		m_shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
         //set the time, among other things
-    m_model->Draw(m_shader);
+    m_model->Draw(m_shader, drawMode);
 }

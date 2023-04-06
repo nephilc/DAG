@@ -58,7 +58,7 @@ public:
     unsigned int VAO;//this one is public could be  bound from outside.
     Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
     ~Mesh();
-    void Draw(Shader *shader);
+    void Draw(Shader *shader, DrawMode MD);
 };
 
 

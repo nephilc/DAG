@@ -339,6 +339,25 @@ void EditorUI::GeometryNodeProperties(){
                     }
                     //end of shaders
 
+                    static int item_current_idx1 = 0; // Here we store our selection data as an index.
+                    if (ImGui::BeginListBox("DRAW MODE"))
+                    {
+                        for (int MD = MD_FIRST+1; MD < MD_LAST; MD++)
+                        {
+                            DrawMode MDType = static_cast<DrawMode>(MD);
+
+                            const bool is_selected1 = (localPointer->drawMode == MDType);
+                            if (ImGui::Selectable(DrawModeStrings[MD-1], is_selected1))
+                                localPointer->drawMode = MDType;
+
+                            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                            if (is_selected1)
+                                ImGui::SetItemDefaultFocus();
+                        }
+                        ImGui::EndListBox();
+                    }
+                    //end of shaders
+
     }
 
 }

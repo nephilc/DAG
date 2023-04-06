@@ -1,6 +1,12 @@
 
 #include "backend.hpp"
 
+const char* DrawModeStrings[8] = {
+    "MD_POINTS",
+    "MD_LINES",
+    "MD_TRI"
+};
+
 backend* backend::be = 0;
 
 backend::backend()

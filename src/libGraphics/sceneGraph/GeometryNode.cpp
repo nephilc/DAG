@@ -3,10 +3,12 @@
 
 IMPLEMENT_RTTI(GeometryNode, Node)
 
+
 GeometryNode::GeometryNode(Shader* shader) 
 {
     SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
     m_shader = shader;
+    drawMode = MD_TRI;
 }
 
 GeometryNode::GeometryNode()

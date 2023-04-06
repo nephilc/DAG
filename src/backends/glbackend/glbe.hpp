@@ -45,7 +45,7 @@ int createProgram(const char* vShaderCode, const char* fShaderCode);
 void deleteProgram(unsigned int ID);
 void createMesh(unsigned int *VAO,unsigned int *VBO,unsigned int *EBO, unsigned int offsets[6], const void* vertices, unsigned int size
 , const void* indices, unsigned int isize, unsigned int vsize);
-void drawMesh(unsigned int VAO, unsigned int sindex);
+void drawMesh(unsigned int VAO, unsigned int sindex, DrawMode MD);
 void setTexture(unsigned int unit, unsigned int textureID, unsigned int shaderID, const char* name);
 void viewport(float x, float y, float width, float height) const;
 

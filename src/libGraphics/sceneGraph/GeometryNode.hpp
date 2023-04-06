@@ -33,6 +33,9 @@ public:
     virtual void GeometryDraw(Camera* camera, float deltaTime);
     //Shader& m_shader;
 
+    DrawMode drawMode;
+
+
 
 };
 
