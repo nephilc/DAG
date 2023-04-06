@@ -130,15 +130,26 @@ void Application::resizeViewport(int width, int height)
 //the editor will get the imode from the application and update itself
 void Application::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-
-    if (key <= GLFW_KEY_Z && key >= GLFW_KEY_A)
+    const char* pressedName = glfwGetKeyName(key, scancode);
+    if(pressedName!=0 && -1<=*pressedName && *pressedName<=255 && isalpha(*pressedName))
     {
-        std::string keyString = std::string(glfwGetKeyName(key, scancode));
-        PLOGD<< application->assetManager->charActionMap.at(keyString);
+        std::string keyString = std::string(pressedName);
+
+        PLOGD<< application->assetManager->charActionMap[keyString];
         PLOGD << keyString;
         PLOGD << application->assetManager->charActionMap.size();
     }
+    PLOGD << key;
+    if (key <= GLFW_KEY_KP_9 && key >= GLFW_KEY_KP_0)
+    {
+        std::string keyString = to_string(key-GLFW_KEY_KP_0);
 
+        PLOGD << application->assetManager->charActionMap[keyString];
+        PLOGD << keyString;
+        PLOGD << application->assetManager->charActionMap.size();
+
+    }
+    //pass press to the action functions as a parametre
 
 	if(key == GLFW_KEY_TAB && action == GLFW_PRESS)
  	{
