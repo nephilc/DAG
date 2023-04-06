@@ -23,7 +23,7 @@ int Application::Main (int iQuantity, char** apcArgument)
     node0->attachChild(node2);//should do everything
 
     assetManager->scene = worldNode;
-    assetManager->createScreenCanvas(800, 600, "sc1");
+    assetManager->createScreenCanvas(1300, 800, "sc1");
     //ScreenCanvas sc();
 
     //node1->attachChild(aniNode);
@@ -49,7 +49,10 @@ int Application::Main (int iQuantity, char** apcArgument)
         //there is also the default frame buffer
         //application->m_FB->use();
         assetManager->getScreenCanvas("sc1")->draw(currentFrame, deltaTime);
-
+        //the viewport needs to be the same size as the framebuffer, thats it
+        //the camera on the other hand has to do with the way the user view something, the window
+        //we use the frame width, which is why we get the impression that the image is not stretched or  compressed
+        glViewport(0, 0, assetManager->getMainBuffer()->getWidth(), assetManager->getMainBuffer()->getHeight());
         assetManager->getMainBuffer()->use();
         glEnable(GL_DEPTH_TEST);
         //PLOGD<<"starting redner1";
@@ -64,7 +67,8 @@ int Application::Main (int iQuantity, char** apcArgument)
         node0->Draw(camera, deltaTime);
         */
         worldNode->projection = projection;
-
+//###############################################insert a call to gl viewport here
+        //glViewport(0, 0, assetManager->getMainBuffer()->getWidth(), assetManager->getMainBuffer()->getHeight());
         worldNode->Draw(camera, deltaTime);
         glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
         //glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.

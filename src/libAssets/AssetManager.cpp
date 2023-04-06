@@ -5,7 +5,7 @@ FrameBuffer* AssetManager::mainBuffer = 0;
 AssetManager::AssetManager(/* args */)
 {
     PLOGI<<"CREATING ASSETMANAGER";
-    mainBuffer = new FrameBuffer(800, 600);
+    mainBuffer = new FrameBuffer(1280, 720);//the resolution of the framebuffer will determine the quality of the image
     v_frameBuffers.push_back(mainBuffer);
 
     makeBufferCurrent(mainBuffer);

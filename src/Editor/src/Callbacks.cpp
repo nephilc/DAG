@@ -105,14 +105,14 @@ void Application::framebuffer_size_callback(GLFWwindow* window, int width, int h
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     //glViewport(0, 0, width, height);
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, m_iWidth, m_iHeight);
     m_iWidth = m_iFrameWidth ;//these are for the camera
     m_iHeight = m_iFrameHeight ;
     PLOGD<<width <<" " <<height;
     PLOGD<<m_iWidth <<"   ii " <<m_iHeight;
 
     //m_FB->recreate(width, height);//this is the one we render to
-    AssetManager::getMainBuffer()->recreate(width, height);
+    //AssetManager::getMainBuffer()->recreate(m_iWidth, m_iHeight);
     //i think the framebuffer callback is called on the currently bound framebuffer.    
 
 }
@@ -120,10 +120,11 @@ void Application::framebuffer_size_callback(GLFWwindow* window, int width, int h
 
 void Application::resizeViewport(int width, int height)
 {
-    glViewport(0, 0, width, height);
+    //glViewport(0, 0, width, height);
     //m_iWidth = width;
     //m_iHeight = height;
-    assetManager->recreateMainFB(width, height);
+    //assetManager->recreateMainFB(m_iFrameWidth, m_iFrameHeight);
+    PLOGD << m_iFrameWidth;
 
 }
 
@@ -135,20 +136,32 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
     {
         std::string keyString = std::string(pressedName);
 
-        PLOGD<< application->assetManager->charActionMap[keyString];
-        PLOGD << keyString;
-        PLOGD << application->assetManager->charActionMap.size();
     }
-    PLOGD << key;
     if (key <= GLFW_KEY_KP_9 && key >= GLFW_KEY_KP_0)
     {
         std::string keyString = to_string(key-GLFW_KEY_KP_0);
 
-        PLOGD << application->assetManager->charActionMap[keyString];
-        PLOGD << keyString;
-        PLOGD << application->assetManager->charActionMap.size();
-
     }
+
+     if (imode == WORLD)
+     {
+        switch (action)
+        {
+        case GLFW_PRESS:
+            //PLOGD<<"KEY CALLBACK WITH KEY CODE "<<  glfwGetKeyName(key, 0) << " ACTION PRESS" ;
+            break;
+        case GLFW_RELEASE:
+            //PLOGD<<"KEY CALLBACK WITH KEY CODE "<<  glfwGetKeyName(key, 0) << " ACTION RELEASE";
+            break;
+        case GLFW_REPEAT:
+            //PLOGD<<"KEY CALLBACK WITH KEY CODE "<<  glfwGetKeyName(key, 0) << " ACTION REPEAT";
+            break;
+        default:
+            break;
+        }
+    }
+
+
     //pass press to the action functions as a parametre
 
 	if(key == GLFW_KEY_TAB && action == GLFW_PRESS)
@@ -169,23 +182,7 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
 
 	   }
 	}
-	if(imode == WORLD)
-	{ 
-        switch (action)
-    {
-    case GLFW_PRESS:
-        //PLOGD<<"KEY CALLBACK WITH KEY CODE "<<  glfwGetKeyName(key, 0) << " ACTION PRESS" ;
-        break;
-    case GLFW_RELEASE:
-        //PLOGD<<"KEY CALLBACK WITH KEY CODE "<<  glfwGetKeyName(key, 0) << " ACTION RELEASE";
-        break;
-    case GLFW_REPEAT:
-        //PLOGD<<"KEY CALLBACK WITH KEY CODE "<<  glfwGetKeyName(key, 0) << " ACTION REPEAT";
-        break;
-    default:
-        break;
-    }
-    }
+
 }
 void Application::character_callback(GLFWwindow* window, unsigned int codepoint)
 {
