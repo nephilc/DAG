@@ -22,11 +22,14 @@ class AnimatedNode : public GeometryNode
 DECLARE_RTTI
 private:
     /* data */
-
+    bool play_animation;
 
 public:
     AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation& animation);
     AnimatedNode();
+    void play();
+    void stop();
+    bool getPlayState();
     ~AnimatedNode();
     void Draw(Camera* camera, float deltaTime) override;
     void GeometryDraw(Camera* camera, float deltaTime) override;

@@ -137,11 +137,15 @@ void EditorUI::ImportedScenesWindowRight(bool* p_open)
                         NodeProperties();
                         if(selected->GetType().IsDerived(GeometryNode::TYPE)){
                         GeometryNodeProperties();
-                                            }
+                        }
+                        if (selected->GetType().IsDerived(ModelNode::TYPE)) {
+                            ModelNodeProperties();
+                        }
+                        if (selected->GetType().IsDerived(AnimatedNode::TYPE)) {
+                            AnimatedNodeProperties();
+                        }
                     }
-                    if(selected->GetType().IsDerived(ModelNode::TYPE)){
-                        ModelNodeProperties();
-                    }
+                    
                     }
                     ImGui::EndTabItem();
 
@@ -311,7 +315,14 @@ void EditorUI::WorldNodeProperties(){
 
 }
 void EditorUI::AnimatedNodeProperties(){
-
+    AnimatedNode* localPointer = dynamic_cast<AnimatedNode*>(selected);
+    static bool s_play = localPointer->getPlayState();
+    if (ImGui::Checkbox("play Animation", &s_play))
+        if(s_play)localPointer->play();
+        else
+        {
+            localPointer->stop();
+        }
 }
 void EditorUI::GeometryNodeProperties(){
     GeometryNode *localPointer = dynamic_cast<GeometryNode*>(selected);

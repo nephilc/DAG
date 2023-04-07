@@ -51,7 +51,7 @@ private:
    
 
  
-    static Camera *camera;
+    static Camera *camera;//this is the editor's camera, not the games camera or whatever software to build on top of the engine
     AssetManager *assetManager;
     void populateScanCodeMap();
 

@@ -27,6 +27,7 @@ void AnimatedNode::Draw(Camera* camera, float deltaTime)
     //if(m_shader!=nullptr && m_animator!=nullptr &&m_model!=nullptr ){
     
     if(m_shader!=nullptr) GeometryDraw(camera, deltaTime);
+    if(play_animation)
     m_animator->UpdateAnimation(deltaTime);
 
 
@@ -45,3 +46,7 @@ void AnimatedNode::GeometryDraw(Camera *camera, float deltaTime)
         //set the time, among other things
     m_model->Draw(m_shader, drawMode);
 }
+
+void AnimatedNode::play() { play_animation = true; }
+void AnimatedNode::stop() { play_animation = false; }
+bool AnimatedNode::getPlayState() { return play_animation; }
