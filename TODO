@@ -5,3 +5,6 @@ choose type of node
 in case of model nodes add possibility for choosing the model
 saving the scene into a file
 importing scenes
+
+distinguish between static scenes(physics that doesnt move, and non physics objects ) and dynamic scene(physics objects that move)
+both will have the world node as a parent

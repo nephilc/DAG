@@ -131,17 +131,31 @@ void Application::resizeViewport(int width, int height)
 //the editor will get the imode from the application and update itself
 void Application::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    const char* pressedName = glfwGetKeyName(key, scancode);
-    if(pressedName!=0 && -1<=*pressedName && *pressedName<=255 && isalpha(*pressedName))
-    {
-        std::string keyString = std::string(pressedName);
+        if (imode == SIMULATION)
+        {
 
-    }
-    if (key <= GLFW_KEY_KP_9 && key >= GLFW_KEY_KP_0)
-    {
-        std::string keyString = to_string(key-GLFW_KEY_KP_0);
 
-    }
+            const char* pressedName = glfwGetKeyName(key, scancode);
+            if (pressedName != 0 && -1 <= *pressedName && *pressedName <= 255 && isalpha(*pressedName))
+            {
+                std::string keyString = std::string(pressedName);
+
+            }
+            if (key <= GLFW_KEY_KP_9 && key >= GLFW_KEY_KP_0)
+            {
+                std::string keyString = to_string(key - GLFW_KEY_KP_0);
+
+            }
+
+            if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) 
+            {
+                imode = EDITOR;
+                application->enableCursor();
+                editorUI->updateInputFlags(EDITOR);
+
+            }
+
+     }
 
      if (imode == WORLD)
      {
@@ -164,7 +178,7 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
 
     //pass press to the action functions as a parametre
 
-	if(key == GLFW_KEY_TAB && action == GLFW_PRESS)
+	if(key == GLFW_KEY_TAB && action == GLFW_PRESS && imode!=SIMULATION)
  	{
 
 	   if (imode == WORLD)
@@ -184,6 +198,14 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
 	}
 
 }
+
+void Application::disableCursor(){
+    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+void Application::enableCursor(){
+    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
 void Application::character_callback(GLFWwindow* window, unsigned int codepoint)
 {
         //PLOGD<<"CHARACTER CALLBACK   "<<  utf8chr(codepoint);

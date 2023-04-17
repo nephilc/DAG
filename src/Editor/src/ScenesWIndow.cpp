@@ -409,6 +409,9 @@ ImGui::SameLine();
 // Create the button
 if (ImGui::Button("play", ImVec2(40, 20)))
 {
+    app->imode = SIMULATION;
+    updateInputFlags(SIMULATION);
+    app->disableCursor();
     // Handle button press here
 }
 }

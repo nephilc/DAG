@@ -84,6 +84,7 @@ void GeometryNodeProperties();
 void ModelNodeProperties();
 void AnimatedNodeProperties();
 void ObjectProperties();
+void  EditorProperties();
 void playButton();
 void selectableTree();
 void createNode();

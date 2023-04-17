@@ -71,6 +71,8 @@ void EditorUI::render()
         FramebuffersWindow(&show_demo_window);
         ScreenCanvasesWindow(&show_demo_window);
         if(enableEditing) TextEditorWindow();
+        EditorProperties();
+
 
         m_AM->scene->handleDetachements();
             
@@ -148,7 +150,7 @@ PLOGI<<"DESTROYING IMGUI";
 }
 void EditorUI::updateInputFlags(int mode)
 {
-    if(    mode == WORLD)
+    if(    mode == WORLD || mode==SIMULATION)
     {
     PLOGD<<mode;
     keyflag = ImGuiConfigFlags_NavNoCaptureKeyboard;     // Enable Keyboard Controls

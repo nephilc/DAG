@@ -1,6 +1,7 @@
 #ifndef ASSETMANAGER_HPP
 #define ASSETMANAGER_HPP
 #include<map>
+#include<unordered_map>
 #include<string>
 #include<Mesh.hpp>
 #include<Model.hpp>
@@ -73,19 +74,10 @@ public:
 
     //this is the one i will use################################################
     //map : char====> Action string;
-    std::map<string, string> charActionMap;
+    std::unordered_map<string, string> charActionMap;
+    std::vector<string> keyVector;
 
 
-
-    //map : key I====> Action string;
-    std::map<unsigned int, std::string> keyActionMap;
-
-    //map : Action string I====> Action ;
-    std::map<unsigned int, std::string> ActionsMap;
-
-    //
-    //map : Action string I====> Action ;
-    std::map<unsigned int, std::string> scanCodeMap;
 
 
     AssetManager(/* args */);

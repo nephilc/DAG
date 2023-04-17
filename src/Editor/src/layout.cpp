@@ -620,3 +620,27 @@ void  EditorUI::TextEditorWindow()
 
 
 }
+
+void  EditorUI::EditorProperties()
+{
+
+    static bool p_open = true;
+        ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
+        ImGui::Begin("EDITOR PROPERTIES", &p_open);
+        static float speed = app->camera->MovementSpeed;
+        if (ImGui::InputFloat("Editor Camera speed", &speed))
+            app->camera->MovementSpeed = speed;
+        ImGui::SameLine();
+        ImGui::Text("m/s");
+        if (ImGui::CollapsingHeader("Key -> Action map")) {
+
+        for (std::string& key : m_AM->keyVector)
+        {
+            ImGui::Text("%s", key.c_str());
+            ImGui::SameLine();
+            ImGui::Text(m_AM->charActionMap[key].c_str());
+
+        }
+    }
+    ImGui::End();
+}

@@ -98,13 +98,14 @@ void Application::init()
 //whe i want to call an action i will call it with the 
 //^put all the kays in a vector
 void Application::populateScanCodeMap() {
-
+    //or fill up the vector first, then fill up the map automatically, but well.
 
     std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
     for (char c : alphabet) {
         assetManager->charActionMap[std::string(1, c)] = string("NO ACTION");
 
         PLOGD << c << " : " << assetManager->charActionMap[std::string(1, c)];
+        assetManager->keyVector.push_back(std::string(1, c));
 
     }
     for (int i = 0; i <= 9; i++) 
@@ -112,15 +113,27 @@ void Application::populateScanCodeMap() {
         assetManager->charActionMap[to_string(i)] = string("NO ACTION");
 
         PLOGD << i << " : " << assetManager->charActionMap[to_string(i)];
+        assetManager->keyVector.push_back(to_string(i));
 
         
     }
+    assetManager->keyVector.push_back("space");
+    assetManager->keyVector.push_back("escape");
+    assetManager->keyVector.push_back("enter");
+    assetManager->keyVector.push_back("tab");
+    assetManager->keyVector.push_back("shift left");
+    assetManager->keyVector.push_back("Caps Lock");
+    assetManager->keyVector.push_back("up");
+    assetManager->keyVector.push_back("down");
+    assetManager->keyVector.push_back("left");
+    assetManager->keyVector.push_back("right");
+    assetManager->keyVector.push_back("Mouse Left");
+    assetManager->keyVector.push_back("Mouse Right");
 
     assetManager->charActionMap["space"] = string("NO ACTION");
     assetManager->charActionMap["escape"] = string("NO ACTION");
     assetManager->charActionMap["enter"] = string("NO ACTION");
     assetManager->charActionMap["tab"] = string("NO ACTION");
-    assetManager->charActionMap["space"] = string("NO ACTION");
     assetManager->charActionMap["Caps Lock"] = string("NO ACTION");
 
     assetManager->charActionMap["shift left"] = string("NO ACTION");

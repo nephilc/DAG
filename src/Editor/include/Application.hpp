@@ -20,7 +20,8 @@ enum input_mode
 {
 
 EDITOR,
-WORLD
+WORLD,
+SIMULATION
 
 };
 
@@ -50,7 +51,8 @@ private:
     static input_mode imode;
    
 
- 
+    //then this camera should be in the editor class.
+    //or in the asset manager, this is a free camera not tied to a node
     static Camera *camera;//this is the editor's camera, not the games camera or whatever software to build on top of the engine
     AssetManager *assetManager;
     void populateScanCodeMap();
@@ -98,7 +100,8 @@ public:
     
     int processInput();
     void showMainMenu();
-
+    void disableCursor();
+    void enableCursor();
     //callbacks
     static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
