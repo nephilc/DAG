@@ -316,7 +316,7 @@ void EditorUI::WorldNodeProperties(){
 }
 void EditorUI::AnimatedNodeProperties(){
     AnimatedNode* localPointer = dynamic_cast<AnimatedNode*>(selected);
-    static bool s_play = localPointer->getPlayState();
+    bool s_play = localPointer->getPlayState();
     if (ImGui::Checkbox("play Animation", &s_play))
         if(s_play)localPointer->play();
         else

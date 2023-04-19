@@ -3,7 +3,7 @@
 
 #include<FrameBuffer.hpp>
 #include<backend.hpp>
-#include<shader.hpp>
+#include<Shader.hpp>
 #include<Object.hpp>
 #include<RTTI.hpp>
 //a quad in ND coordinates on top of which to draw a framebuffer
