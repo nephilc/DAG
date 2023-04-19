@@ -50,3 +50,8 @@ void AnimatedNode::GeometryDraw(Camera *camera, float deltaTime)
 void AnimatedNode::play() { play_animation = true; }
 void AnimatedNode::stop() { play_animation = false; }
 bool AnimatedNode::getPlayState() { return play_animation; }
+
+bool *AnimatedNode::getPlayStatePointer()
+{
+    return &play_animation;
+}

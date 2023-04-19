@@ -315,14 +315,18 @@ void EditorUI::WorldNodeProperties(){
 
 }
 void EditorUI::AnimatedNodeProperties(){
+    if(ImGui::CollapsingHeader("Animated Node Properties")){
     AnimatedNode* localPointer = dynamic_cast<AnimatedNode*>(selected);
-    bool s_play = localPointer->getPlayState();
-    if (ImGui::Checkbox("play Animation", &s_play))
-        if(s_play)localPointer->play();
-        else
-        {
-            localPointer->stop();
-        }
+    static char* buttonText = "";
+    if(localPointer->getPlayState())buttonText="Stop";
+    else buttonText="play";
+    if(ImGui::Button(buttonText))
+    {
+        if(localPointer->getPlayState()) localPointer->stop();
+        else localPointer->play();
+    }
+    }
+        
 }
 void EditorUI::GeometryNodeProperties(){
     GeometryNode *localPointer = dynamic_cast<GeometryNode*>(selected);

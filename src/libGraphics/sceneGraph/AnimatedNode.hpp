@@ -30,6 +30,7 @@ public:
     void play();
     void stop();
     bool getPlayState();
+    bool* getPlayStatePointer();
     ~AnimatedNode();
     void Draw(Camera* camera, float deltaTime) override;
     void GeometryDraw(Camera* camera, float deltaTime) override;
