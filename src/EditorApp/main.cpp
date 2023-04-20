@@ -5,6 +5,12 @@ using namespace std;
 #include "plog/Appenders/ColorConsoleAppender.h"
 
 #include <Application.hpp>
+
+//can register the action s here
+#include<AssetManager.hpp>
+#include<Action.hpp>
+
+
 void atexitWork();
 
 Application *application= 0;

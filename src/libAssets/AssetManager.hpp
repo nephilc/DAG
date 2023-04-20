@@ -14,6 +14,7 @@
 #include <animator.h>
 #include <AnimatedNode.hpp>
 #include <ScreenCanvas.hpp>
+#include<Action.hpp>
 
 //in the buffer you put the vertexdata.
 //genbuffer+bind buffer+bufferdata
@@ -74,8 +75,20 @@ public:
 
     //this is the one i will use################################################
     //map : char====> Action string;
-    std::unordered_map<string, string> charActionMap;
-    std::vector<string> keyVector;
+    static  Action *NoAction;
+    std::unordered_map<string, Action*> KeyboardActionMap;
+    std::unordered_map<string, Action*> MouseActionMap;
+    std::unordered_map<string, Action*> GamePadActionMap;
+    std::vector<string> keyBoardVector;
+    std::vector<string> MouseVector;
+    std::vector<string> GamePadVector;
+
+
+    /// <summary>
+    /// action vectors, the ones frpom which we will pick actions
+    /// </summary>
+    std::vector<Action*> KeyActionsVector;//any key, controller and gamepad keys, have the same method signature
+    std::vector<Action*> MouseActionsVector;//Mouse
 
 
 
@@ -85,6 +98,8 @@ public:
     void loadModel(string path, string name);
     void loadScene(string path, string name);
     void loadShader(string vpath, string fpath, string name);
+
+    void registerAction(Action* action, ActionType AT);
 
 
 

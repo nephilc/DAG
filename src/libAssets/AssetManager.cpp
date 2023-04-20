@@ -2,6 +2,8 @@
 #include <plog/Log.h>
 
 FrameBuffer* AssetManager::mainBuffer = 0;
+Action *AssetManager::NoAction = new Action("No Action");
+
 AssetManager::AssetManager(/* args */)
 {
     PLOGI<<"CREATING ASSETMANAGER";

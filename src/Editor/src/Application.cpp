@@ -102,54 +102,49 @@ void Application::populateScanCodeMap() {
 
     std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
     for (char c : alphabet) {
-        assetManager->charActionMap[std::string(1, c)] = string("NO ACTION");
+        //assetManager->charActionMap[std::string(1, c)] = string("NO ACTION");
 
-        PLOGD << c << " : " << assetManager->charActionMap[std::string(1, c)];
-        assetManager->keyVector.push_back(std::string(1, c));
+        //PLOGD << c << " : " << assetManager->charActionMap[std::string(1, c)];
+        assetManager->keyBoardVector.push_back(std::string(1, c));
 
     }
     for (int i = 0; i <= 9; i++) 
     {
-        assetManager->charActionMap[to_string(i)] = string("NO ACTION");
+        //assetManager->charActionMap[to_string(i)] = string("NO ACTION");
 
-        PLOGD << i << " : " << assetManager->charActionMap[to_string(i)];
-        assetManager->keyVector.push_back(to_string(i));
+        //PLOGD << i << " : " << assetManager->charActionMap[to_string(i)];
+        assetManager->keyBoardVector.push_back(to_string(i));
 
         
     }
-    assetManager->keyVector.push_back("space");
-    assetManager->keyVector.push_back("escape");
-    assetManager->keyVector.push_back("enter");
-    assetManager->keyVector.push_back("tab");
-    assetManager->keyVector.push_back("shift left");
-    assetManager->keyVector.push_back("Caps Lock");
-    assetManager->keyVector.push_back("up");
-    assetManager->keyVector.push_back("down");
-    assetManager->keyVector.push_back("left");
-    assetManager->keyVector.push_back("right");
-    assetManager->keyVector.push_back("Mouse Left");
-    assetManager->keyVector.push_back("Mouse Right");
-
-    assetManager->charActionMap["space"] = string("NO ACTION");
-    assetManager->charActionMap["escape"] = string("NO ACTION");
-    assetManager->charActionMap["enter"] = string("NO ACTION");
-    assetManager->charActionMap["tab"] = string("NO ACTION");
-    assetManager->charActionMap["Caps Lock"] = string("NO ACTION");
-
-    assetManager->charActionMap["shift left"] = string("NO ACTION");
-
-    assetManager->charActionMap["up"] = string("NO ACTION");
-    assetManager->charActionMap["down"] = string("NO ACTION");
-    assetManager->charActionMap["left"] = string("NO ACTION");
-    assetManager->charActionMap["right"] = string("NO ACTION");
-
-    assetManager->charActionMap["Mouse Left"] = string("NO ACTION");
-    assetManager->charActionMap["Mouse Right"] = string("NO ACTION");
-
-    for (const auto& action : assetManager->charActionMap) {
-
-        PLOGD << action.first << ": " << action.second << endl;
+    assetManager->keyBoardVector.push_back("space");
+    assetManager->keyBoardVector.push_back("escape");
+    assetManager->keyBoardVector.push_back("enter");
+    assetManager->keyBoardVector.push_back("tab");
+    assetManager->keyBoardVector.push_back("shift left");
+    assetManager->keyBoardVector.push_back("Caps Lock");
+    assetManager->keyBoardVector.push_back("up");
+    assetManager->keyBoardVector.push_back("down");
+    assetManager->keyBoardVector.push_back("left");
+    assetManager->keyBoardVector.push_back("right");
+    for (string& key : assetManager->keyBoardVector) {
+        assetManager->KeyboardActionMap[key] = assetManager->NoAction;
     }
+
+    assetManager->MouseVector.push_back("Mouse Left");
+    assetManager->MouseVector.push_back("Mouse Right");
+    assetManager->MouseVector.push_back("Mouse Cursor");
+    for (string& key : assetManager->MouseVector) {
+        assetManager->MouseActionMap[key] = assetManager->NoAction;
+    }
+
+
+    for (const auto& action : assetManager->KeyboardActionMap) {
+
+        PLOGD << action.first << ": " << action.second->GetName() << endl;
+    }
+    assetManager->KeyActionsVector.push_back(new Action("test Action"));
+    assetManager->KeyActionsVector.push_back(assetManager->NoAction);
 
 
 
