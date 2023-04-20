@@ -642,12 +642,12 @@ void  EditorUI::EditorProperties()
                 //get the coorect index here or create the inverse map
                 static int item_current_idx = 0; // Here we store our selection data as an index.
                 const char* combo_preview_value = m_AM->KeyboardActionMap[key]->GetName().c_str();  // Pass in the preview value visible before opening the combo (it could be anything)
-                if (ImGui::BeginCombo(string("Action for key "+ key).c_str(), combo_preview_value))
+                if (ImGui::BeginCombo(string(key + " ======> ").c_str(), combo_preview_value, ImGuiComboFlags_NoPreview))
                 {
                     for (int n = 0; n < m_AM->KeyActionsVector.size(); n++)
                     {
-                        //if (m_AM->KeyActionsVector[n] == m_AM->KeyboardActionMap[key]) item_current_idx = n;
-                        //else item_current_idx = 0;
+                        if (m_AM->KeyActionsVector[n] == m_AM->KeyboardActionMap[key]) item_current_idx = n;
+                        else item_current_idx = n+1;
                         const bool is_selected = (item_current_idx == n);
                         if (ImGui::Selectable(m_AM->KeyActionsVector[n]->GetName().c_str(), is_selected)) {
                             item_current_idx = n;
@@ -661,6 +661,13 @@ void  EditorUI::EditorProperties()
                         }
                     }
                     ImGui::EndCombo();
+                    ImGui::SameLine();
+                    ImGui::Text(m_AM->KeyboardActionMap[key]->GetName().c_str());
+
+                }
+                else {
+                    ImGui::SameLine();
+                    ImGui::Text(m_AM->KeyboardActionMap[key]->GetName().c_str());
                 }
 
             }
@@ -669,9 +676,39 @@ void  EditorUI::EditorProperties()
 
             for (std::string& key : m_AM->MouseVector)
             {
-                ImGui::Text("%s", key.c_str());
-                ImGui::SameLine();
-                ImGui::Text(m_AM->MouseActionMap[key]->GetName().c_str());
+                //ImGui::Text("%s", key.c_str());
+                //ImGui::SameLine();
+                //ImGui::Text(m_AM->KeyboardActionMap[key]->GetName().c_str());
+                //get the coorect index here or create the inverse map
+                static int item_current_idx = 0; // Here we store our selection data as an index.
+                const char* combo_preview_value = m_AM->MouseActionMap[key]->GetName().c_str();  // Pass in the preview value visible before opening the combo (it could be anything)
+                if (ImGui::BeginCombo(string(key + " ======> ").c_str(), combo_preview_value, ImGuiComboFlags_NoPreview))
+                {
+                    for (int n = 0; n < m_AM->MouseActionsVector.size(); n++)
+                    {
+                        if (m_AM->MouseActionsVector[n] == m_AM->MouseActionMap[key]) item_current_idx = n;
+                        else item_current_idx = n + 1;
+                        const bool is_selected = (item_current_idx == n);
+                        if (ImGui::Selectable(m_AM->MouseActionsVector[n]->GetName().c_str(), is_selected)) {
+                            item_current_idx = n;
+                            m_AM->MouseActionMap[key] = m_AM->MouseActionsVector[n];
+                            PLOGE << m_AM->MouseActionMap[key]->GetName();
+                        }
+
+                        // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                        if (is_selected) {
+                            ImGui::SetItemDefaultFocus();
+                        }
+                    }
+                    ImGui::EndCombo();
+                    ImGui::SameLine();
+                    ImGui::Text(m_AM->MouseActionMap[key]->GetName().c_str());
+
+                }
+                else {
+                    ImGui::SameLine();
+                    ImGui::Text(m_AM->MouseActionMap[key]->GetName().c_str());
+                }
 
             }
         }

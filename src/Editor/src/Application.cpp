@@ -146,6 +146,8 @@ void Application::populateScanCodeMap() {
     assetManager->KeyActionsVector.push_back(new Action("test Action"));
     assetManager->KeyActionsVector.push_back(assetManager->NoAction);
 
+    assetManager->MouseActionsVector.push_back(new Action("test Action"));
+    assetManager->MouseActionsVector.push_back(assetManager->NoAction);
 
 
 }
