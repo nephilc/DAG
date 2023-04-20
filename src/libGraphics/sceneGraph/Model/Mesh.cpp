@@ -35,7 +35,7 @@ void Mesh::setupMesh()
 //one mesh can have many textures of the same kind.
 void Mesh::Draw(Shader *shader, DrawMode MD)
 {
-    PLOGD << MD << "mode";
+    //PLOGD << MD << "mode";
  // bind appropriate textures
         unsigned int diffuseNr  = 1;
         unsigned int specularNr = 1;

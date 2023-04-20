@@ -78,7 +78,7 @@ void EditorUI::DrawTree(Node* scene) {
     if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
         Node *dragsource = scene;
         dragsource2 = scene;
-        PLOGI<<"this is the Source NODE "<<dragsource;
+        //PLOGI<<"this is the Source NODE "<<dragsource;
 
         ImGui::SetDragDropPayload("SCENE_NODE", &dragsource, sizeof(Node*));
         ImGui::Text("Drag %s", to_string(scene->GetID()).c_str());

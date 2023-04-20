@@ -245,7 +245,7 @@ void glbe::drawMesh(unsigned int VAO, unsigned int sindex, DrawMode MD)
 {
             // draw mesh
         glBindVertexArray(VAO);
-        PLOGD << MD;
+        //PLOGD << MD;
         switch (MD) {
         case MD_TRI:
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

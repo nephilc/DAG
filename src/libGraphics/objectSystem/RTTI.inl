@@ -16,7 +16,7 @@ inline int Rtti::GetDiskUsed () const
 //----------------------------------------------------------------------------
 inline bool Rtti::IsExactly (const Rtti& rkType) const
 {
-    std::cout<<"rtti const"<<typeList.size()<<std::endl;
+    //std::cout<<"rtti const"<<typeList.size()<<std::endl;
 
     return &rkType == this;
 }
