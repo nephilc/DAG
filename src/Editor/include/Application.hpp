@@ -78,6 +78,8 @@ public:
             int iYPosition, int iWidth, int iHeight);
     static Application* getApplication();
 
+
+    AssetManager* getAssetManager();
     ~Application();
     //a bunch of static methods to keep the code contained
     void init();
@@ -86,6 +88,7 @@ public:
     void createWindow();
     void loadGL();
 
+    Camera* getEditorCamera() { return camera; };
 
 
     void allocateModules();

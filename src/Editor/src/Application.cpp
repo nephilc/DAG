@@ -62,6 +62,7 @@ Application *Application::getApplication(const char *acWindowTitle, int iXPositi
     return application;
 }
 
+AssetManager* Application::getAssetManager() { return assetManager; }
 
 Application *Application::getApplication()
 {

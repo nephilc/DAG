@@ -10,6 +10,8 @@ Action::Action() {
 Action::Action(std::string name) {
     SetName(name);//had to do it here
 }
+Action::~Action() {
+}
 
 //No action 
 void Action::KeyAction() {

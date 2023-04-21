@@ -7,8 +7,6 @@ using namespace std;
 #include <Application.hpp>
 
 //can register the action s here
-#include<AssetManager.hpp>
-#include<Action.hpp>
 
 
 void atexitWork();
@@ -27,6 +25,9 @@ int main(int argc, char** argv)
     #endif
 	const char *title = "this is the title";
 	application=  Application::getApplication("editor application", 0, 0, 600 , 800);
+	//cant do much work outside of the main loop, the application will block, i create the main for that purpose
+	//i should be able to create simultaneous applications
+	
 	application->Main(argc, argv);
 	delete application;
 

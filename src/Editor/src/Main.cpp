@@ -2,18 +2,20 @@
 #include<glbe.hpp>
 #include<WorldNode.hpp>
 #include<ScreenCanvas.hpp>
+#include<CameraAction.hpp>
 
 
 int Application::Main (int iQuantity, char** apcArgument)
 {
-    
+        
     editorUI->test();
     glbe::getBackend()->displayTest();
     assetManager->CreateDefaults();
 
     m_dTime = glfwGetTimerValue();
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
 
+    assetManager->registerAction(new CameraAction());
     WorldNode *worldNode = new WorldNode(1.0, 1.0, 1.0, 1.0);    
     //worldNode->SetName("WORLD NODE");
     Node* node0 =  new Node();
@@ -29,7 +31,7 @@ int Application::Main (int iQuantity, char** apcArgument)
 
     //node1->attachChild(aniNode);
     node1->attachChild(assetManager->defaultaniNode);    
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
     //Shader frameshader("shaderPrograms/framebuffer.vs", "shaderPrograms/framebuffer.fs");
  
     //frameshader.use();
@@ -53,9 +55,9 @@ int Application::Main (int iQuantity, char** apcArgument)
         //the viewport needs to be the same size as the framebuffer, thats it
         //the camera on the other hand has to do with the way the user view something, the window
         //we use the frame width, which is why we get the impression that the image is not stretched or  compressed
-        glViewport(0, 0, assetManager->getMainBuffer()->getWidth(), assetManager->getMainBuffer()->getHeight());
+        //glViewport(0, 0, assetManager->getMainBuffer()->getWidth(), assetManager->getMainBuffer()->getHeight());
         assetManager->getMainBuffer()->use();
-        glEnable(GL_DEPTH_TEST);
+        //glEnable(GL_DEPTH_TEST);
         //PLOGD<<"starting redner1";
 
         //PLOGD<<"starting render";

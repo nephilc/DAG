@@ -230,3 +230,21 @@ void AssetManager::getDefault(const Rtti &type, Node *parent)
     //then Node
     //model node
 }
+
+void AssetManager::registerAction(Action* action) 
+{
+    switch (action->m_at) {
+    case KEY:
+        KeyActionsVector.push_back(action);
+        break;
+    case MOUSE:
+        MouseActionsVector.push_back(action);
+        break;
+    case ALL:
+        KeyActionsVector.push_back(action);
+        MouseActionsVector.push_back(action);
+        break;
+    default:
+        break;
+    }
+}

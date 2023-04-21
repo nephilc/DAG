@@ -99,7 +99,7 @@ public:
     void loadScene(string path, string name);
     void loadShader(string vpath, string fpath, string name);
 
-    void registerAction(Action* action, ActionType AT);
+    void registerAction(Action* action);
 
 
 

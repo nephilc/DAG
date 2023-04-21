@@ -237,6 +237,10 @@ void Application::cursor_position_callback(GLFWwindow* window,  double xposIn, d
 	{
     camera->ProcessMouseMovement(xoffset, yoffset);
 	}
+    else if (imode == SIMULATION)
+    {
+        application->getAssetManager()->MouseActionMap["Mouse Cursor"]->MouseAction(xposIn, yposIn, xoffset, yoffset);
+    }
 
 }
 

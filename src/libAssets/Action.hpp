@@ -4,7 +4,8 @@
 
 enum ActionType {
 	KEY,
-	MOUSE
+	MOUSE,
+	ALL
 };
 //keyboard actions and mouse actions are not interchangeable
 //bu one could implement the same action as a key action and a cursor action in the same class

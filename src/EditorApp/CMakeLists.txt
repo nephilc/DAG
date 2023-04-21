@@ -1,8 +1,8 @@
 #add_subdirectory(src)
-file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" )
 
-add_executable(EDITORAPP ${SOURCE_FILES})
-target_include_directories(EDITORAPP PUBLIC .)
+add_executable(EDITORAPP ${SOURCE_FILES}  )
+target_include_directories(EDITORAPP PUBLIC . )
 target_link_libraries(
 	EDITORAPP PRIVATE
 	EDITOR
