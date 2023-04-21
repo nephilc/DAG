@@ -14,6 +14,8 @@
 #include<Camera.hpp>
 #include <animator.h>
 #include <AnimatedNode.hpp>
+#include <__msvc_chrono.hpp>
+#include <queue>
 
 
 enum input_mode
@@ -24,7 +26,10 @@ WORLD,
 SIMULATION
 
 };
-
+struct key_event {
+    std::string key;
+    float time_of_event;
+};
 
 class Application
 {
@@ -67,16 +72,29 @@ private:
     static glm::mat4 idm;
     //static FrameBuffer *m_FB;
 
+    
+
 
 
     Application(const char* acWindowTitle, int iXPosition,
         int iYPosition, int iWidth, int iHeight);
 
 public:
+
+
+    std::queue<key_event> unhandled_keys;
+    void handleKeys(std::string key, float time_of_event);
+    void handle_input(float delta_time);
     //factory method to encapsulate application creation
     static Application* getApplication(const char* acWindowTitle, int iXPosition,
             int iYPosition, int iWidth, int iHeight);
     static Application* getApplication();
+
+    //Due to our use case we will not 
+    std::list<std::string> keysPressed;
+    void addKeyPressed(std::string key);
+    void removeKeyPressed(std::string key);
+
 
 
     AssetManager* getAssetManager();

@@ -87,6 +87,8 @@ int Application::processInput()
     if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS)
         camera->ProcessKeyboard(RIGHT, deltaTime);
     }
+
+
     return 0;
 }  
 
@@ -126,12 +128,39 @@ void Application::resizeViewport(int width, int height)
     //assetManager->recreateMainFB(m_iFrameWidth, m_iFrameHeight);
     PLOGD << m_iFrameWidth;
 
+}    
+void Application::handleKeys(std::string key, float time_of_event) 
+{
+    key_event event = { key, time_of_event };
+    unhandled_keys.push(event);
+    
 }
-
+void Application::handle_input(float current)
+{
+    //Anything that should happen "when the users presses the key" should happen here
+    while (!unhandled_keys.empty()) {
+        key_event event = unhandled_keys.front();
+        unhandled_keys.pop();
+        if (application->getAssetManager()->currentMouseActionMap != 0) {
+            float dt1 = current - event.time_of_event;
+            application->getAssetManager()->currentKeyboardActionMap->at(event.key)->KeyAction(current);
+            PLOGD << dt1 << "time";
+        }
+    }
+    //Anything that should happen "while the key is held down" should happen here.
+}
+void Application::addKeyPressed(std::string key)
+{
+    keysPressed.push_back(key);
+}
+void Application::removeKeyPressed(std::string key)
+{
+    keysPressed.remove(key);
+}
 //the editor will get the imode from the application and update itself
 void Application::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-        if (imode == SIMULATION)
+        if (imode == SIMULATION && action==GLFW_PRESS)
         {
 
 
@@ -139,11 +168,19 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
             if (pressedName != 0 && -1 <= *pressedName && *pressedName <= 255 && isalpha(*pressedName))
             {
                 std::string keyString = std::string(pressedName);
+                Application::getApplication()->addKeyPressed(keyString);
+                //if (application->getAssetManager()->currentMouseActionMap != 0)
+                    //application->getAssetManager()->currentKeyboardActionMap->at(keyString)->KeyAction(application->deltaTime);
+                //application->getApplication()->handleKeys(keyString, (float)glfwGetTime());
+                //application->getApplication()->keysPressed->push_back(keyString);
+                
 
             }
             if (key <= GLFW_KEY_KP_9 && key >= GLFW_KEY_KP_0)
             {
                 std::string keyString = to_string(key - GLFW_KEY_KP_0);
+                Application::getApplication()->addKeyPressed(keyString);
+
 
             }
 
@@ -156,6 +193,30 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
             }
 
      }
+        else  if (imode == SIMULATION && action == GLFW_RELEASE) {
+            const char* pressedName = glfwGetKeyName(key, scancode);
+            if (pressedName != 0 && -1 <= *pressedName && *pressedName <= 255 && isalpha(*pressedName))
+            {
+                std::string keyString = std::string(pressedName);
+                Application::getApplication()->removeKeyPressed(keyString);
+                //if (application->getAssetManager()->currentMouseActionMap != 0)
+                    //application->getAssetManager()->currentKeyboardActionMap->at(keyString)->KeyAction(application->deltaTime);
+                //application->getApplication()->handleKeys(keyString, (float)glfwGetTime());
+                //application->getApplication()->keysPressed->push_back(keyString);
+
+
+            }
+            if (key <= GLFW_KEY_KP_9 && key >= GLFW_KEY_KP_0)
+            {
+                std::string keyString = to_string(key - GLFW_KEY_KP_0);
+                Application::getApplication()->removeKeyPressed(keyString);
+
+
+            }
+
+
+        }
+            
 
      if (imode == WORLD)
      {
@@ -239,7 +300,8 @@ void Application::cursor_position_callback(GLFWwindow* window,  double xposIn, d
 	}
     else if (imode == SIMULATION)
     {
-        application->getAssetManager()->MouseActionMap["Mouse Cursor"]->MouseAction(xposIn, yposIn, xoffset, yoffset);
+        if(application->getAssetManager()->currentMouseActionMap!=0)
+        application->getAssetManager()->currentMouseActionMap->at("Mouse Cursor")->MouseAction(xposIn, yposIn, xoffset, yoffset);
     }
 
 }

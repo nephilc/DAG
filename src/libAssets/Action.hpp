@@ -18,7 +18,7 @@ public:
 	~Action();
 	ActionType m_at;
 	//this method doesnt need to know the key to execute this action
-	virtual void KeyAction();
+	virtual void KeyAction(float dt=0);
 	virtual void MouseAction(float xposIn, float yposIn, float xoffset, float yoffset);
 	virtual void GamePadAction();
 

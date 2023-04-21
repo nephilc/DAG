@@ -30,7 +30,12 @@ void AssetManager::CreateDefaults()
     defaultAnimation = Animation("3dmodels/Dying/Dying.dae", defaultModel);
     defaultAnimator = new Animator(&defaultAnimation);
     defaultaniNode = new AnimatedNode(defaultModel, defaultAniShader, defaultAnimator, defaultAnimation);
-    
+
+    //#################These would be dafault action maps
+    currentMouseActionMap = &MouseActionMap;
+    currentKeyboardActionMap = &KeyboardActionMap;
+    currentGamePadActionMap = &GamePadActionMap;
+
 }
 
 AssetManager::~AssetManager()

@@ -3,6 +3,7 @@
 #include<WorldNode.hpp>
 #include<ScreenCanvas.hpp>
 #include<CameraAction.hpp>
+#include<CameraActionUP.hpp>
 
 
 int Application::Main (int iQuantity, char** apcArgument)
@@ -16,7 +17,8 @@ int Application::Main (int iQuantity, char** apcArgument)
     //glEnable(GL_DEPTH_TEST);
 
     assetManager->registerAction(new CameraAction());
-    WorldNode *worldNode = new WorldNode(1.0, 1.0, 1.0, 1.0);    
+    assetManager->registerAction(new CameraActionUP());
+    WorldNode *worldNode = new WorldNode(1.0, 1.0, 1.0, 1.0);
     //worldNode->SetName("WORLD NODE");
     Node* node0 =  new Node();
     Node* node1 =  new Node();
@@ -44,10 +46,17 @@ int Application::Main (int iQuantity, char** apcArgument)
     {
 
         float currentFrame = static_cast<float>(glfwGetTime());
+        
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        processInput();
 
+        processInput();
+        if (imode == SIMULATION) {
+            for (string& key : keysPressed)
+            {
+                getAssetManager()->currentKeyboardActionMap->at(key)->KeyAction(deltaTime);
+            }
+        }
         //m_FB is where you draw the nodes
         //there is also the default frame buffer
         //application->m_FB->use();
@@ -73,6 +82,8 @@ int Application::Main (int iQuantity, char** apcArgument)
 //###############################################insert a call to gl viewport here
         //glViewport(0, 0, assetManager->getMainBuffer()->getWidth(), assetManager->getMainBuffer()->getHeight());
         worldNode->Draw(camera, deltaTime);
+        //handle_input(deltaTime);
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
         //glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
         glEnable(GL_DEPTH_TEST);    

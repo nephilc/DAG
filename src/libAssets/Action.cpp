@@ -14,7 +14,7 @@ Action::~Action() {
 }
 
 //No action 
-void Action::KeyAction() {
+void Action::KeyAction(float dt) {
 
 }
 //No Action

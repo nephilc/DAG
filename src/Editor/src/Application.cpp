@@ -149,7 +149,8 @@ void Application::populateScanCodeMap() {
 
     assetManager->MouseActionsVector.push_back(new Action("test Action"));
     assetManager->MouseActionsVector.push_back(assetManager->NoAction);
-
+    //keysPressed = new std::vector<std::string>
+      //  ((assetManager->keyBoardVector.size() + assetManager->MouseVector.size() + assetManager->GamePadVector.size()));
 
 }
 

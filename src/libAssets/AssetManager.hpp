@@ -75,6 +75,7 @@ public:
 
     //this is the one i will use################################################
     //map : char====> Action string;
+    //Thes would be default action maps
     static  Action *NoAction;
     std::unordered_map<string, Action*> KeyboardActionMap;
     std::unordered_map<string, Action*> MouseActionMap;
@@ -82,6 +83,20 @@ public:
     std::vector<string> keyBoardVector;
     std::vector<string> MouseVector;
     std::vector<string> GamePadVector;
+
+
+
+
+
+    //##################DIFFERENT OBJECTS WILL REQUIRE DIFFERENT MAPS#####################################################
+    //##################THESE POINTERS WILL BE SET DEPENDING ON THE CURRENT APPLICATION OBJECT IN CONTROL#################
+    std::unordered_map<string, Action*> *currentKeyboardActionMap;
+    std::unordered_map<string, Action*> *currentMouseActionMap;
+    std::unordered_map<string, Action*> *currentGamePadActionMap;
+
+
+
+
 
 
     /// <summary>
@@ -100,6 +115,7 @@ public:
     void loadShader(string vpath, string fpath, string name);
 
     void registerAction(Action* action);
+    void setDefaultActionMaps();
 
 
 
