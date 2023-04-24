@@ -176,6 +176,8 @@ void EditorUI::ImportedScenesWindow(bool* p_open)
     {
         createNode();
         playButton();
+        saveSceneButton();
+        sceneCombo();
         // Left
         ImportedScenesWindowLeft(p_open);
         ImGui::SameLine();
@@ -418,4 +420,53 @@ if (ImGui::Button("play", ImVec2(40, 20)))
     app->disableCursor();
     // Handle button press here
 }
+}
+
+void EditorUI::saveSceneButton() {
+    bool save = false;
+    ImGui::SameLine();
+    // Create the button
+    if (ImGui::Button("Save scene"))
+    {
+        save = true;
+        //open pop up model to get the location where to save the file
+        // open stream to file
+        // save the asset managers current scene, pass the stream to it.
+        //save scene
+    }
+    if (save)
+        ImGui::OpenPopup("Save scene");
+
+
+    if (file_dialog.showFileDialog("Save scene", imgui_addons::ImGuiFileBrowser::DialogMode::SAVE, ImVec2(700, 310), "*.XDG"))
+    {
+        std::cout << file_dialog.selected_fn << std::endl;      // The name of the selected file or directory in case of Select Directory dialog mode
+        std::cout << file_dialog.selected_path << std::endl;    // The absolute path to the selected file
+        std::cout << file_dialog.ext << std::endl;              // Access ext separately (For SAVE mode)
+        //Do writing of files based on extension here
+    }
+}
+
+
+void EditorUI::sceneCombo() {
+    ImGui::SameLine();
+    static int item_current_idx = 0; // Here we store our selection data as an index.
+    const char* combo_preview_value = "scene1";  // Pass in the preview value visible before opening the combo (it could be anything)
+    if (ImGui::BeginCombo(string(" ======> ").c_str(), combo_preview_value, ImGuiComboFlags_NoPreview))
+    {
+        for (int n = 0; n < m_AM->KeyActionsVector.size(); n++)
+        {
+            const bool is_selected = (item_current_idx == n);
+            if (ImGui::Selectable("selectable", is_selected)) {
+                item_current_idx = n;
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected) {
+                ImGui::SetItemDefaultFocus();
+            }
+        }
+        ImGui::EndCombo();
+    }
+
 }

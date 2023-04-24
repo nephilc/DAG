@@ -91,6 +91,9 @@ void createNode();
 void  shadersWindow(bool* p_open);
 void sceneView(int itextureId,  int *width, int* height, float* view, float* projection, float* idm, float* model);
 void ShowPlaceholderObject(const char* prefix, int uid);
+void saveSceneButton();
+void sceneCombo();
+
 };
 
 
