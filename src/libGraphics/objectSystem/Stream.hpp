@@ -1,11 +1,16 @@
 #ifndef STREAM_HPP
 #define STREAM_HPP
 #include<string>
+#include <iostream>
+#include <fstream>
+
 class Object;
 class Stream
 {
 public:
-	Stream();
+
+	std::fstream myfile;
+	Stream(std::string fileName);
 	~Stream();
 	//A link class, or otherwise
 
@@ -14,9 +19,15 @@ public:
 
 
 	//write functions for any kind of write operation that we would like to perform
-	void write(const Object* object);
+	//void write(const Object* object);
+	void writeln(const std::string& str);
 	void write(const std::string& str);
-	void write(int iQuantity, const float* afValue);//important for saving transforms, or any kind of array
+	void writeln(int iQuantity, const float* afValue);//important for saving transforms, or any kind of array
+	void write(void* ptr);
+	//void write
+
+	void read(const std::string& str);
+	void read(int iQuantity, const float* afValue);//important for saving transforms, or any kind of array
 
 
 	// read/write always applied to buffer in memory

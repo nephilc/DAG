@@ -438,12 +438,16 @@ void EditorUI::saveSceneButton() {
         ImGui::OpenPopup("Save scene");
 
 
-    if (file_dialog.showFileDialog("Save scene", imgui_addons::ImGuiFileBrowser::DialogMode::SAVE, ImVec2(700, 310), "*.XDG"))
+    if (file_dialog.showFileDialog("Save scene", imgui_addons::ImGuiFileBrowser::DialogMode::SAVE, ImVec2(700, 310), "*.xdg"))
     {
         std::cout << file_dialog.selected_fn << std::endl;      // The name of the selected file or directory in case of Select Directory dialog mode
         std::cout << file_dialog.selected_path << std::endl;    // The absolute path to the selected file
         std::cout << file_dialog.ext << std::endl;              // Access ext separately (For SAVE mode)
         //Do writing of files based on extension here
+        Stream stream(file_dialog.selected_path + ".xdg");
+        m_AM->scene->save(stream);
+        //stream.myfile.close();
+
     }
 }
 

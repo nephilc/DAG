@@ -4,4 +4,4 @@ set(SRCS Object.cpp  RTTI.cpp Stream.cpp)
 #RTTI.cpp
 add_library(objectSystem STATIC ${HDRS} ${SRCS} ) 
 target_include_directories(objectSystem PUBLIC .)
-target_link_libraries(objectSystem PUBLIC  plog)
+target_link_libraries(objectSystem PUBLIC  plog glm)

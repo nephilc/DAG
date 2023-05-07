@@ -22,9 +22,10 @@ public:
     const std::string& GetName () const;
     unsigned int GetID () const;
     static unsigned int GetNextID ();
+    //virtual const Rtti& GetType() const;
 
-    void load(Stream& stream);
-    void save(Stream& stream);
+    //virtual void load(Stream& stream);
+    virtual void save(Stream& stream);
 
 
 

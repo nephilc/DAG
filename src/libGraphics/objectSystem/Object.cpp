@@ -19,6 +19,7 @@ Object::~Object()
 
 ///either i use std stream directly, instead of creating my own stream, or my stream class would be an adapter to std::stream
 //no need to create a system class
+/*
 void Object::save(Stream& stream)//std::OStream uncomment this
 {
     //stream.Write(std::string(GetType().GetName()));
@@ -30,7 +31,7 @@ void Object::save(Stream& stream)//std::OStream uncomment this
     //stream.Write(m_kName);
 
 }
-
+*/
 
 
 
@@ -61,3 +62,12 @@ unsigned int Object::GetNextID ()
 //----------------------------------------------------------------------------
 
 
+void Object::save(Stream& stream) 
+{
+    //start with child type save, then move on to other save
+    //object properties are loaded last when you reach the object props, you know you have loaded an entire node
+    //you wouldnt need the pointers if the load and saves are done recursively
+    stream.writeln(TYPE.GetName());
+    stream.writeln(m_kName);
+    
+}

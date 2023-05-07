@@ -1,5 +1,6 @@
 #include "Node.hpp"
 #include <plog/Log.h> 
+#include <gtc/type_ptr.hpp>
 
 //the world tranform is going to be passed to gpu, it should contain the transform in model space aswell.
 
@@ -15,6 +16,7 @@ Node::Node(/* args */)
     PLOGE<< "calling node constructor." ;
     m_parent = 0;//not initializing this pointer var, give a bug in the root node's tranform.
     m_world = m_local = m_localRotationMat= m_localTranslationMat=m_localScaleMat = glm::mat4(1.0f);
+    
     //this->SetName(to_string(this->GetID()));
     SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
 
@@ -22,6 +24,10 @@ Node::Node(/* args */)
     m_rotation = glm::vec3(1.0f);
     m_scale = glm::vec3(1.0f);
     m_angle = 0.0f;
+//write like this
+    for (int i = 0; i < 16; ++i) {
+        PLOGI<<glm::value_ptr(m_world)[i]<<" ";
+    }
 
 
 }
@@ -301,3 +307,18 @@ glm::mat4& Node::getWorldTransform()
 
 
 
+void Node::save(Stream& stream) 
+{
+    stream.writeln(TYPE.GetName());
+    Object::save(stream);
+    for (Node* node : m_children)
+    {
+        stream.write(node);
+
+    }
+    stream.writeln("");
+    for (Node* node : m_children) 
+    {
+        node->save(stream);
+    }
+}
