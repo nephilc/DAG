@@ -444,7 +444,7 @@ void EditorUI::saveSceneButton() {
         std::cout << file_dialog.selected_path << std::endl;    // The absolute path to the selected file
         std::cout << file_dialog.ext << std::endl;              // Access ext separately (For SAVE mode)
         //Do writing of files based on extension here
-        Stream stream(file_dialog.selected_path + ".xdg");
+        Stream stream(file_dialog.selected_path + ".xdg", WRITE_MODE);
         m_AM->scene->save(stream);
         //stream.myfile.close();
 

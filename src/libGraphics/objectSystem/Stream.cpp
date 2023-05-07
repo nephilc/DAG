@@ -3,11 +3,16 @@
 
 
 
-Stream::Stream(std::string fileName)
+Stream::Stream(std::string fileName, Mode mode)
 {
+	if(mode==WRITE_MODE)
 	myfile.open(fileName, std::ios::out);
+	else
+	{
+		myfile.open(fileName, std::ios::in);
 
-	if (myfile.is_open()) 
+	}
+	if (myfile.is_open())
 	{
 		PLOGE << "COULDN'T OPEN FILE";
 	}
@@ -15,6 +20,9 @@ Stream::Stream(std::string fileName)
 	{
 		PLOGI << "file opened " << fileName;
 	}
+}
+Stream::Stream(std::fstream file) 
+{
 }
 
 Stream::~Stream()

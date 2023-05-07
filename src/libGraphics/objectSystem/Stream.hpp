@@ -4,13 +4,19 @@
 #include <iostream>
 #include <fstream>
 
+enum Mode {
+	READ_MODE,
+	WRITE_MODE
+};
+
 class Object;
 class Stream
 {
 public:
 
 	std::fstream myfile;
-	Stream(std::string fileName);
+	Stream(std::string fileName,Mode mode);
+	Stream(std::fstream file);
 	~Stream();
 	//A link class, or otherwise
 

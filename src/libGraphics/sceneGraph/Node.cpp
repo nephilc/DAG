@@ -310,6 +310,9 @@ glm::mat4& Node::getWorldTransform()
 void Node::save(Stream& stream) 
 {
     stream.writeln(TYPE.GetName());
+    stream.writeln(16, glm::value_ptr(m_localTranslationMat));
+    stream.writeln(16, glm::value_ptr(m_localRotationMat));
+    stream.writeln(16, glm::value_ptr(m_localScaleMat));
     Object::save(stream);
     for (Node* node : m_children)
     {
