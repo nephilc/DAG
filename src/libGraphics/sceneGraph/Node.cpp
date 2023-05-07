@@ -8,10 +8,6 @@ IMPLEMENT_RTTI(Node, Object)
 
 glm::mat4 Node::view = glm::mat4(1.0f);
 glm::mat4 Node::projection = glm::mat4(1.0f);
-bool Node::manipulated = false;
-bool Node::rotation_gizmo = false;
-glm::mat4 Node::gizmo = glm::mat4(1.0f);
-glm::mat4 Node::delta = glm::mat4(1.0f);
 
 //if no parent the model will be equal to the world
 Node::Node(/* args */)

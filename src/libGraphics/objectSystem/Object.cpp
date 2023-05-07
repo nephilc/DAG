@@ -19,15 +19,15 @@ Object::~Object()
 
 ///either i use std stream directly, instead of creating my own stream, or my stream class would be an adapter to std::stream
 //no need to create a system class
-void Object::save(Stream& stream)std::OStream
+void Object::save(Stream& stream)//std::OStream uncomment this
 {
-    stream.Write(std::string(GetType().GetName()));
+    //stream.Write(std::string(GetType().GetName()));
 
     // address of object for unique ID on Load/Link
-    stream.Write((Object*)this);
+    //stream.Write((Object*)this);
 
     // name of object
-    stream.Write(m_kName);
+    //stream.Write(m_kName);
 
 }
 

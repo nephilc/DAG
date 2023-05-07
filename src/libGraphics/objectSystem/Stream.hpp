@@ -1,6 +1,6 @@
 #ifndef STREAM_HPP
 #define STREAM_HPP
-
+#include<string>
 class Object;
 class Stream
 {

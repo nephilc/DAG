@@ -501,13 +501,14 @@ if(selected !=0)
     
          glm::mat4 deltaMatrix;
          glm::vec3 position, rotation, scale;
+         
 
     if (mCurrentGizmoMode == ImGuizmo::WORLD)
 {
 
     if(ImGuizmo::Manipulate(view, projection, mCurrentGizmoOperation, ImGuizmo::WORLD, &(selected->m_world)[0][0], &(deltaMatrix)[0][0], useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL) )
         {
-        selected->manipulated = true;
+        //selected->manipulated = true;
         ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(deltaMatrix), 
                                            glm::value_ptr(position), 
                                            glm::value_ptr(rotation), 
@@ -564,14 +565,15 @@ if(selected !=0)
         //selected->m_local = glm::rotate(selected->m_local,glm::radians(rotation[2]), glm::vec3(0, 0, 1) );
         PLOGD<<"manipulated";
         }
-    else selected->manipulated = false;
+//    else selected->manipulated = false;
 
 }
     if (mCurrentGizmoMode == ImGuizmo::LOCAL)
 {
     if(ImGuizmo::Manipulate(view, projection, mCurrentGizmoOperation, ImGuizmo::LOCAL, &(selected->m_world)[0][0], &(deltaMatrix)[0][0],useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL))
-        {selected->manipulated = true;
-    selected->manipulated = true;
+        {
+
+        //selected->manipulated = true;
         ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(deltaMatrix), 
                                            glm::value_ptr(position), 
                                            glm::value_ptr(rotation), 
@@ -581,7 +583,7 @@ if(selected !=0)
         selected->m_local =glm::translate(selected->m_local, position);
         PLOGD<<"LOCAL MANIPULATED";
         }
-    else selected->manipulated = false;
+    //else selected->manipulated = false;
 }
 
 }

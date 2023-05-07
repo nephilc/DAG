@@ -16,6 +16,8 @@ Application *application= 0;
 //make this virtual part of application
 int main(int argc, char** argv)
 {
+	cout << sizeof(glm::mat4) << endl;
+	cout << sizeof(glm::vec4) << endl;
 	atexit(atexitWork);
 	std::cout<<"EDITOR APPLICATION"<<std::endl;
 	cout<<"ASSET TEST"<<endl;

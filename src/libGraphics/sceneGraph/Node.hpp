@@ -80,16 +80,11 @@ public:
     glm::mat4& getGuizmoTransform();
     void handleDetachements();
 
-vector<Mesh*> m_meshData;
+//vector<Mesh*> m_meshData;
 
-static Node* selected;
+//static Node* selected;
 static glm::mat4 view;
 static glm::mat4 projection;
-
-static bool manipulated;
-static bool rotation_gizmo;
-
-static glm::mat4 gizmo, delta;
 
 
 };
