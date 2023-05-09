@@ -5,6 +5,7 @@
 #include<CameraAction.hpp>
 #include<CameraActionUP.hpp>
 
+//if you have many instances of a certain type that need to be edited, there will be the notion of the current object, and ops associated with it.
 
 int Application::Main (int iQuantity, char** apcArgument)
 {
@@ -27,7 +28,9 @@ int Application::Main (int iQuantity, char** apcArgument)
     node0->attachChild(node1);//should do everything
     node0->attachChild(node2);//should do everything
 
-    assetManager->scene = worldNode;
+    assetManager->currentScene = worldNode;
+    assetManager->addScene(worldNode);
+
     assetManager->createScreenCanvas(1300, 800, "sc1");
     //ScreenCanvas sc();
 

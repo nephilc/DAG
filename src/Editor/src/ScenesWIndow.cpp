@@ -105,7 +105,7 @@ void EditorUI::ImportedScenesWindowLeft(bool* p_open)
 {
             ImGui::BeginChild("left pane", ImVec2(ImGui::GetWindowSize().x/2, 0), true); // Leave room for 1 line below us
 
-            DrawTree(m_AM->scene);
+            DrawTree(m_AM->currentScene);
          
             
             ImGui::EndChild();
@@ -445,7 +445,7 @@ void EditorUI::saveSceneButton() {
         std::cout << file_dialog.ext << std::endl;              // Access ext separately (For SAVE mode)
         //Do writing of files based on extension here
         Stream stream(file_dialog.selected_path + ".xdg", WRITE_MODE);
-        m_AM->scene->save(stream);
+        m_AM->currentScene->save(stream);
         //stream.myfile.close();
 
     }
@@ -456,13 +456,15 @@ void EditorUI::sceneCombo() {
     ImGui::SameLine();
     static int item_current_idx = 0; // Here we store our selection data as an index.
     const char* combo_preview_value = "scene1";  // Pass in the preview value visible before opening the combo (it could be anything)
-    if (ImGui::BeginCombo(string(" ======> ").c_str(), combo_preview_value, ImGuiComboFlags_NoPreview))
+    if (ImGui::BeginCombo(string("select scene").c_str(), combo_preview_value, ImGuiComboFlags_NoPreview))
     {
-        for (int n = 0; n < m_AM->KeyActionsVector.size(); n++)
+        vector<Node*> scenes = m_AM->getScenes();
+        for (int n = 0; n <scenes.size(); n++)
         {
             const bool is_selected = (item_current_idx == n);
-            if (ImGui::Selectable("selectable", is_selected)) {
+            if (ImGui::Selectable(scenes[n]->GetName().c_str(), is_selected)) {
                 item_current_idx = n;
+                m_AM->currentScene = scenes[n];
             }
 
             // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)

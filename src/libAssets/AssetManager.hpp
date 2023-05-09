@@ -114,6 +114,7 @@ public:
     void loadScene(string path, string name);
     void loadShader(string vpath, string fpath, string name);
 
+    void addScene(Node* scene);
     void registerAction(Action* action);
     void setDefaultActionMaps();
 
@@ -135,7 +136,7 @@ public:
 
 
     void loadScene();
-    Node* scene;
+    Node* currentScene;
 
 
     void createScreenCanvas(int width, int height, string name);

@@ -122,6 +122,15 @@ const vector<Shader*>& AssetManager::getShaders() const
     return v_shaders;
 }
 
+void AssetManager::addScene(Node* scene) 
+{
+    if (scene)
+        v_scenes.push_back(scene);
+    else
+        PLOGE << "Tried to add a null scene";
+}
+
+
 
 void AssetManager::createFrameBuffer(int width, int height, string name)
 {
