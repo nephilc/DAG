@@ -92,6 +92,19 @@ void AssetManager::loadScene(string path, string name)
     }
 }
 
+
+
+
+void AssetManager::saveScene(string filePath) 
+{
+
+    Stream stream(filePath, WRITE_MODE);
+    currentScene->save(stream);
+
+
+}
+
+
 void AssetManager::loadShader(string vpath, string fpath, string name)
 {
     Shader *shader = new Shader(vpath.c_str(), fpath.c_str());
@@ -130,6 +143,18 @@ void AssetManager::addScene(Node* scene)
         PLOGE << "Tried to add a null scene";
 }
 
+void AssetManager::setCurrentScene( Node* scene)
+{
+    if (scene != 0)
+        currentScene = scene;
+    else 
+        PLOGE << "Trying to make current scene null";
+}
+
+Node* AssetManager::getCurrentScene() 
+{
+    return currentScene;
+}
 
 
 void AssetManager::createFrameBuffer(int width, int height, string name)

@@ -28,7 +28,7 @@ int Application::Main (int iQuantity, char** apcArgument)
     node0->attachChild(node1);//should do everything
     node0->attachChild(node2);//should do everything
 
-    assetManager->currentScene = worldNode;
+    assetManager->setCurrentScene(worldNode);
     assetManager->addScene(worldNode);
 
     assetManager->createScreenCanvas(1300, 800, "sc1");

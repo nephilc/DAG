@@ -93,6 +93,7 @@ void sceneView(int itextureId,  int *width, int* height, float* view, float* pro
 void ShowPlaceholderObject(const char* prefix, int uid);
 void saveSceneButton();
 void sceneCombo();
+void newSceneButton();
 
 };
 

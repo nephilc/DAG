@@ -74,7 +74,7 @@ void EditorUI::render()
         EditorProperties();
 
 
-        m_AM->currentScene->handleDetachements();
+        m_AM->getCurrentScene()->handleDetachements();
             
 
 

@@ -105,7 +105,7 @@ void EditorUI::ImportedScenesWindowLeft(bool* p_open)
 {
             ImGui::BeginChild("left pane", ImVec2(ImGui::GetWindowSize().x/2, 0), true); // Leave room for 1 line below us
 
-            DrawTree(m_AM->currentScene);
+            DrawTree(m_AM->getCurrentScene());
          
             
             ImGui::EndChild();
@@ -178,6 +178,7 @@ void EditorUI::ImportedScenesWindow(bool* p_open)
         playButton();
         saveSceneButton();
         sceneCombo();
+        newSceneButton();
         // Left
         ImportedScenesWindowLeft(p_open);
         ImGui::SameLine();
@@ -410,16 +411,28 @@ void EditorUI::ModelNodeProperties(){
 }
 
 
-void EditorUI::playButton(){
-ImGui::SameLine();
-// Create the button
-if (ImGui::Button("play", ImVec2(40, 20)))
-{
-    app->imode = SIMULATION;
-    updateInputFlags(SIMULATION);
-    app->disableCursor();
-    // Handle button press here
+void EditorUI::playButton() {
+    ImGui::SameLine();
+    // Create the button
+    if (ImGui::Button("play", ImVec2(40, 20)))
+    {
+        app->imode = SIMULATION;
+        updateInputFlags(SIMULATION);
+        app->disableCursor();
+        // Handle button press here
+    }
 }
+
+void EditorUI::newSceneButton() {
+    ImGui::SameLine();
+    // Create the button
+    if (ImGui::Button("new Scene"))
+    {
+        Node* newScene = new WorldNode(1.0, 1.0, 1.0, 1.0);
+        m_AM->addScene(newScene);
+        m_AM->setCurrentScene(newScene);    
+
+    }
 }
 
 void EditorUI::saveSceneButton() {
@@ -444,9 +457,8 @@ void EditorUI::saveSceneButton() {
         std::cout << file_dialog.selected_path << std::endl;    // The absolute path to the selected file
         std::cout << file_dialog.ext << std::endl;              // Access ext separately (For SAVE mode)
         //Do writing of files based on extension here
-        Stream stream(file_dialog.selected_path + ".xdg", WRITE_MODE);
-        m_AM->currentScene->save(stream);
         //stream.myfile.close();
+        m_AM->saveScene(file_dialog.selected_path + ".xdg");
 
     }
 }
@@ -464,7 +476,7 @@ void EditorUI::sceneCombo() {
             const bool is_selected = (item_current_idx == n);
             if (ImGui::Selectable(scenes[n]->GetName().c_str(), is_selected)) {
                 item_current_idx = n;
-                m_AM->currentScene = scenes[n];
+                m_AM->setCurrentScene(scenes[n]);
             }
 
             // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)

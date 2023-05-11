@@ -12,7 +12,7 @@ Stream::Stream(std::string fileName, Mode mode)
 		myfile.open(fileName, std::ios::in);
 
 	}
-	if (myfile.is_open())
+	if (!myfile.is_open())
 	{
 		PLOGE << "COULDN'T OPEN FILE";
 	}

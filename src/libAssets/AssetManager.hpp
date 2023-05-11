@@ -69,7 +69,12 @@ private:
 
     static FrameBuffer* mainBuffer;
     FrameBuffer *currentFrameBuffer;
-    
+
+    Node* currentScene;
+
+    // "File://" subsitute
+    std::string fileRoot;
+
 
 public:
 
@@ -114,6 +119,11 @@ public:
     void loadScene(string path, string name);
     void loadShader(string vpath, string fpath, string name);
 
+    //the path should include the fileName
+    void saveScene(string filePath);
+
+
+
     void addScene(Node* scene);
     void registerAction(Action* action);
     void setDefaultActionMaps();
@@ -136,7 +146,10 @@ public:
 
 
     void loadScene();
-    Node* currentScene;
+
+    
+    void setCurrentScene(Node* scene);
+    Node* getCurrentScene();
 
 
     void createScreenCanvas(int width, int height, string name);
@@ -149,16 +162,17 @@ public:
     void createmainFB(int width, int height);
 
     void getDefault(const Rtti &type, Node* parent);
+    
+
     //#################################################
     //################ D E F A U L T S ################
     //#################################################
-    Model *defaultModel;
+    Model* defaultModel;
     Animation defaultAnimation;
     Animator* defaultAnimator;
     AnimatedNode* defaultaniNode;
     Shader* defaultShader;
     Shader* defaultAniShader;
-    
 
 
 };
