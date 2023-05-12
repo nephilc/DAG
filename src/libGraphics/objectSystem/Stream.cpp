@@ -61,3 +61,14 @@ void Stream::write(void* ptr)
 
 }
 
+std::string readln() 
+{
+	//getline, return it as str
+
+}
+//important for saving transforms, or any kind of array
+void readln(int iQuantity, const float* afValue) 
+{
+	//get line split it and fill up the array in the parametres
+
+}

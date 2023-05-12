@@ -23,14 +23,19 @@ public:
     unsigned int GetID () const;
     static unsigned int GetNextID ();
     //virtual const Rtti& GetType() const;
-
-    //virtual void load(Stream& stream);
+    //the role of this method is to read a line and to dispatch a factory method//not anymore
+    
+    //the only two methods i will use, the same way i saved the scene. These will be the only two methods i will use.
+    virtual void load(Stream& stream);
     virtual void save(Stream& stream);
+
+
+    static Object* objectFactoryMethod(Stream& stream);
 
 
 
 private:
-    std::map<std::string, FactoryMethod> factoryMethodMap;
+    static std::map<std::string, FactoryMethod> factoryMethodMap;
     std::string m_kName;
     unsigned int m_uiID;
     static unsigned int ms_uiNextID;

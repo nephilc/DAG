@@ -116,7 +116,7 @@ public:
     AssetManager(/* args */);
     ~AssetManager();
     void loadModel(string path, string name);
-    void loadScene(string path, string name);
+    void loadScene(string path);
     void loadShader(string vpath, string fpath, string name);
 
     //the path should include the fileName
@@ -145,8 +145,7 @@ public:
     void CreateDefaults();
 
 
-    void loadScene();
-
+    
     
     void setCurrentScene(Node* scene);
     Node* getCurrentScene();

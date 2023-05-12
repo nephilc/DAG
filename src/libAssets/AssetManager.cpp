@@ -71,25 +71,19 @@ void AssetManager::loadModel(string path, string name)
 }
 
 
-void AssetManager::loadScene(string path, string name)
+void AssetManager::loadScene(string filePath)
 {
-    if(models.count(name) > 0)
-    {
-        Model *model = new Model(path);
-        std::ostringstream oss;
-        oss << name <<model->GetID();
-        string newName = oss.str();
-        models[newName] = model;
-        model->SetName(newName);
-        v_models.push_back(model);
 
-    }
-    else{
-    Model *model = new Model(path);
-    models[name] = model;
-    model->SetName(name);
-    v_models.push_back(model);
-    }
+    //create stream
+    //call load on world node
+    // //the file will be read recursivly
+    //load methods on object classes will be called
+    //WorldNode *scene =
+    //worldnode.load(stream)
+    PLOGI << "Loading scene " << filePath;
+    Stream stream(filePath, READ_MODE);
+    currentScene->load(stream);
+
 }
 
 

@@ -38,7 +38,8 @@ using namespace std;
 
 unsigned int TextureFromFile(const char *path, const string &directory, bool gamma = false);
 unsigned int TextureFromFile_EM(const char *path, const string &directory,const aiScene* scene,bool gamma = false);
-
+//when it comes to the persistance of models, you only need to save their paths, theiy will be reloaded by assimp.
+//and maybe that gamma correction. but that wouldnt be a problem
 class Model : public Object
 {
 public:

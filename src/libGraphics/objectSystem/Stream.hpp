@@ -4,6 +4,10 @@
 #include <iostream>
 #include <fstream>
 
+//fstream adapter class
+
+
+
 enum Mode {
 	READ_MODE,
 	WRITE_MODE
@@ -32,14 +36,14 @@ public:
 	void write(void* ptr);
 	//void write
 
-	void read(const std::string& str);
+	std::string read();
 	void read(int iQuantity, const float* afValue);//important for saving transforms, or any kind of array
-
+	//the speed of memcopy
 
 	// read/write always applied to buffer in memory
 	int m_iBufferSize, m_iBufferNext;
-	char* m_acBuffer;
 
+	char* m_acBuffer;
 
 private:
 

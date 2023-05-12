@@ -4,11 +4,19 @@
 const Rtti Object::TYPE("Object",0);
 unsigned int Object::ms_uiNextID = 0;
 
+//will need to initialize this vector at startup 
+//std::map<std::string, Object::FactoryMethod> Object::factoryMethodMap;
+/*
+void objectFactoryMethod(Stream& stream)
+{
+
+}
+*/
+
 Object::Object(/* args */)
 {
     m_uiID = ms_uiNextID++;
-SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
-
+    SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
     PLOGD<<"object const"<<TYPE.typeList.size();
 
 }
@@ -71,3 +79,14 @@ void Object::save(Stream& stream)
     stream.writeln(m_kName);
     
 }
+
+
+void Object::load(Stream& stream) 
+{
+    
+    //While(stream.getline)
+    //extract type
+    //call factory method of that type//pass to it the stream so that it may call factory methods itself
+
+}
+

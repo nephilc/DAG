@@ -6,6 +6,11 @@
 #include<CameraActionUP.hpp>
 
 //if you have many instances of a certain type that need to be edited, there will be the notion of the current object, and ops associated with it.
+//app cpu usage may depend on a number of factors.
+//sometimes one gets some, relative spikes in cpu usage, like 2% more, on certaain events, then it goes back to orbit around  a stable value.
+
+
+
 
 int Application::Main (int iQuantity, char** apcArgument)
 {
@@ -82,10 +87,10 @@ int Application::Main (int iQuantity, char** apcArgument)
 
         node0->Draw(camera, deltaTime);
         */
-        worldNode->projection = projection;
+        assetManager->getCurrentScene()->projection = projection;
 //###############################################insert a call to gl viewport here
         //glViewport(0, 0, assetManager->getMainBuffer()->getWidth(), assetManager->getMainBuffer()->getHeight());
-        worldNode->Draw(camera, deltaTime);
+        assetManager->getCurrentScene()->Draw(camera, deltaTime);
         //handle_input(deltaTime);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
