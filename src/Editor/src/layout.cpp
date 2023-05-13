@@ -77,18 +77,6 @@ void EditorUI::ImportedModelsWindow(bool* p_open)
     ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
     if (ImGui::Begin("AssetManager Imported models Vector", p_open, ImGuiWindowFlags_MenuBar))
     {
-        /*
-        //IMGUI_DEMO_MARKER("Examples/Simple layout");
-        if (ImGui::BeginMenuBar())
-        {
-            if (ImGui::BeginMenu("File"))
-            {
-                if (ImGui::MenuItem("Close")) *p_open = false;
-                ImGui::EndMenu();
-            }
-            ImGui::EndMenuBar();
-        }
-        */
         // Left
         static int selected = 0;
         Model* selectedM;
@@ -116,21 +104,89 @@ void EditorUI::ImportedModelsWindow(bool* p_open)
             ImGui::Separator();
             if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
             {
-               
+
                 if (ImGui::BeginTabItem("Model Details"))
                 {
                     char text[128];
                     //string text = string("object id") + string("%i", m_AM->getModels()[selected]->GetID()); 
-                    sprintf(text,"objec ID : %i",  selectedM->GetID());
+                    sprintf(text, "objec ID : %i", selectedM->GetID());
 
-                    ImGui::Text("%s",text);
-                    ImGui::Text("NUMBER OF MESHES %i",selectedM->numMeshes);
-                    ImGui::Text("NUMBER OF ANIMATIONS %i",selectedM->numAnimations);
-                    ImGui::Text("NUMBER OF MATERIALS %i",selectedM->numMaterials);
-                    ImGui::Text("NUMBER OF TEXTURES %i, %s",selectedM->numTextures, "(embedded)");
-                    ImGui::Text("NUMBER OF LIGHTS %i",selectedM->numLights);
-                    ImGui::Text("NUMBER OF CAMERAS %i",selectedM->numCameras);
-                    
+                    ImGui::Text("%s", text);
+                    ImGui::Text("NUMBER OF MESHES %i", selectedM->numMeshes);
+                    ImGui::Text("NUMBER OF ANIMATIONS %i", selectedM->numAnimations);
+                    ImGui::Text("NUMBER OF MATERIALS %i", selectedM->numMaterials);
+                    ImGui::Text("NUMBER OF TEXTURES %i, %s", selectedM->numTextures, "(embedded)");
+                    ImGui::Text("NUMBER OF LIGHTS %i", selectedM->numLights);
+                    ImGui::Text("NUMBER OF CAMERAS %i", selectedM->numCameras);
+
+                    ImGui::EndTabItem();
+                }
+                if (ImGui::BeginTabItem("Description"))
+                {
+                    ImGui::TextWrapped("A scene is loaded as single model");
+                    ImGui::EndTabItem();
+                }
+                ImGui::EndTabBar();
+            }
+            ImGui::EndChild();
+            /*
+            if (ImGui::Button("Revert")) {}
+            ImGui::SameLine();
+            if (ImGui::Button("Save")) {}
+            */
+            ImGui::EndGroup();
+        }
+    }
+    ImGui::End();
+}
+
+void EditorUI::ImportedStaticModelsWindow(bool* p_open)
+{
+    ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
+    if (ImGui::Begin("AssetManager Imported Static models Vector", p_open, ImGuiWindowFlags_MenuBar))
+    {
+        // Left
+        static int selected = 0;
+        Model* selectedM;
+        {
+            Model* model;
+            ImGui::BeginChild("left pane", ImVec2(150, 0), true);
+            for (int i = 0; i < m_AM->getModels().size(); i++)
+            {
+                // FIXME: Good candidate to use ImGuiSelectableFlags_SelectOnNav
+                model = m_AM->getModels()[i];
+                char label[128];
+                sprintf(label, "%s", model->GetName().c_str());
+                if (ImGui::Selectable(label, selected == i))
+                    selected = i;
+            }
+            ImGui::EndChild();
+        }
+        ImGui::SameLine();
+        selectedM = m_AM->getModels()[selected];
+        // Right
+        {
+            ImGui::BeginGroup();//this child window will scroll on it's own
+            ImGui::BeginChild("item view", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
+            ImGui::Text("MyObject: %s", selectedM->GetName().c_str());
+            ImGui::Separator();
+            if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
+            {
+
+                if (ImGui::BeginTabItem("Model Details"))
+                {
+                    char text[128];
+                    //string text = string("object id") + string("%i", m_AM->getModels()[selected]->GetID()); 
+                    sprintf(text, "objec ID : %i", selectedM->GetID());
+
+                    ImGui::Text("%s", text);
+                    ImGui::Text("NUMBER OF MESHES %i", selectedM->numMeshes);
+                    ImGui::Text("NUMBER OF ANIMATIONS %i", selectedM->numAnimations);
+                    ImGui::Text("NUMBER OF MATERIALS %i", selectedM->numMaterials);
+                    ImGui::Text("NUMBER OF TEXTURES %i, %s", selectedM->numTextures, "(embedded)");
+                    ImGui::Text("NUMBER OF LIGHTS %i", selectedM->numLights);
+                    ImGui::Text("NUMBER OF CAMERAS %i", selectedM->numCameras);
+
                     ImGui::EndTabItem();
                 }
                 if (ImGui::BeginTabItem("Description"))

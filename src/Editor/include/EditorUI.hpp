@@ -94,6 +94,8 @@ void ShowPlaceholderObject(const char* prefix, int uid);
 void saveSceneButton();
 void sceneCombo();
 void newSceneButton();
+void ImportedStaticModelsWindow(bool* p_open);
+
 
 };
 

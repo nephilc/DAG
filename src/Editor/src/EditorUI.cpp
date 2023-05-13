@@ -65,6 +65,7 @@ void EditorUI::render()
         showMainMenu();
         ImGui::ShowDemoWindow(&show_demo_window);
         ImportedModelsWindow(&show_demo_window);
+        ImportedStaticModelsWindow(&show_demo_window);
         editTransform();
         ImportedScenesWindow(&show_demo_window);
         shadersWindow(&show_demo_window);
