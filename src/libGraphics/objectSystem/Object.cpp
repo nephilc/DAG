@@ -87,6 +87,9 @@ void Object::load(Stream& stream)
     //While(stream.getline)
     //extract type
     //call factory method of that type//pass to it the stream so that it may call factory methods itself
+    std::string typeName = stream.readln();
+    if (typeName != TYPE.GetName()) PLOGE << "Wrong loader, Expected " << TYPE.GetName() << " found in file" << typeName;
+    this->m_kName = stream.readln();
 
 }
 

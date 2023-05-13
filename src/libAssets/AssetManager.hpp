@@ -15,6 +15,7 @@
 #include <AnimatedNode.hpp>
 #include <ScreenCanvas.hpp>
 #include<Action.hpp>
+#include<WorldNode.hpp>
 
 //in the buffer you put the vertexdata.
 //genbuffer+bind buffer+bufferdata

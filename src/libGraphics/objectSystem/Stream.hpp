@@ -36,8 +36,8 @@ public:
 	void write(void* ptr);
 	//void write
 
-	std::string read();
-	void read(int iQuantity, const float* afValue);//important for saving transforms, or any kind of array
+	std::string readln();
+	void readln(int iQuantity, float* afValue);//important for saving transforms, or any kind of array
 	//the speed of memcopy
 
 	// read/write always applied to buffer in memory

@@ -80,6 +80,7 @@ public:
     glm::mat4& getGuizmoTransform();
     void handleDetachements();
     virtual void save(Stream& stream);
+    void load(Stream& stream);
 
 //vector<Mesh*> m_meshData;
 

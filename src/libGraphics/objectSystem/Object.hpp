@@ -7,6 +7,7 @@
 #include<Stream.hpp>
 #include<map>
 
+//a game like the last of us could be made with this engine
 class Object
 {
     DECLARE_RTTI

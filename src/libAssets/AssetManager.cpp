@@ -1,6 +1,7 @@
 #include "AssetManager.hpp"
 #include <plog/Log.h>
 
+
 FrameBuffer* AssetManager::mainBuffer = 0;
 Action *AssetManager::NoAction = new Action("No Action");
 
@@ -82,8 +83,11 @@ void AssetManager::loadScene(string filePath)
     //worldnode.load(stream)
     PLOGI << "Loading scene " << filePath;
     Stream stream(filePath, READ_MODE);
-    currentScene->load(stream);
 
+    //assume the first element in the scene is always a world node
+    WorldNode* newScene = new WorldNode(1.0, 1.0, 1.0, 1.0);
+    v_scenes.push_back(newScene);
+    newScene->load(stream);
 }
 
 

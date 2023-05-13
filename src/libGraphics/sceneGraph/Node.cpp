@@ -304,7 +304,42 @@ glm::mat4& Node::getWorldTransform()
 }
 
 
+//do just the same as the save
+void Node::load(Stream& stream) 
+{
+    string typeName = stream.readln();//eading the type line should be in the child loop, so that we create the right kind of node, we assume the type of the root node
+    if (typeName != TYPE.GetName()) PLOGE << "Wrong loader, Expected " << TYPE.GetName() << " found in file" << typeName;
+    stream.readln(16, glm::value_ptr(m_localTranslationMat));
+    stream.readln(16, glm::value_ptr(m_localRotationMat));
+    stream.readln(16, glm::value_ptr(m_localScaleMat));
+    Object::load(stream);
+    //now determine the number of children
+    int numberOfChildren = 0;
+    string childrenString = stream.readln();
+    if (childrenString != "LeafNode") {
+        //do a split and then count
+        std::istringstream iss(childrenString);
+        //get line split it and fill up the array in the parametres
+        std::string part;
+        int i = 0;
+        while (std::getline(iss, part, ' ')) {
+            i++;
+        }
+        numberOfChildren = i;//i should consider saving the number of child nodes
 
+
+
+
+    } 
+    //
+    for (int i = 0; i < numberOfChildren; i++)
+    {
+        //well right heare you need to determine the type of the child
+        Node* childNode = new Node();
+        attachChild(childNode);
+        childNode->load(stream);
+    }
+}
 
 
 void Node::save(Stream& stream) 
@@ -314,14 +349,23 @@ void Node::save(Stream& stream)
     stream.writeln(16, glm::value_ptr(m_localRotationMat));
     stream.writeln(16, glm::value_ptr(m_localScaleMat));
     Object::save(stream);
-    for (Node* node : m_children)
+    if (m_children.size()!=0)
     {
-        stream.write(node);
+        for (Node* node : m_children)
+        {
+            stream.write(node);
+
+        }
+        stream.writeln("");
+        for (Node* node : m_children)
+        {
+            node->save(stream);
+        }
 
     }
-    stream.writeln("");
-    for (Node* node : m_children) 
+    else 
     {
-        node->save(stream);
+        stream.writeln("LeafNode");
     }
+
 }

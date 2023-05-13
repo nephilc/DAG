@@ -61,14 +61,26 @@ void Stream::write(void* ptr)
 
 }
 
-std::string readln() 
+std::string Stream::readln() 
 {
 	//getline, return it as str
+	std::string temp;
+	std::getline(myfile, temp);
+	return temp;
 
 }
 //important for saving transforms, or any kind of array
-void readln(int iQuantity, const float* afValue) 
+void Stream::readln(int iQuantity, float* afValue) 
 {
+	//getline, return it as str
+	std::string line;
+	std::getline(myfile, line);
+	std::istringstream iss(line);
 	//get line split it and fill up the array in the parametres
-
+	std::string part;
+	int i = 0;
+	while (i<iQuantity && std::getline(iss, part, ' ')) {
+		afValue[i] = std::stof(part);
+		i++;
+	}
 }
