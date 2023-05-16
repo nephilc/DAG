@@ -28,8 +28,9 @@ void AssetManager::CreateDefaults()
     defaultAniShader = getShaders()[0];
 
     defaultModel = getModel("arissa");
-    defaultAnimation = Animation("3dmodels/Dying/Dying.dae", defaultModel);
-    defaultAnimator = new Animator(&defaultAnimation);
+    loadAnimation("3dmodels/Dying/Dying.dae", defaultModel);
+    defaultAnimation = v_Animations[0];
+    defaultAnimator = new Animator(defaultAnimation);
     defaultaniNode = new AnimatedNode(defaultModel, defaultAniShader, defaultAnimator, defaultAnimation);
 
     //#################These would be dafault action maps
@@ -71,7 +72,11 @@ void AssetManager::loadModel(string path, string name)
     }
 }
 
-
+void AssetManager::loadAnimation(string vpath, Model* model)
+{
+    Animation *animation = new Animation(vpath, model);
+    v_Animations.push_back(animation);
+}
 void AssetManager::loadScene(string filePath)
 {
 
@@ -127,6 +132,10 @@ const vector<Node*>& AssetManager::getScenes() const
     return v_scenes;
 }
 
+const vector<Animation*>& AssetManager::getAnimations() const 
+{
+    return v_Animations;
+}
 
 const vector<Shader*>& AssetManager::getShaders() const
 {

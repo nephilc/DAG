@@ -3,7 +3,7 @@
 
 IMPLEMENT_RTTI(AnimatedNode, GeometryNode)
 
-AnimatedNode::AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation& animation) : m_model(model),  m_animator(animator), GeometryNode(shader),
+AnimatedNode::AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation* animation) : m_model(model),  m_animator(animator), GeometryNode(shader),
 m_animation(animation)
 {
     SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
@@ -47,11 +47,21 @@ void AnimatedNode::GeometryDraw(Camera *camera, float deltaTime)
     m_model->Draw(m_shader, drawMode);
 }
 
-void AnimatedNode::play() { play_animation = true; }
+void AnimatedNode::play() { if( m_animation!=nullptr) play_animation = true; }
 void AnimatedNode::stop() { play_animation = false; }
 bool AnimatedNode::getPlayState() { return play_animation; }
 
 bool *AnimatedNode::getPlayStatePointer()
 {
     return &play_animation;
+}
+
+
+Animation* AnimatedNode::getAnimation()
+{
+    return m_animation;
+}
+void AnimatedNode::setAnimation(Animation* animation)
+{
+    m_animation = animation;
 }

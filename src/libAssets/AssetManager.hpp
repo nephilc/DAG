@@ -65,6 +65,7 @@ private:
     vector<Model*> v_models;
     vector<Node*> v_scenes;
     vector<Shader*> v_shaders;
+    vector<Animation*> v_Animations;
     vector<FrameBuffer*> v_frameBuffers;
     vector<ScreenCanvas*> v_ScreenCanvases;
 
@@ -119,6 +120,7 @@ public:
     void loadModel(string path, string name);
     void loadScene(string path);
     void loadShader(string vpath, string fpath, string name);
+    void loadAnimation(string vpath, Model* model);
 
     //the path should include the fileName
     void saveScene(string filePath);
@@ -137,6 +139,7 @@ public:
     const vector<Model*>& getModels() const;
     const vector<Node*>& getScenes() const;
     const vector<Shader*>& getShaders() const;
+    const vector<Animation*>& getAnimations() const;
     const vector<FrameBuffer*>& getFrameBuffers() const;
     const vector<ScreenCanvas*>& getScreenCanvases() const;
 
@@ -168,7 +171,7 @@ public:
     //################ D E F A U L T S ################
     //#################################################
     Model* defaultModel;
-    Animation defaultAnimation;
+    Animation* defaultAnimation;
     Animator* defaultAnimator;
     AnimatedNode* defaultaniNode;
     Shader* defaultShader;

@@ -1,5 +1,3 @@
-
-
 #ifndef Model1_HPP
 #define Model1_HPP
 

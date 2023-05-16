@@ -321,6 +321,7 @@ void EditorUI::AnimatedNodeProperties(){
     if(ImGui::CollapsingHeader("Animated Node Properties")){
     AnimatedNode* localPointer = dynamic_cast<AnimatedNode*>(selected);
     static char* buttonText = "";
+    //will need to modify the animator aswell.
     if(localPointer->getPlayState())buttonText="Stop";
     else buttonText="play";
     if(ImGui::Button(buttonText))
@@ -328,8 +329,37 @@ void EditorUI::AnimatedNodeProperties(){
         if(localPointer->getPlayState()) localPointer->stop();
         else localPointer->play();
     }
+    ImGui::SameLine();
+    if (ImGui::Button("set null"))
+    {
+        localPointer->setAnimation(nullptr);
     }
-        
+
+    ImGui::SameLine();
+    if (ImGui::Button("Load Animation"))
+    {
+        //m_AM->loadAnimation();
+    }
+    vector<Animation*> animations = m_AM->getAnimations();
+    if (ImGui::BeginListBox("Animations"))
+    {
+        for (int n = 0; n < animations.size(); n++)
+        {
+            //item_current_idx = n;
+
+            const bool is_selected = (localPointer->getAnimation() == animations[n]);
+            if (ImGui::Selectable(animations[n]->GetName().c_str(), is_selected))
+                localPointer->setAnimation(animations[n]);
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndListBox();
+    }
+    }
+    
+
 }
 void EditorUI::GeometryNodeProperties(){
     GeometryNode *localPointer = dynamic_cast<GeometryNode*>(selected);

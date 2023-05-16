@@ -25,7 +25,7 @@ private:
     bool play_animation;
 
 public:
-    AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation& animation);
+    AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation *animation);
     AnimatedNode();
     void play();
     void stop();
@@ -34,10 +34,12 @@ public:
     ~AnimatedNode();
     void Draw(Camera* camera, float deltaTime) override;
     void GeometryDraw(Camera* camera, float deltaTime) override;
+    Animation* getAnimation();
+    void setAnimation(Animation* animation);
     Model* m_model;
     //Shader& m_shader;
     Animator* m_animator;
-    Animation& m_animation;
+    Animation* m_animation;
 
 
 

@@ -13,6 +13,7 @@
 #include <animData.h>
 #include <Model.hpp>
 #include <plog/Log.h>
+#include<Object.hpp>
 
 //load an animation for a specific model.
 //give it the loaded model and the path of the animation, which could be in the same model.
@@ -25,9 +26,10 @@ struct AssimpNodeData
 	std::vector<AssimpNodeData> children;
 };
 
-class Animation
+class Animation : public Object
 {
 public:
+	DECLARE_RTTI
 	Animation() = default;
 
 	Animation(const std::string& animationPath, Model* model)
@@ -44,6 +46,8 @@ public:
 		globalTransformation = globalTransformation.Inverse();
 		ReadHeirarchyData(m_RootNode, scene->mRootNode);
 		ReadMissingBones(animation, *model);
+		SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
+
 	}
 
 	~Animation()
