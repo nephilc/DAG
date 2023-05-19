@@ -118,6 +118,7 @@ void EditorUI::ImportedModelsWindow(bool* p_open)
                     ImGui::Text("NUMBER OF TEXTURES %i, %s", selectedM->numTextures, "(embedded)");
                     ImGui::Text("NUMBER OF LIGHTS %i", selectedM->numLights);
                     ImGui::Text("NUMBER OF CAMERAS %i", selectedM->numCameras);
+                    ImGui::Text("SCALE %d", selectedM->factor);
 
                     ImGui::EndTabItem();
                 }

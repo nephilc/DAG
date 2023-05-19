@@ -95,6 +95,7 @@ void saveSceneButton();
 void sceneCombo();
 void newSceneButton();
 void ImportedStaticModelsWindow(bool* p_open);
+void loadAnimationButton(AnimatedNode* AniNode);
 
 
 };

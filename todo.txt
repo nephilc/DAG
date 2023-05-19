@@ -1,0 +1,16 @@
+simplify the default graph
+edit position and scale of nodes see them, at least
+determine the true scale of the models, why do they scale up
+
+###########"
+
+the problem with scaling is that modeling software use different units of measurements
+
+Some use meters, others centimeters. This info is mentionned in the collada file for example, but it is ignored by assimp.
+So maybe ishould use centimeters as well for saving geometry data, and convert to meters when drawing.
+Blender doesnt seem to ignore the unit property of colladae, in fact changes in this property will affect how it is imported in blender.
+
+In any case scaling down the model doesnt cause problems with the animation, it is something in the way we load it. this problem doesnt occur in blender.
+
+
+we can move forward with animation blending.

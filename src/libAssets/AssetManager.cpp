@@ -22,13 +22,13 @@ void AssetManager::CreateDefaults()
 
     loadShader("shaderPrograms/animation.vs", "shaderPrograms/1.model_loading.fs", "ourShader1");
     loadShader("shaderPrograms/1.model_loading.vs", "shaderPrograms/1.model_loading.fs", "ourShader2");
-    loadModel("3dmodels/arissa1/arissa1.dae", "arissa");
+    loadModel("defaultAnims/Walking.fbx", "YBot");
 
     defaultShader = getShaders()[1];
     defaultAniShader = getShaders()[0];
 
-    defaultModel = getModel("arissa");
-    loadAnimation("3dmodels/Dying/Dying.dae", defaultModel);
+    defaultModel = getModel("YBot");
+    loadAnimation("defaultAnims/Running.fbx", defaultModel);
     defaultAnimation = v_Animations[0];
     defaultAnimator = new Animator(defaultAnimation);
     defaultaniNode = new AnimatedNode(defaultModel, defaultAniShader, defaultAnimator, defaultAnimation);
@@ -52,30 +52,38 @@ ScreenCanvas* AssetManager::getScreenCanvas(const string name)
 
 void AssetManager::loadModel(string path, string name)
 {
-    if(models.count(name) > 0)
-    {
-        //if name already exists append the object id to it.
-        Model *model = new Model(path);
-        std::ostringstream oss;
-        oss << name <<model->GetID();
-        string newName = oss.str();
-        models[newName] = model;
-        model->SetName(newName);
-        v_models.push_back(model);
+    Model* model = Model::loadModel(path);
 
+    if (model!= nullptr) {
+        if (models.count(name) > 0)
+        {
+            //if name already exists append the object id to it.
+            std::ostringstream oss;
+            oss << name << model->GetID();
+            string newName = oss.str();
+            models[newName] = model;
+            model->SetName(newName);
+            v_models.push_back(model);
+        }
+        else 
+        {
+            models[name] = model;
+            model->SetName(name);
+            v_models.push_back(model);
+        }
+        
     }
-    else{
-    Model *model = new Model(path);
-    models[name] = model;
-    model->SetName(name);
-    v_models.push_back(model);
+    else 
+    {
+            PLOGE << "FAILED TO LOAD MODEL AT" << path;
     }
 }
 
 void AssetManager::loadAnimation(string vpath, Model* model)
 {
-    Animation *animation = new Animation(vpath, model);
-    v_Animations.push_back(animation);
+    Animation *animation = Animation::loadAnimation(vpath, model);
+    if (animation != nullptr) v_Animations.push_back(animation);
+    else PLOGE << "CAnnot load ANimation AT" << vpath;
 }
 void AssetManager::loadScene(string filePath)
 {

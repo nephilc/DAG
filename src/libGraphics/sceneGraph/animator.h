@@ -49,6 +49,7 @@ public:
 		}
 	}
 
+	//change the current Animation
 	void PlayAnimation(Animation* pAnimation)
 	{
 		m_CurrentAnimation = pAnimation;
