@@ -44,13 +44,13 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
     Model* Model::loadModel(string const& path, bool gamma)
     {
-                PLOGE<<"calling Model constructor";
+        PLOGE<<"calling Model Loader";
 
         Model* model = new Model(path);
 
         // read file via ASSIMP
         Assimp::Importer importer;
-        importer.SetPropertyFloat(AI_CONFIG_GLOBAL_SCALE_FACTOR_KEY, 0.01);
+        //importer.SetPropertyFloat(AI_CONFIG_GLOBAL_SCALE_FACTOR_KEY, 0.01);
 
         const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 
@@ -64,7 +64,7 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
 
         // check for errors
         //double factor1(0.0);
-        scene->mMetaData->Get("UnitScaleFactor", model->factor);
+        //scene->mMetaData->Get("UnitScaleFactor", model->factor);
         //factor = factor1;
 
         model->numAnimations = scene->mNumAnimations;
