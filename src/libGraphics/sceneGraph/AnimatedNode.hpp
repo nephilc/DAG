@@ -36,6 +36,9 @@ public:
     void GeometryDraw(Camera* camera, float deltaTime) override;
     Animation* getAnimation();
     void setAnimation(Animation* animation);
+    Animator* getAnimator();
+
+    Model* getModel();
     Model* m_model;
     //Shader& m_shader;
     Animator* m_animator;

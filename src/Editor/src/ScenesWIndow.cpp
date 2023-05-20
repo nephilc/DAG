@@ -317,6 +317,7 @@ void EditorUI::WorldNodeProperties(){
 
 
 }
+
 void EditorUI::AnimatedNodeProperties(){
     if(ImGui::CollapsingHeader("Animated Node Properties")){
     AnimatedNode* localPointer = dynamic_cast<AnimatedNode*>(selected);
@@ -333,13 +334,10 @@ void EditorUI::AnimatedNodeProperties(){
     if (ImGui::Button("set null"))
     {
         localPointer->setAnimation(nullptr);
-    }
+        localPointer->getAnimator()->PlayAnimation(nullptr);
 
-    ImGui::SameLine();
-    if (ImGui::Button("Load Animation"))
-    {
-        //m_AM->loadAnimation();
     }
+    loadAnimationButton(localPointer);
     vector<Animation*> animations = m_AM->getAnimations();
     if (ImGui::BeginListBox("Animations"))
     {
@@ -348,8 +346,11 @@ void EditorUI::AnimatedNodeProperties(){
             //item_current_idx = n;
 
             const bool is_selected = (localPointer->getAnimation() == animations[n]);
-            if (ImGui::Selectable(animations[n]->GetName().c_str(), is_selected))
+            if (ImGui::Selectable(animations[n]->GetName().c_str(), is_selected)) {
                 localPointer->setAnimation(animations[n]);
+                localPointer->getAnimator()->PlayAnimation(animations[n]);
+
+            }
 
             // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
             if (is_selected)
@@ -488,11 +489,41 @@ void EditorUI::saveSceneButton() {
         std::cout << file_dialog.ext << std::endl;              // Access ext separately (For SAVE mode)
         //Do writing of files based on extension here
         //stream.myfile.close();
+        
         m_AM->saveScene(file_dialog.selected_path + ".xdg");
 
     }
 }
 
+
+void EditorUI::loadAnimationButton(AnimatedNode* AniNode) {
+    bool save = false;
+    ImGui::SameLine();
+    // Create the button
+    if (ImGui::Button("load Animation"))
+    {
+        save = true;
+        //open pop up model to get the location where to save the file
+        // open stream to file
+        // save the asset managers current scene, pass the stream to it.
+        //save scene
+    }
+    if (save)
+        ImGui::OpenPopup("load Animation");
+
+
+    if (file_dialog.showFileDialog("load Animation", imgui_addons::ImGuiFileBrowser::DialogMode::OPEN, ImVec2(700, 310), "*.*"))
+    {
+        std::cout << file_dialog.selected_fn << std::endl;      // The name of the selected file or directory in case of Select Directory dialog mode
+        std::cout << file_dialog.selected_path << std::endl;    // The absolute path to the selected file
+        std::cout << file_dialog.ext << std::endl;              // Access ext separately (For SAVE mode)
+        //Do writing of files based on extension here
+        //stream.myfile.close();
+        PLOGD << file_dialog.selected_path;
+        m_AM->loadAnimation(file_dialog.selected_path, AniNode->getModel());
+
+    }
+}
 
 void EditorUI::sceneCombo() {
     ImGui::SameLine();
@@ -518,3 +549,4 @@ void EditorUI::sceneCombo() {
     }
 
 }
+//animations dont work accross models by default

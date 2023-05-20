@@ -50,6 +50,7 @@ void Node::updateTransforms()
     {
         //trs
         //since im storign orientation in a matrix, we should be avoiding gimball lock
+        //m_localScaleMat = glm::scale(glm::mat4(1.0f), glm::vec3(0.01));
         m_local = m_localTranslationMat*m_localRotationMat*m_localScaleMat;
         m_world =  m_parent->m_world * m_local;
     }
@@ -255,6 +256,8 @@ void Node::setTranslation(float vec[3])
     m_translation.x = vec[0];
     m_translation.y = vec[1];
     m_translation.z = vec[2];
+    //m_localScaleMat = glm::scale(glm::mat4(1.0), m_scale);
+
 }
 void Node::setRotationAxis(float vec[3])
 {
@@ -268,6 +271,8 @@ void Node::setScale(float vec[3])
     m_scale.x = vec[0];
     m_scale.y = vec[1];
     m_scale.z = vec[2];
+
+    m_localScaleMat = glm::scale(glm::mat4(1.0), m_scale);
 
 }
 

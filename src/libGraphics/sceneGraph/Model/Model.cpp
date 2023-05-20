@@ -1,11 +1,12 @@
 #include "Model.hpp"
 #include <plog/Log.h>
+#include <assimp/postprocess.h>
 
 
 Model::Model(string const &path, bool gamma) : gammaCorrection(gamma)
 {
         cout<<"calling model constructor"<<endl;
-        loadModel(path);
+        //loadModel(path);
 }
  void Model::Draw(Shader *shader, DrawMode MD)
  {
@@ -41,32 +42,44 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
 }
 
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
-    void Model::loadModel(string const &path)
+    Model* Model::loadModel(string const& path, bool gamma)
     {
                 PLOGE<<"calling Model constructor";
 
+        Model* model = new Model(path);
+
         // read file via ASSIMP
         Assimp::Importer importer;
+        importer.SetPropertyFloat(AI_CONFIG_GLOBAL_SCALE_FACTOR_KEY, 0.01);
+
         const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-        // check for errors
-        numAnimations = scene->mNumAnimations;
-        numCameras = scene->mNumCameras;
-        numMaterials = scene->mNumMaterials;
-        numTextures = scene->mNumTextures;
-        numLights = scene->mNumLights;
-        numMeshes = scene->mNumMeshes;
-        if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
+
+
+
+        if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
         {
             cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
-            return;
+            return nullptr;
         }
-        // retrieve the directory path of the filepath
-        directory = path.substr(0, path.find_last_of('/'));
-        if(scene->HasTextures())
-        m_scene = new Node();
-        // process ASSIMP's root node recursively
-        processNode(scene->mRootNode, scene);
 
+        // check for errors
+        //double factor1(0.0);
+        scene->mMetaData->Get("UnitScaleFactor", model->factor);
+        //factor = factor1;
+
+        model->numAnimations = scene->mNumAnimations;
+        model->numCameras = scene->mNumCameras;
+        model->numMaterials = scene->mNumMaterials;
+        model->numTextures = scene->mNumTextures;
+        model->numLights = scene->mNumLights;
+        model->numMeshes = scene->mNumMeshes;
+        // retrieve the directory path of the filepath
+        model->directory = path.substr(0, path.find_last_of('/'));
+        if(scene->HasTextures())
+            model->m_scene = new Node();
+        // process ASSIMP's root node recursively
+        model->processNode(scene->mRootNode, scene);
+        return model;
     }
     //
 

@@ -50,7 +50,7 @@ public:
     bool gammaCorrection;
     Node* m_scene;
 	bool embedded;
-
+	double factor;
 	int numAnimations, numCameras, numMaterials, numTextures, numLights, numMeshes ;
     // constructor, expects a filepath to a 3D model.
     Model(string const &path, bool gamma = false);
@@ -117,11 +117,12 @@ public:
 			}
 		}
 	}
+	static Model* loadModel(string const& path, bool gamma = false);
+
 private:
 //animation stuff
     std::map<string, BoneInfo> m_BoneInfoMap;
 	int m_BoneCounter = 0;
-    void loadModel(string const &path);
     void processNode(aiNode *node, const aiScene *scene);
     Mesh processMesh(aiMesh *mesh, const aiScene *scene);
     //Mesh processMesh_Em(aiMesh *mesh, const aiScene *scene);//models with embedded textures

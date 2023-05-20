@@ -31,7 +31,21 @@ class Animation : public Object
 public:
 	DECLARE_RTTI
 	Animation() = default;
+	Animation(const aiScene* scene, Model* model)
+	{
+		assert(scene && scene->mRootNode);//this is the assertion that gives errors, when i try to load thos other files
+		auto animation = scene->mAnimations[0];//we take the first animation.
+		PLOGI << "NUMBER OF ANIMATIONS IN THIS MODEL IS " << scene->mNumAnimations;
+		m_Duration = animation->mDuration;//the duration is to be used outside of the animation
+		m_TicksPerSecond = animation->mTicksPerSecond;
+		aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;
 
+		globalTransformation = globalTransformation.Inverse();
+		ReadHeirarchyData(m_RootNode, scene->mRootNode);
+		ReadMissingBones(animation, *model);
+		SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
+
+	}
 	Animation(const std::string& animationPath, Model* model)
 	{
 		Assimp::Importer importer;
@@ -74,6 +88,23 @@ public:
 	{ 
 		return m_BoneInfoMap;
 	}
+
+	static Animation* loadAnimation(const std::string& animationPath, Model* model)
+	{
+		Assimp::Importer importer;
+		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
+		assert(scene && scene->mRootNode);//this is the assertion that gives errors, when i try to load thos other files
+		
+		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
+		{
+			cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
+			return nullptr;
+		}
+		Animation* animation = new Animation(scene, model);
+		return animation;
+
+		
+	};
 
 private:
 	void ReadMissingBones(const aiAnimation* animation, Model& model)

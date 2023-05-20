@@ -31,7 +31,9 @@ void GeometryNode::GeometryDraw(Camera *camera, float deltaTime)
         m_shader->use();
         m_shader->setMat4("projection", Node::projection);
         m_shader->setMat4("view", camera->GetViewMatrix());
+        //glm::mat4 scaleddown = m_world.sc
         m_shader->setMat4("model", m_world);
+
     
 }
 

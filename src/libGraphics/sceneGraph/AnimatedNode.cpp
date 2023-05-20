@@ -65,3 +65,13 @@ void AnimatedNode::setAnimation(Animation* animation)
 {
     m_animation = animation;
 }
+
+Animator* AnimatedNode::getAnimator() 
+{
+    return m_animator;
+}
+
+Model* AnimatedNode::getModel() 
+{
+    return m_model;
+}
