@@ -3,7 +3,7 @@
 #include<WorldNode.hpp>
 #include<ScreenCanvas.hpp>
 #include<CameraAction.hpp>
-#include<CameraActionUP.hpp>
+#include<CameraActionUp.hpp>
 
 //if you have many instances of a certain type that need to be edited, there will be the notion of the current object, and ops associated with it.
 //app cpu usage may depend on a number of factors.
