@@ -7,6 +7,7 @@
 
 IMPLEMENT_RTTI(Node, Object)
 
+
 glm::mat4 Node::view = glm::mat4(1.0f);
 glm::mat4 Node::projection = glm::mat4(1.0f);
 

@@ -94,12 +94,13 @@ public:
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
 		assert(scene && scene->mRootNode);//this is the assertion that gives errors, when i try to load thos other files
-		
+		/*
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
 		{
 			cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
 			return nullptr;
 		}
+		*/
 		Animation* animation = new Animation(scene, model);
 		return animation;
 
