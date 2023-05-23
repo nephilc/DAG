@@ -55,6 +55,7 @@ public:
 		m_CurrentAnimation = pAnimation;
 		m_CurrentTime = 0.0f;
 	}
+	//maybe when computing the transforms recursively we mess up when we reach the fingers
 //calculating bone transforms recursively.
 	void CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform)
 	{

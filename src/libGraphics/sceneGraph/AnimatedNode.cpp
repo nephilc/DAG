@@ -40,8 +40,9 @@ void AnimatedNode::Draw(Camera* camera, float deltaTime)
 void AnimatedNode::GeometryDraw(Camera *camera, float deltaTime)
 {
     GeometryNode::GeometryDraw(camera, deltaTime);
+    //could ask the animator to animate here
     auto transforms = m_animator->GetFinalBoneMatrices();
-	for (int i = 0; i < transforms.size(); ++i)
+	for (int i = 0; i < transforms.size(); ++i)//maybe needs more than 100 matrices
 		m_shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
         //set the time, among other things
     m_model->Draw(m_shader, drawMode);
