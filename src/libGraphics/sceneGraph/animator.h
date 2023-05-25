@@ -90,8 +90,8 @@ public:
 	}
 
 private:
-	std::vector<glm::mat4> m_FinalBoneMatrices;
-	Animation* m_CurrentAnimation;
+	std::vector<glm::mat4> m_FinalBoneMatrices;//these are the ones we pass to the shader
+	Animation* m_CurrentAnimation;//we use this animation to update the finalBoneMatrices
 	float m_CurrentTime;
 	float m_DeltaTime;
 

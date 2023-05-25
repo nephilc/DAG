@@ -26,10 +26,11 @@ Node::Node(/* args */)
     m_scale = glm::vec3(1.0f);
     m_angle = 0.0f;
 //write like this
+/*
     for (int i = 0; i < 16; ++i) {
         PLOGI<<glm::value_ptr(m_world)[i]<<" ";
     }
-
+*/
 
 }
 

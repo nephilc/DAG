@@ -34,11 +34,14 @@ public:
 	Animation(const aiScene* scene, Model* model)
 	{
 		assert(scene && scene->mRootNode);//this is the assertion that gives errors, when i try to load thos other files
-		auto animation = scene->mAnimations[0];//we take the first animation.
+		auto animation = scene->mAnimations[0];//we take the first animation., there could be multiple animation loaded
 		PLOGI << "NUMBER OF ANIMATIONS IN THIS MODEL IS " << scene->mNumAnimations;
 		m_Duration = animation->mDuration;//the duration is to be used outside of the animation
+		PLOGD<<"ANIMATION DURATION IS"<<m_Duration;
 		m_TicksPerSecond = animation->mTicksPerSecond;
-		aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;
+		PLOGD<<"ANIMATION DURATION IS"<<m_TicksPerSecond;
+		
+		aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;//transform relative to the nodes parent, should use this one in general
 
 		globalTransformation = globalTransformation.Inverse();
 		ReadHeirarchyData(m_RootNode, scene->mRootNode);
@@ -108,6 +111,7 @@ public:
 	};
 
 private:
+//called second, now we read bone data
 	void ReadMissingBones(const aiAnimation* animation, Model& model)
 	{
 		int size = animation->mNumChannels;
@@ -132,13 +136,15 @@ private:
 
 		m_BoneInfoMap = boneInfoMap;
 	}
-
-	void ReadHeirarchyData(AssimpNodeData& dest, const aiNode* src)
+	//called first
+//goes through every node in the scene, also pass parent node data to the chilren, maybe the transforms for the fingers are wrong
+	void ReadHeirarchyData(AssimpNodeData& dest, const aiNode* src)//so this isnt bone data this is just normal, hierarchy data, scene data.
 	{
 		assert(src);
 
 		dest.name = src->mName.data;
-		dest.transformation = AssimpGLMHelpers::ConvertMatrixToGLMFormat(src->mTransformation);
+		PLOGD<<"NODE NAME "<< dest.name;
+		dest.transformation = AssimpGLMHelpers::ConvertMatrixToGLMFormat(src->mTransformation);//pass the parent's local transform to the children
 		dest.childrenCount = src->mNumChildren;
 
 		for (unsigned int i = 0; i < src->mNumChildren; i++)
@@ -151,7 +157,7 @@ private:
 	float m_Duration;
 	int m_TicksPerSecond;
 	std::vector<Bone> m_Bones;
-	AssimpNodeData m_RootNode;
+	AssimpNodeData m_RootNode;//this is a graph, yet it is done without pointers, filled with ReadHeirarchyData() method
 	std::map<std::string, BoneInfo> m_BoneInfoMap;
 };
 
