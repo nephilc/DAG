@@ -8,3 +8,12 @@ clearly there are less channels than bones.
 we wil have to do some processing on the mixamo models.
 #####################
 we can move on to ther things.
+#####################
+yep, just as  i guessed, the animation exported from mixamo used some convention that is not understood by asimp fbx importer.
+Importing into blender and reexporting fixes it. now there a channel for each bone in an animation. When it comes to assimp, missing bones should raise an error.
+I also noticed a lot of matrices that did nothing when experimenting in the shader.
+they were probably empty, or were not passed to the shader at all.
+though this time we have more bones than channels, though, no missing bones.
+also loading separate animations does not cause glitches.
+#####################
+mixamo is convenient, but it does come at a cost.
