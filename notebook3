@@ -1,0 +1,10 @@
+there is animation data, and there is bone data which belongs to the mesh.
+there are a bunch of animations, in the animation arrays.
+an animation is made up of channels, each channel should correspond to a bone in one of the meshes. they should have the same name. 
+the channels contain key data, in that struct.
+####################"""
+There is definitely a problem with the way mixamo loads things, not with asimp and not with us. in fact assimp tries to do things correctly.
+clearly there are less channels than bones.
+we wil have to do some processing on the mixamo models.
+#####################
+we can move on to ther things.

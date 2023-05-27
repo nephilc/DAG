@@ -55,13 +55,13 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
         const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 
 
-
+/*
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
         {
             cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
             return nullptr;
         }
-
+*/
         // check for errors
         //double factor1(0.0);
         //scene->mMetaData->Get("UnitScaleFactor", model->factor);

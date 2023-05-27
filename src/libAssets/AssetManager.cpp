@@ -22,13 +22,13 @@ void AssetManager::CreateDefaults()
     //should put these in a config file
     loadShader("shaderPrograms/animation.vs", "shaderPrograms/1.model_loading.fs", "ourShader1");
     loadShader("shaderPrograms/1.model_loading.vs", "shaderPrograms/1.model_loading.fs", "ourShader2");
-    loadModel("3dmodels/fbsshooter/Pumpkinhulk.fbx", "arissa");
+    loadModel("3dmodels/anotherone.fbx", "arissa");
 
     defaultShader = getShaders()[1];
     defaultAniShader = getShaders()[0];
 
     defaultModel = getModel("arissa");
-    loadAnimation("3dmodels/fbsshooter/Pumpkinhulk.fbx", defaultModel);
+    loadAnimation("3dmodels/anotherone.fbx", defaultModel);
     defaultAnimation = v_Animations[0];
     defaultAnimator = new Animator(defaultAnimation);
     defaultaniNode = new AnimatedNode(defaultModel, defaultAniShader, defaultAnimator, defaultAnimation);

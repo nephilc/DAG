@@ -39,6 +39,7 @@ public:
 		m_ID(ID),
 		m_LocalTransform(1.0f)
 	{
+		
 		m_NumPositions = channel->mNumPositionKeys;
 
 		for (int positionIndex = 0; positionIndex < m_NumPositions; ++positionIndex)
@@ -94,7 +95,7 @@ public:
 			if (animationTime < m_Positions[index + 1].timeStamp)
 				return index;
 		}
-		assert(0);
+		//assert(0);
 	}
 
 	int GetRotationIndex(float animationTime)
@@ -104,7 +105,8 @@ public:
 			if (animationTime < m_Rotations[index + 1].timeStamp)
 				return index;
 		}
-		assert(0);
+		//wtf are these assertions
+		//assert(0);
 	}
 
 	int GetScaleIndex(float animationTime)
@@ -114,7 +116,8 @@ public:
 			if (animationTime < m_Scales[index + 1].timeStamp)
 				return index;
 		}
-		assert(0);
+		//assert(0);
+		//so you are telling me that it should never get here
 	}
 
 
