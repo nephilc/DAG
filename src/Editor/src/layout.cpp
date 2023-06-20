@@ -690,11 +690,16 @@ void  EditorUI::EditorProperties()
     static bool p_open = true;
         ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
         ImGui::Begin("EDITOR PROPERTIES", &p_open);
+              if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
+            {
+                if (ImGui::BeginTabItem("Some Poperties"))
+                {
         static float speed = app->camera->MovementSpeed;
         if (ImGui::InputFloat("Editor Camera speed", &speed))
             app->camera->MovementSpeed = speed;
         ImGui::SameLine();
         ImGui::Text("m/s");
+
         if (ImGui::CollapsingHeader("KeyBoard -> Action map") && m_AM->currentKeyboardKeyMap!=nullptr) {
 
             for (std::string& key : m_AM->keyBoardVector)
@@ -776,5 +781,73 @@ void  EditorUI::EditorProperties()
             }
         }
         //add another one for game pads
+        ImGui::EndTabItem();
+
+                }
+        if (ImGui::BeginTabItem("KeyMaps"))
+        {
+            KeyMapsTab();
+        ImGui::EndTabItem();
+
+        }
+        ImGui::EndTabBar();
+        }
+
     ImGui::End();
+}
+
+
+void  EditorUI::KeyMapsTab()
+{   
+        if(ImGui::Button("+"))   m_AM->createKeyMap();
+
+        vector<KeyMap*> vlshaders = m_AM->KeyMapsVector;
+        // Left
+        static int selected = 0;
+        KeyMap* selectedS;
+        {
+            KeyMap* shader;
+            ImGui::BeginChild("left pane1", ImVec2(150, 0), true);
+            for (int i = 0; i < vlshaders.size(); i++)
+            {
+                // FIXME: Good candidate to use ImGuiSelectableFlags_SelectOnNav
+                shader = vlshaders[i];
+                char label[128];
+                sprintf(label, "%s", shader->GetName().c_str());
+                if (ImGui::Selectable(label, selected == i))
+                    selected = i;
+            }
+            ImGui::EndChild();
+        }
+        ImGui::SameLine();
+        if(vlshaders.size()>0)
+        selectedS = vlshaders[selected];
+        // Right
+        if(vlshaders.size()>0)
+        {
+            ImGui::BeginGroup();//this child window will scroll on it's own
+            ImGui::BeginChild("item view1", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
+            ImGui::Text("Object Name: %s", selectedS->GetName().c_str());
+            ImGui::Separator();
+            if (ImGui::BeginTabBar("##Tabs12", ImGuiTabBarFlags_None))
+            {
+               
+                if (ImGui::BeginTabItem("KeyMap Details"))
+                {
+                    ObjectProperties(selectedS);
+                    ImGui::Separator();
+                    
+                    
+                    ImGui::EndTabItem();
+                }
+                ImGui::EndTabBar();
+            }
+            ImGui::EndChild();
+            /*
+            if (ImGui::Button("Revert")) {}
+            ImGui::SameLine();
+            if (ImGui::Button("Save")) {}
+            */
+            ImGui::EndGroup();
+    }
 }

@@ -85,6 +85,7 @@ void ModelNodeProperties();
 void AnimatedNodeProperties();
 void ObjectProperties();
 void  EditorProperties();
+void KeyMapsTab();
 void playButton();
 void selectableTree();
 void createNode();

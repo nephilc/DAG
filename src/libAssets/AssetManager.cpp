@@ -280,6 +280,11 @@ void AssetManager::createmainFB(int width, int height)
     PLOGE<<"TRYING TO RECREATE MAIN FB BEFORE ITS CREATION";
 }
 
+void AssetManager::createKeyMap()
+{
+    KeyMapsVector.push_back(new KeyMap(KEYBOARD_MAP));
+}
+
 void AssetManager::getDefault(const Rtti &type, Node *parent)
 {
     //start with animated Node

@@ -171,6 +171,7 @@ public:
     static FrameBuffer* getMainBuffer();    
     static void  recreateMainFB(int width, int height);
     void createmainFB(int width, int height);
+    void createKeyMap();
 
     void getDefault(const Rtti &type, Node* parent);
     
