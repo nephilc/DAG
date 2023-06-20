@@ -837,6 +837,44 @@ void  EditorUI::KeyMapsTab()
                 {
                     ObjectProperties(selectedS);
                     ImGui::Separator();
+                    if (ImGui::BeginListBox("listbox 1"))
+                    {
+
+                        {
+                            //item_current_idx = n;
+
+                            bool is_selected = (selectedS->m_at ==  KEYBOARD_MAP);
+                            if (ImGui::Selectable("KEYBOARD_MAP", is_selected))
+                                selectedS->m_at = KEYBOARD_MAP;
+
+                            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                            if (is_selected)
+                            ImGui::SetItemDefaultFocus();
+                        
+
+                            is_selected = (selectedS->m_at ==  MOUSE_MAP);
+                            if (ImGui::Selectable("MOUSE_MAP", is_selected))
+                                selectedS->m_at = MOUSE_MAP;
+
+                            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                            if (is_selected)
+                            ImGui::SetItemDefaultFocus();
+                        
+
+                            is_selected = (selectedS->m_at ==  GAMEPAD_MAP);
+                            if (ImGui::Selectable("GAMEPAD_MAP", is_selected))
+                                selectedS->m_at = GAMEPAD_MAP;
+
+                            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                            if (is_selected)
+                            ImGui::SetItemDefaultFocus();
+                        
+                        
+                        
+                        
+                        }
+                            ImGui::EndListBox();
+                    }
                     
                     
                     ImGui::EndTabItem();
