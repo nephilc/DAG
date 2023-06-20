@@ -86,6 +86,7 @@ void AnimatedNodeProperties();
 void ObjectProperties();
 void  EditorProperties();
 void KeyMapsTab();
+void keyMapsCombo();
 void playButton();
 void selectableTree();
 void createNode();

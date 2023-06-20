@@ -699,6 +699,7 @@ void  EditorUI::EditorProperties()
             app->camera->MovementSpeed = speed;
         ImGui::SameLine();
         ImGui::Text("m/s");
+        keyMapsCombo();
 
         if (ImGui::CollapsingHeader("KeyBoard -> Action map") && m_AM->currentKeyboardKeyMap!=nullptr) {
 
@@ -850,4 +851,70 @@ void  EditorUI::KeyMapsTab()
             */
             ImGui::EndGroup();
     }
+}
+void EditorUI::keyMapsCombo() {
+    //the name of the variables should be changed
+    //ImGui::SameLine();
+    static int item_current_idx1 = 0; // Here we store our selection data as an index.
+    const char* combo_preview_value = "scene1";  // Pass in the preview value visible before opening the combo (it could be anything)
+    if (ImGui::BeginCombo(string("keyboard Map").c_str(), combo_preview_value, ImGuiComboFlags_NoPreview))
+    {
+        vector<KeyMap*> scenes = m_AM->KeyMapsVector;
+        for (int n = 0; n <scenes.size(); n++)
+        {
+            const bool is_selected = (item_current_idx1 == n);
+            if(scenes[n]->m_at==KEYBOARD_MAP)
+            if (ImGui::Selectable(scenes[n]->GetName().c_str(), is_selected)) {
+                item_current_idx1 = n;
+                m_AM->currentKeyboardKeyMap = scenes[n];
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected) {
+                ImGui::SetItemDefaultFocus();
+            }
+        }
+        ImGui::EndCombo();
+    }
+    static int item_current_idx2 = 0;
+    if (ImGui::BeginCombo(string("Mouse Map").c_str(), combo_preview_value, ImGuiComboFlags_NoPreview))
+    {
+        vector<KeyMap*> scenes = m_AM->KeyMapsVector;
+        for (int n = 0; n <scenes.size(); n++)
+        {
+            const bool is_selected = (item_current_idx2 == n);
+            if(scenes[n]->m_at==MOUSE_MAP)
+            if (ImGui::Selectable(scenes[n]->GetName().c_str(), is_selected)) {
+                item_current_idx2 = n;
+                m_AM->currentMouseKeyMap= scenes[n];
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected) {
+                ImGui::SetItemDefaultFocus();
+            }
+        }
+        ImGui::EndCombo();
+    }
+    static int item_current_idx3 = 0;
+    if (ImGui::BeginCombo(string("GamePad Map").c_str(), combo_preview_value, ImGuiComboFlags_NoPreview))
+    {
+        vector<KeyMap*> scenes = m_AM->KeyMapsVector;
+        for (int n = 0; n <scenes.size(); n++)
+        {
+            const bool is_selected = (item_current_idx3 == n);
+            if(scenes[n]->m_at==GAMEPAD_MAP)
+            if (ImGui::Selectable(scenes[n]->GetName().c_str(), is_selected)) {
+                item_current_idx3 = n;
+                m_AM->currentGamepadKeyMap= scenes[n];
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected) {
+                ImGui::SetItemDefaultFocus();
+            }
+        }
+        ImGui::EndCombo();
+    }
+
 }
