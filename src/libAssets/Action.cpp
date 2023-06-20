@@ -2,6 +2,7 @@
 
 
 IMPLEMENT_RTTI(Action, Object)
+Action *Action::NoAction = new Action("No Action");
 
 Action::Action() {
     SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here

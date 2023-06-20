@@ -3,7 +3,6 @@
 
 
 FrameBuffer* AssetManager::mainBuffer = 0;
-Action *AssetManager::NoAction = new Action("No Action");
 
 AssetManager::AssetManager(/* args */)
 {
@@ -34,9 +33,12 @@ void AssetManager::CreateDefaults()
     defaultaniNode = new AnimatedNode(defaultModel, defaultAniShader, defaultAnimator, defaultAnimation);
 
     //#################These would be dafault action maps
-    currentMouseActionMap = &MouseActionMap;
-    currentKeyboardActionMap = &KeyboardActionMap;
-    currentGamePadActionMap = &GamePadActionMap;
+    //currentMouseActionMap = &MouseActionMap;
+    //currentKeyboardActionMap = &KeyboardActionMap;
+    //currentGamePadActionMap = &GamePadActionMap;
+    currentKeyboardKeyMap = nullptr;
+    currentMouseKeyMap = nullptr;
+    currentGamepadKeyMap = nullptr;
 
 }
 
@@ -301,4 +303,14 @@ void AssetManager::registerAction(Action* action)
     default:
         break;
     }
+}
+
+
+void AssetManager::setCurrentKeyMap(KeyMap* keyMap)
+{
+    //currentKeyMap=keyMap;
+}
+KeyMap* AssetManager::getCurrentKeyMap()
+{
+    return nullptr;
 }

@@ -13,6 +13,8 @@ class Action : public Object
 {
 	DECLARE_RTTI
 public:
+    static  Action *NoAction;
+
 	Action();
 	Action(std::string name);
 	~Action();

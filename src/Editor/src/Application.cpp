@@ -129,26 +129,27 @@ void Application::populateScanCodeMap() {
     assetManager->keyBoardVector.push_back("left");
     assetManager->keyBoardVector.push_back("right");
     for (string& key : assetManager->keyBoardVector) {
-        assetManager->KeyboardActionMap[key] = assetManager->NoAction;
+        //assetManager->KeyboardActionMap[key] = Action::NoAction;
     }
 
     assetManager->MouseVector.push_back("Mouse Left");
     assetManager->MouseVector.push_back("Mouse Right");
     assetManager->MouseVector.push_back("Mouse Cursor");
     for (string& key : assetManager->MouseVector) {
-        assetManager->MouseActionMap[key] = assetManager->NoAction;
+        //assetManager->MouseActionMap[key] = Action::NoAction;
     }
 
-
+/*
     for (const auto& action : assetManager->KeyboardActionMap) {
 
         PLOGD << action.first << ": " << action.second->GetName() << endl;
     }
-    assetManager->KeyActionsVector.push_back(new Action("test Action"));
-    assetManager->KeyActionsVector.push_back(assetManager->NoAction);
+  */
+   assetManager->KeyActionsVector.push_back(new Action("test Action"));
+    assetManager->KeyActionsVector.push_back(Action::NoAction);
 
     assetManager->MouseActionsVector.push_back(new Action("test Action"));
-    assetManager->MouseActionsVector.push_back(assetManager->NoAction);
+    assetManager->MouseActionsVector.push_back(Action::NoAction);
     //keysPressed = new std::vector<std::string>
       //  ((assetManager->keyBoardVector.size() + assetManager->MouseVector.size() + assetManager->GamePadVector.size()));
 

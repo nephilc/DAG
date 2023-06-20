@@ -60,10 +60,11 @@ int Application::Main (int iQuantity, char** apcArgument)
         lastFrame = currentFrame;
 
         processInput();
-        if (imode == SIMULATION) {
+        if (imode == SIMULATION) {//i can move this to the process input function
             for (string& key : keysPressed)
             {
-                getAssetManager()->currentKeyboardActionMap->at(key)->KeyAction(deltaTime);
+                if(getAssetManager()->currentKeyboardKeyMap!=nullptr)
+                getAssetManager()->currentKeyboardKeyMap->get(key)->KeyAction(deltaTime);
             }
         }
         //m_FB is where you draw the nodes
