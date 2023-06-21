@@ -73,7 +73,20 @@ int Application::processInput()
 	   }
 	}
 */	 
+    GLFWgamepadstate state;
 
+    if (glfwGetGamepadState(GLFW_JOYSTICK_1, &state))
+    {
+        //PLOGI << "gamepad input";
+
+        if (state.buttons[GLFW_GAMEPAD_BUTTON_A])
+        {
+            //input_jump();
+            PLOGI << "gamepad input";
+        }
+
+        //input_speed(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER]);
+    }
 	if(imode ==WORLD){
     if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(m_window, true);
