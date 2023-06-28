@@ -9,6 +9,9 @@ m_animation(animation)
     SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
     
 }
+AnimatedNode::AnimatedNode():AnimatedNode(nullptr,nullptr,nullptr,nullptr)
+{
+}
 /*
 AnimatedNode::AnimatedNode()
 {
@@ -25,11 +28,14 @@ void AnimatedNode::Draw(Camera* camera, float deltaTime)
 {
     //PLOGD<<"Drawing node";
     //if(m_shader!=nullptr && m_animator!=nullptr &&m_model!=nullptr ){
-    
-    if(m_shader!=nullptr) GeometryDraw(camera, deltaTime);
-    if(play_animation)
-    m_animator->UpdateAnimation(deltaTime);
-
+    //############################################################
+    //########will need to work on a default animator#############
+    //############################################################
+    if(m_animator!=nullptr){
+        if(m_shader!=nullptr) GeometryDraw(camera, deltaTime);
+        if(play_animation)
+        m_animator->UpdateAnimation(deltaTime);
+    }
 
     
     
@@ -45,7 +51,7 @@ void AnimatedNode::GeometryDraw(Camera *camera, float deltaTime)
 	for (int i = 0; i < transforms.size(); ++i)//maybe needs more than 100 matrices
 		m_shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
         //set the time, among other things
-    m_model->Draw(m_shader, drawMode);
+    if(m_model!=nullptr) m_model->Draw(m_shader, drawMode);
 }
 
 void AnimatedNode::play() { if( m_animation!=nullptr) play_animation = true; }

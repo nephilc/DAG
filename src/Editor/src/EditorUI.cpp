@@ -32,7 +32,7 @@ EditorUI::EditorUI(/* args */)
     }
 
 
-    PLOGD<<"editor const"<<Node::TYPE.typeList.size();
+    PLOGD<<"editor const"<<Node::TYPE.nodeList.size();
 
 }
 

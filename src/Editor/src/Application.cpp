@@ -2,7 +2,7 @@
 #include <iostream>
 #include <plog/Log.h>
 #include <cassert>
-
+#include<NodeFactory.hpp>
 Application *Application::application = nullptr;
 EditorUI *Application::editorUI = nullptr;
 
@@ -89,7 +89,7 @@ void Application::init()
     //m_FB = new FrameBuffer(m_iWidth, m_iHeight);
     PLOGD<<"allocated modules";
     populateScanCodeMap();//make sure to call this after module allocation
-
+    NodeFactory::init();
 
 
 }

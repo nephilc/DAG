@@ -9,6 +9,7 @@ Rtti::Rtti (std::string name, const Rtti* pkBaseType): m_name(name), m_pkBaseTyp
             //std::cout<<"rtti const"<<typeList.size()<<std::endl;
 
     typeList.push_back(this);
+    //if(pkBaseType->IsDerived)
     PLOGE<<"pushing back";
 
 }

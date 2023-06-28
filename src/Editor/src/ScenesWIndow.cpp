@@ -24,8 +24,8 @@ void EditorUI::createNode()
     if (ImGui::BeginPopup("my_select_popup"/*,  NULL*/, ImGuiWindowFlags_AlwaysAutoResize))
     {       
             static Rtti *selectedType = nullptr;
-            ImGui::Text("%d", Node::TYPE.typeList.size());
-            for(Rtti* type : Rtti::typeList){
+            ImGui::Text("%d", Node::TYPE.nodeList.size());
+            for(Rtti* type : Rtti::nodeList){
             if (ImGui::Selectable(type->GetName().c_str(), selectedType == type, ImGuiSelectableFlags_DontClosePopups))
                     selectedType = type;
             }
@@ -334,7 +334,8 @@ void EditorUI::AnimatedNodeProperties(){
     if (ImGui::Button("set null"))
     {
         localPointer->setAnimation(nullptr);
-        localPointer->getAnimator()->PlayAnimation(nullptr);
+        Animator *animator = localPointer->getAnimator();
+        if(animator!=nullptr)animator->PlayAnimation(nullptr);
 
     }
     loadAnimationButton(localPointer);
@@ -348,7 +349,8 @@ void EditorUI::AnimatedNodeProperties(){
             const bool is_selected = (localPointer->getAnimation() == animations[n]);
             if (ImGui::Selectable(animations[n]->GetName().c_str(), is_selected)) {
                 localPointer->setAnimation(animations[n]);
-                localPointer->getAnimator()->PlayAnimation(animations[n]);
+                Animator *animator = localPointer->getAnimator();
+                if(animator!=nullptr) animator->PlayAnimation(animations[n]);
 
             }
 

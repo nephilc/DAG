@@ -11,6 +11,7 @@ public:
     // namespace, a class Foo should use "Wm4.Foo".  If an application has
     // another namespace, SomeName, then the name should be "SomeName.Foo".
     static std::vector<Rtti*> typeList;
+    static std::vector<Rtti*> nodeList;
 
     Rtti (std::string name, const Rtti* pkBaseType);
     ~Rtti ();

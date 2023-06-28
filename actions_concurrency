@@ -1,0 +1,5 @@
+an action should modify one or more object.
+pointers to these objects may be stored in the asset manager.
+this should not pose a problem for concurrency.
+
+An action can modufy an animatedNode, or a derived class, to play animations that correspond to different kinds of actions.

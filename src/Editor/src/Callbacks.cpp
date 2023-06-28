@@ -54,6 +54,8 @@ void Application::passCallbacks()
     glfwSetMouseButtonCallback(m_window, mouse_button_callback);
     glfwSetScrollCallback(m_window, scroll_callback);
     glfwSetDropCallback(m_window, drop_callback);
+    glfwSetJoystickCallback(joystickCallback);
+    
 }
 int Application::processInput()
 {
@@ -368,5 +370,16 @@ void Application::drop_callback(GLFWwindow* window, int count, const char** path
     {
         PLOGD<<paths[i];
 
+    }
+}
+
+
+
+void Application::joystickCallback(int jid, int event)
+{
+    if (event == GLFW_CONNECTED) {
+        std::cout << "Joystick connected: " << glfwGetJoystickName(jid) << std::endl;
+    } else if (event == GLFW_DISCONNECTED) {
+        std::cout << "Joystick disconnected: " << glfwGetJoystickName(jid) << std::endl;
     }
 }

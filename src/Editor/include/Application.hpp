@@ -133,7 +133,7 @@ public:
     static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
     static void drop_callback(GLFWwindow* window, int count, const char** paths);
 
-
+    static void joystickCallback(int jid, int event);
 
     //A utility function
     static std::string utf8chr(int cp);

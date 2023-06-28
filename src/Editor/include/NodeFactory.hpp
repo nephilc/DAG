@@ -6,9 +6,11 @@ class NodeFactory
 {
 private:
     /* data */
+    static bool initialized;
 public:
     NodeFactory(/* args */);
-    static Node* create(const Rtti* type);
+    static void init();
+    static Node *create(const Rtti *type);
     ~NodeFactory();
 };
 
