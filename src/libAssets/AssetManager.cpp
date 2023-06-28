@@ -30,7 +30,7 @@ void AssetManager::CreateDefaults()
     loadAnimation("3dmodels/anotherone.fbx", defaultModel);
     defaultAnimation = v_Animations[0];
     defaultAnimator = new Animator(defaultAnimation);
-    defaultaniNode = new AnimatedNode(defaultModel, defaultAniShader, defaultAnimator, defaultAnimation);
+    defaultaniNode = new AnimatedNode(defaultModel, defaultAniShader, defaultAnimation);
 
     //#################These would be dafault action maps
     //currentMouseActionMap = &MouseActionMap;

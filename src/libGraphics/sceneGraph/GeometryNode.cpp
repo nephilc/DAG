@@ -11,7 +11,7 @@ GeometryNode::GeometryNode(Shader* shader)
     drawMode = MD_TRI;
 }
 
-GeometryNode::GeometryNode()
+GeometryNode::GeometryNode():GeometryNode(nullptr)
 {
 }
 

@@ -81,6 +81,7 @@ void ObjectProperties(Object *object);
 void NodeProperties();
 void WorldNodeProperties();
 void GeometryNodeProperties();
+void AnimatedNodePickModel();
 void ModelNodeProperties();
 void AnimatedNodeProperties();
 void ObjectProperties();

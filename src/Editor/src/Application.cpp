@@ -90,6 +90,7 @@ void Application::init()
     PLOGD<<"allocated modules";
     populateScanCodeMap();//make sure to call this after module allocation
     NodeFactory::init();
+    //AnimatedNode::initAnimator();
 
 
 }

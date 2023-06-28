@@ -3,13 +3,20 @@
 
 IMPLEMENT_RTTI(AnimatedNode, GeometryNode)
 
-AnimatedNode::AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation* animation) : m_model(model),  m_animator(animator), GeometryNode(shader),
+
+//Animator* AnimatedNode::m_animator = nullptr;
+/*void AnimatedNode::initAnimator()
+{
+    if(m_animator==nullptr) m_animator= new Animator();
+}
+*/
+AnimatedNode::AnimatedNode(Model* model, Shader* shader, Animation* animation) : m_model(model),   GeometryNode(shader),
 m_animation(animation)
 {
     SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
-    
+    m_animator = new Animator(animation);
 }
-AnimatedNode::AnimatedNode():AnimatedNode(nullptr,nullptr,nullptr,nullptr)
+AnimatedNode::AnimatedNode():AnimatedNode(nullptr,nullptr,nullptr)
 {
 }
 /*
@@ -34,7 +41,11 @@ void AnimatedNode::Draw(Camera* camera, float deltaTime)
     if(m_animator!=nullptr){
         if(m_shader!=nullptr) GeometryDraw(camera, deltaTime);
         if(play_animation)
+        {
+        //m_animator->PlayAnimation(m_animation);
         m_animator->UpdateAnimation(deltaTime);
+        
+        }
     }
 
     

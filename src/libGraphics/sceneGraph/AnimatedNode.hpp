@@ -25,7 +25,8 @@ private:
     bool play_animation;
 
 public:
-    AnimatedNode(Model* model, Shader* shader, Animator* animator, Animation *animation);
+    //static void initAnimator();
+    AnimatedNode(Model *model, Shader *shader, Animation *animation);
     AnimatedNode();
     void play();
     void stop();

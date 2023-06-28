@@ -360,6 +360,7 @@ void EditorUI::AnimatedNodeProperties(){
         }
         ImGui::EndListBox();
     }
+    AnimatedNodePickModel();
     }
     
 
@@ -410,6 +411,36 @@ void EditorUI::GeometryNodeProperties(){
                     //end of shaders
 
     }
+
+}
+void EditorUI::AnimatedNodePickModel()
+{
+    AnimatedNode *localPointer = dynamic_cast<AnimatedNode*>(selected);
+               if(ImGui::Button("set null A N") & selected != 0)   localPointer->m_model = nullptr;
+
+        //shaders 
+                    static int item_current_idx1 = 0; // Here we store our selection data as an index.
+                    vector<Model*> models = m_AM->getModels();
+                    if (ImGui::BeginListBox("Animated models"))
+                    {
+                    for (int n = 0; n < models.size(); n++)
+                        {
+                            //item_current_idx = n;
+
+                            const bool is_selected = (localPointer->getModel() == models[n]);
+
+                            if (ImGui::Selectable(models[n]->GetName().c_str(), is_selected))
+                                localPointer->m_model = models[n];
+
+                    // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                    if (is_selected)
+                    ImGui::SetItemDefaultFocus();
+                    }
+                    ImGui::EndListBox();
+                    }
+                    //end of shaders
+
+
 
 }
 void EditorUI::ModelNodeProperties(){

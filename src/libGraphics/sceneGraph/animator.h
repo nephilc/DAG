@@ -27,6 +27,15 @@
 class Animator
 {
 public:
+	Animator()
+	{
+		m_CurrentTime = 0.0;
+
+		m_FinalBoneMatrices.reserve(100);//we set the limit to 100 in the animator class.
+
+		for (int i = 0; i < 100; i++)
+			m_FinalBoneMatrices.push_back(glm::mat4(1.0f));
+	}
 	Animator(Animation* animation)
 	{
 		m_CurrentTime = 0.0;
@@ -41,7 +50,7 @@ public:
 	void UpdateAnimation(float dt)
 	{
 		m_DeltaTime = dt;
-		if (m_CurrentAnimation)
+		if (m_CurrentAnimation!=nullptr)
 		{
 			m_CurrentTime += m_CurrentAnimation->GetTicksPerSecond() * dt;
 			m_CurrentTime = fmod(m_CurrentTime, m_CurrentAnimation->GetDuration());
