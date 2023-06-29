@@ -52,7 +52,7 @@ ScreenCanvas* AssetManager::getScreenCanvas(const string name)
 }
 
 
-void AssetManager::loadModel(string path, string name)
+void AssetManager::loadModel(string path, string name)//map filename to pointer, having two params may be redundant but the method can be repurposed
 {
     Model* model = Model::loadModel(path);
 
@@ -117,6 +117,17 @@ void AssetManager::saveScene(string filePath)
 
 }
 
+AssetManager* AssetManager::am = nullptr;
+
+AssetManager* AssetManager::getInstance()
+{
+    if(am == nullptr) 
+    {
+        am = new AssetManager();
+        return am;
+    }
+    else return am;
+}
 
 void AssetManager::loadShader(string vpath, string fpath, string name)
 {

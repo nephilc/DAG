@@ -8,3 +8,21 @@ importing scenes
 
 distinguish between static scenes(physics that doesnt move, and non physics objects ) and dynamic scene(physics objects that move)
 both will have the world node as a parent
+
+#############################"
+well, the best thing to do for not loading models multiple times, instead of a second pass, and circular dependencies.
+Delegate this task to another "model loader module"
+put it in the graphics module, have a map from path to module ponter. have the asset manager also access this module in order to perform some optimizations.
+or from filename to pointer, but then, the filename should be unique, the have another pointer from filename to path, this way paths can change freely, but i dont think this is general problem.
+################################
+same thing for shaders
+###############################
+this way the asset mgr will shed some of its db tasks to another module.
+###############################
+more of a pool than a db
+though the two share similarities
+################################
+Does it make sense to have the asset manager in a different module than the assets it manages
+#########################
+the siplest solution is to rethink the modules. fuse libraries toghether. Is there really a ned for this many libraries.
+for now we will have circular deps.

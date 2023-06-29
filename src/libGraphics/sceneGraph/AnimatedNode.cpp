@@ -1,5 +1,6 @@
 
 #include "AnimatedNode.hpp"
+#include<AssetManager.hpp>
 
 IMPLEMENT_RTTI(AnimatedNode, GeometryNode)
 
@@ -18,6 +19,9 @@ m_animation(animation)
 }
 AnimatedNode::AnimatedNode():AnimatedNode(nullptr,nullptr,nullptr)
 {
+        //i guess we can use the asset manager here aswell.
+        //AssetManager::getInstance()->loadModel("3dmodels/anotherone.fbx", "arissa2");
+
 }
 /*
 AnimatedNode::AnimatedNode()

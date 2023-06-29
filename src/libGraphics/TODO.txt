@@ -1,0 +1,8 @@
+add_subdirectory(rendering)#needs to be cleaned out, add shaders, models, anim data...
+add_subdirectory(sceneGraph)#needs to be cleaned out
+add_subdirectory(shaders)#needs to go
+add_subdirectory(objectSystem)#stays
+
+add_library(Graphics INTERFACE)
+
+target_link_libraries(Graphics INTERFACE sceneGraph Rendering shaders objectSystem)

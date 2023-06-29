@@ -51,6 +51,9 @@ using namespace std;
 class AssetManager
 {
 private:
+    static AssetManager* am;
+        AssetManager(/* args */);
+
     /* data */
     //a  bunch of maps here
     map<string, UI> vertexBuffers;//Vertex buffer ids
@@ -120,7 +123,6 @@ public:
 
 
 
-    AssetManager(/* args */);
     ~AssetManager();
     void loadModel(string path, string name);
     void loadScene(string path);
@@ -130,6 +132,7 @@ public:
     //the path should include the fileName
     void saveScene(string filePath);
 
+    static AssetManager* getInstance();
 
 
     void addScene(Node* scene);

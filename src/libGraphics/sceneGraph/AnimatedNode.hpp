@@ -8,6 +8,7 @@
 #include "animator.h"
 
 #include<RTTI.hpp>
+//
 //the node needs the camera
 
 //these seem to be unecessary, probably a residue from the early awesome face programs
@@ -38,6 +39,8 @@ public:
     Animation* getAnimation();
     void setAnimation(Animation* animation);
     Animator* getAnimator();
+    //load
+    //save
 
     Model* getModel();
     Model* m_model;
@@ -48,7 +51,6 @@ public:
 
 
 };
-
 
 
 #endif

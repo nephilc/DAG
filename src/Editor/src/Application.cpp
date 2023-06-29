@@ -163,7 +163,7 @@ void Application::allocateModules()
     editorUI = EditorUI::getEditorUI(application);
     //for some reason the application pointer doesnt get update above
     editorUI->app = application;
-    assetManager = new AssetManager();
+    assetManager = AssetManager::getInstance();
 	camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
     editorUI->m_AM = assetManager;
 
