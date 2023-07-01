@@ -14,7 +14,7 @@ WorldNode::WorldNode(float r, float g, float b, float a)
 void WorldNode::Draw(Camera *camera, float deltaTime)
 {
     //only clear color if parent is non null, meaning we are root in the entire scene.
-    if(Node::m_parent!=nullptr)
+    if(Node::m_parent==nullptr)
     backend::getBackend()->clearColorAndBuffersDC(clearColor[0], clearColor[1], clearColor[2], clearColor[4]);
     Node::Draw(camera, deltaTime);
 
