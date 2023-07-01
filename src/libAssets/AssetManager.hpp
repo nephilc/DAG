@@ -124,7 +124,7 @@ public:
 
 
     ~AssetManager();
-    void loadModel(string path, string name);
+    void loadModel(string path);
     void loadScene(string path);
     void loadShader(string vpath, string fpath, string name);
     void loadAnimation(string vpath, Model* model);

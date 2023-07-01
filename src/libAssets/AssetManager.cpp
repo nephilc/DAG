@@ -21,12 +21,13 @@ void AssetManager::CreateDefaults()
     //should put these in a config file
     loadShader("shaderPrograms/animation.vs", "shaderPrograms/1.model_loading.fs", "ourShader1");
     loadShader("shaderPrograms/1.model_loading.vs", "shaderPrograms/1.model_loading.fs", "ourShader2");
-    loadModel("3dmodels/anotherone.fbx", "arissa");
+    loadModel("3dmodels/anotherone.fbx");
 
     defaultShader = getShaders()[1];
     defaultAniShader = getShaders()[0];
 
-    defaultModel = getModel("arissa");
+//    defaultModel = getModel("arissa");
+    defaultModel = v_models[0];
     loadAnimation("3dmodels/anotherone.fbx", defaultModel);
     defaultAnimation = v_Animations[0];
     defaultAnimator = new Animator(defaultAnimation);
@@ -51,17 +52,20 @@ ScreenCanvas* AssetManager::getScreenCanvas(const string name)
     return screenCanavases[name];
 }
 
-
-void AssetManager::loadModel(string path, string name)//map filename to pointer, having two params may be redundant but the method can be repurposed
+void AssetManager::loadModel(string path)//map filename to pointer, having two params may be redundant but the method can be repurposed
 {
     Model* model = Model::loadModel(path);
-
+    string fileName;
+    std::stringstream ss(path);
+    
+    std::getline(ss, fileName, '/');
+    std::cout<<fileName<<std::endl;
     if (model!= nullptr) {
-        if (models.count(name) > 0)
+        if (models.count(fileName) > 0)
         {
             //if name already exists append the object id to it.
             std::ostringstream oss;
-            oss << name << model->GetID();
+            oss << fileName << model->GetID();
             string newName = oss.str();
             models[newName] = model;
             model->SetName(newName);
@@ -69,8 +73,8 @@ void AssetManager::loadModel(string path, string name)//map filename to pointer,
         }
         else 
         {
-            models[name] = model;
-            model->SetName(name);
+            models[fileName] = model;
+            model->SetName(fileName);
             v_models.push_back(model);
         }
         
@@ -103,6 +107,7 @@ void AssetManager::loadScene(string filePath)
     WorldNode* newScene = new WorldNode(1.0, 1.0, 1.0, 1.0);
     v_scenes.push_back(newScene);
     newScene->load(stream);
+    setCurrentScene(newScene);
 }
 
 

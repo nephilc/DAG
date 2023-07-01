@@ -338,7 +338,7 @@ void Node::load(Stream& stream)
 
 
     } 
-    //
+    //LOading child data is always the last thing you do
     for (int i = 0; i < numberOfChildren; i++)
     {
         //well right heare you need to determine the type of the child

@@ -93,6 +93,14 @@ Animator* AnimatedNode::getAnimator()
     return m_animator;
 }
 
+void AnimatedNode::save(Stream &stream)
+{
+}
+
+void AnimatedNode::load(Stream &stream)
+{
+}
+
 Model* AnimatedNode::getModel() 
 {
     return m_model;

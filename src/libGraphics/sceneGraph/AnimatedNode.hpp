@@ -41,6 +41,9 @@ public:
     Animator* getAnimator();
     //load
     //save
+    void save(Stream& stream) override;
+    void load(Stream& stream);
+
 
     Model* getModel();
     Model* m_model;
