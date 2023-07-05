@@ -54,34 +54,43 @@ ScreenCanvas* AssetManager::getScreenCanvas(const string name)
 
 void AssetManager::loadModel(string path)//map filename to pointer, having two params may be redundant but the method can be repurposed
 {
-    Model* model = Model::loadModel(path);
     string fileName;
     std::stringstream ss(path);
-    
-    std::getline(ss, fileName, '/');
+     while (std::getline(ss, fileName, '/')) {
+        continue;
+    }
+
     std::cout<<fileName<<std::endl;
-    if (model!= nullptr) {
-        if (models.count(fileName) > 0)
+    if (models.count(fileName) <= 0) {
+        Model* model = Model::loadModel(path);
+        if (model!= nullptr)
         {
+            models[fileName] = model;
+            model->SetName(fileName);
+            v_models.push_back(model);
+            return;
+
             //if name already exists append the object id to it.
+            /*
             std::ostringstream oss;
             oss << fileName << model->GetID();
             string newName = oss.str();
             models[newName] = model;
             model->SetName(newName);
             v_models.push_back(model);
+            */
         }
         else 
         {
-            models[fileName] = model;
-            model->SetName(fileName);
-            v_models.push_back(model);
+            PLOGE << "FAILED TO LOAD MODEL AT" << path;
+            return;
         }
         
     }
     else 
     {
-            PLOGE << "FAILED TO LOAD MODEL AT" << path;
+        PLOGI<<fileName<<" Already Exists";
+            
     }
 }
 
