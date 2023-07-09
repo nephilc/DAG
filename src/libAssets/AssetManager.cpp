@@ -77,10 +77,25 @@ void AssetManager::loadModel(string path)//map filename to pointer, having two p
      while (std::getline(ss, fileName, '/')) {
         continue;
     }
-
+    bool shouldLoad = false;
     std::cout<<fileName<<std::endl;
-    if (models.count(fileName) <= 0) {
-        Model* model = Model::loadModel(path);
+    if (models.count(fileName) > 0) {
+        Model *foundModel = models[fileName];
+        if(foundModel->path != path)
+        { 
+            PLOGE<<"Thes two models have the same file name but different paths, they should have different fileNames";
+            PLOGE<<path;
+            PLOGE<<foundModel->path;
+            return;
+        }
+        PLOGI<<fileName<<" Already Exists";
+        return;
+
+        
+    }
+    else 
+    {
+        Model* model = Model::loadModel(path, fileName);
         if (model!= nullptr)
         {
             models[fileName] = model;
@@ -103,11 +118,7 @@ void AssetManager::loadModel(string path)//map filename to pointer, having two p
             PLOGE << "FAILED TO LOAD MODEL AT" << path;
             return;
         }
-        
-    }
-    else 
-    {
-        PLOGI<<fileName<<" Already Exists";
+
             
     }
 }

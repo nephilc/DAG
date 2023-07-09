@@ -43,6 +43,11 @@ unsigned int TextureFromFile_EM(const char *path, const string &directory,const 
 class Model : public Object
 {
 public:
+
+	//importznt attributes for not reloading files twice
+	std::string fileName;
+	std::string path;
+
     // model data 
     vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
     vector<Mesh>    meshes;
@@ -53,7 +58,7 @@ public:
 	double factor;
 	int numAnimations, numCameras, numMaterials, numTextures, numLights, numMeshes ;
     // constructor, expects a filepath to a 3D model.
-    Model(string const &path, bool gamma = false);
+    Model(string const &path, string const &fileName, bool gamma = false);
     // draws the model, and thus all its meshes
     void Draw(Shader *shader, DrawMode MD);
     //animation stuff
@@ -117,7 +122,7 @@ public:
 			}
 		}
 	}
-	static Model* loadModel(string const& path, bool gamma = false);
+	static Model* loadModel(string const& path, string const& fileName, bool gamma = false);
 
 private:
 //animation stuff

@@ -3,7 +3,7 @@
 #include <assimp/postprocess.h>
 
 
-Model::Model(string const &path, bool gamma) : gammaCorrection(gamma)
+Model::Model(string const &path, string const& fileName, bool gamma) : gammaCorrection(gamma), path(path), fileName(fileName) 
 {
         cout<<"calling model constructor"<<endl;
         //loadModel(path);
@@ -42,11 +42,11 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
 }
 
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
-    Model* Model::loadModel(string const& path, bool gamma)
+    Model* Model::loadModel(string const& path,string const& fileName, bool gamma)
     {
         PLOGE<<"calling Model Loader";
 
-        Model* model = new Model(path);
+        Model* model = new Model(path, fileName);
 
         // read file via ASSIMP
         Assimp::Importer importer;
