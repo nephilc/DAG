@@ -15,15 +15,20 @@ Stream::Stream(std::string fileName, Mode mode)
 	if (!myfile.is_open())
 	{
 		PLOGE << "COULDN'T OPEN FILE";
+		openSuccess=false;
 	}
 	else
 	{
 		PLOGI << "file opened " << fileName;
+		openSuccess=true;
 	}
 }
+
 Stream::Stream(std::fstream file) 
 {
 }
+
+
 
 Stream::~Stream()
 {
@@ -83,4 +88,9 @@ void Stream::readln(int iQuantity, float* afValue)
 		afValue[i] = std::stof(part);
 		i++;
 	}
+}
+
+bool Stream::isOpen()
+{
+    return openSuccess;
 }

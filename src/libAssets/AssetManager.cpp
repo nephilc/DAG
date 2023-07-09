@@ -3,17 +3,34 @@
 
 
 FrameBuffer* AssetManager::mainBuffer = 0;
-
+std::string AssetManager::configFile= "xdg.cfg";
 AssetManager::AssetManager(/* args */)
 {
     PLOGI<<"CREATING ASSETMANAGER";
     mainBuffer = new FrameBuffer(1280, 720);//the resolution of the framebuffer will determine the quality of the image
     v_frameBuffers.push_back(mainBuffer);
+    Stream stream(configFile, READ_MODE);
+    //read the entire configuration file into a map    
+    if(stream.isOpen())
+    {
+        string pathLine = stream.readln();
+        std::stringstream ss(pathLine);
+        while (std::getline(ss, basePath, '=')) 
+        {
+            continue;
+        }
+    }
+
+    if(basePath=="") PLOGE<<"CONFIGATION FILE NOT READ PROPERLY";
+    PLOGI<<"FILE://   <=>  "<< basePath; 
+
 
     makeBufferCurrent(mainBuffer);
     //CreateDefaults();
 
 }
+
+
 
 void AssetManager::CreateDefaults()
 {
@@ -21,18 +38,19 @@ void AssetManager::CreateDefaults()
     //should put these in a config file
     loadShader("shaderPrograms/animation.vs", "shaderPrograms/1.model_loading.fs", "ourShader1");
     loadShader("shaderPrograms/1.model_loading.vs", "shaderPrograms/1.model_loading.fs", "ourShader2");
-    loadModel("3dmodels/anotherone.fbx");
+    //loadModel("3dmodels/anotherone.fbx");
 
     defaultShader = getShaders()[1];
     defaultAniShader = getShaders()[0];
 
+    /*
 //    defaultModel = getModel("arissa");
     defaultModel = v_models[0];
-    loadAnimation("3dmodels/anotherone.fbx", defaultModel);
+    //loadAnimation("3dmodels/anotherone.fbx", defaultModel);
     defaultAnimation = v_Animations[0];
     defaultAnimator = new Animator(defaultAnimation);
     defaultaniNode = new AnimatedNode(defaultModel, defaultAniShader, defaultAnimation);
-
+    */
     //#################These would be dafault action maps
     //currentMouseActionMap = &MouseActionMap;
     //currentKeyboardActionMap = &KeyboardActionMap;

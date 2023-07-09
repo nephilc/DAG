@@ -44,7 +44,9 @@ public:
 	int m_iBufferSize, m_iBufferNext;
 
 	char* m_acBuffer;
+	bool isOpen();
 
+	bool openSuccess;
 private:
 
 };

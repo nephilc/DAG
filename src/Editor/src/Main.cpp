@@ -40,8 +40,8 @@ int Application::Main (int iQuantity, char** apcArgument)
     //ScreenCanvas sc();
 
     //node1->attachChild(aniNode);
-    node1->attachChild(assetManager->defaultaniNode); 
-    assetManager->defaultaniNode->play();
+    //node1->attachChild(assetManager->defaultaniNode); 
+    //assetManager->defaultaniNode->play();
     //glEnable(GL_DEPTH_TEST);
     //Shader frameshader("shaderPrograms/framebuffer.vs", "shaderPrograms/framebuffer.fs");
  

@@ -84,7 +84,12 @@ private:
 
 
 public:
-
+    static std::string configFile;
+    std::string basePath;//FILE:// this base path will have multiple uses
+    //in the editor
+    //will be used to split absolute paths of the models, when saving them. so that all paths saved will be relative to the executable.
+    //in the game, or deliverable, we know all paths are relative to the executable, we will still use it to load, and save if needed.
+    //on android we can put the  absolute path to the application asset folder, here. and use it to extract assets, load and save.
     //this is the one i will use################################################
     //map : char====> Action string;
     //Thes would be default action maps

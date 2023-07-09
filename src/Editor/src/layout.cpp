@@ -96,9 +96,11 @@ void EditorUI::ImportedModelsWindow(bool* p_open)
             ImGui::EndChild();
         }
         ImGui::SameLine();
-        selectedM = m_AM->getModels()[selected];
+        if(m_AM->getModels().size()>0)
         // Right
         {
+
+            selectedM = m_AM->getModels()[selected];
             ImGui::BeginGroup();//this child window will scroll on it's own
             ImGui::BeginChild("item view", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
             ImGui::Text("MyObject: %s", selectedM->GetName().c_str());
@@ -165,9 +167,10 @@ void EditorUI::ImportedStaticModelsWindow(bool* p_open)
             ImGui::EndChild();
         }
         ImGui::SameLine();
-        selectedM = m_AM->getModels()[selected];
+        if(m_AM->getModels().size()>0)
         // Right
         {
+            selectedM = m_AM->getModels()[selected];
             ImGui::BeginGroup();//this child window will scroll on it's own
             ImGui::BeginChild("item view", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
             ImGui::Text("MyObject: %s", selectedM->GetName().c_str());
