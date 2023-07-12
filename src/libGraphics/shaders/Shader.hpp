@@ -13,7 +13,13 @@
 class Shader : public Object
 {
 public:
+    
+    std::string m_programNamesSum; //would be the sum of all shder file names
     std::string m_vertexPath, m_fragmentPath;
+    std::string m_vertexFileName, m_fragmentFileName;
+    
+    
+    
     unsigned int ID;
     // constructor generates the shader on the fly
     // ------------------------------------------------------------------------
@@ -38,8 +44,12 @@ void setMat2(const std::string &name, const glm::mat2 &mat) const;
 void setMat3(const std::string &name, const glm::mat3 &mat) const;
 void setMat4(const std::string &name, const glm::mat4 &mat) const;
 
-    void load(const char* vertexPath, const char* fragmentPath);
+    void internalLoad(const char* vertexPath, const char* fragmentPath);
     void reload();
+
+    void getFileNames(const char* vertexPath, const char* fragmentPath);
+
+
 private:
     // utility function for checking shader compilation/linking errors.
     // ------------------------------------------------------------------------

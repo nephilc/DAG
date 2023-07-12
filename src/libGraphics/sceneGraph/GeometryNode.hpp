@@ -33,6 +33,12 @@ public:
     virtual void GeometryDraw(Camera* camera, float deltaTime);
     //Shader& m_shader;
 
+    //load
+    //save
+    void save(Stream& stream) override;
+    void load(Stream& stream);
+
+
     DrawMode drawMode;
 
 

@@ -1,13 +1,33 @@
 #include "Shader.hpp"
-
 //the shader doesnn't know which backend it is using
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
     {
         m_vertexPath.assign(vertexPath);
         m_fragmentPath.assign(fragmentPath);
-        load(vertexPath, fragmentPath);
+
+        getFileNames(vertexPath, fragmentPath);
+
+
+
+        internalLoad(vertexPath, fragmentPath);
         
     }
+void Shader::getFileNames(const char* vertexPath, const char* fragmentPath)
+{
+        //read the entire configuration file into a map    
+        std::stringstream ss(vertexPath);
+        while (std::getline(ss, m_vertexFileName, '/')) 
+        {
+            continue;
+        }
+        std::stringstream ss1(fragmentPath);
+        while (std::getline(ss1, m_fragmentFileName, '/')) 
+        {
+            continue;
+        }
+        //set the program files identifier, sum of the fileNames of the different files that makeup the program.
+       m_programNamesSum = m_vertexFileName+m_fragmentFileName; 
+}
 
  void Shader::use() 
     { 
@@ -33,7 +53,7 @@ void Shader::setBool(const std::string &name, bool value) const
         backend::getBackend()->checkCompileErrors(shader, type);
     }
 
-void Shader::load(const char* vertexPath, const char* fragmentPath)
+void Shader::internalLoad(const char* vertexPath, const char* fragmentPath)
 {
     // 1. retrieve the vertex/fragment source code from filePath
         std::string vertexCode;
@@ -72,7 +92,7 @@ void Shader::load(const char* vertexPath, const char* fragmentPath)
 void Shader::reload()
 {
     backend::getBackend()->deleteProgram(ID);
-    load(m_vertexPath.c_str(), m_fragmentPath.c_str());
+    internalLoad(m_vertexPath.c_str(), m_fragmentPath.c_str());
 
 }
 

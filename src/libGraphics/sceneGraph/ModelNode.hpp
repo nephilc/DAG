@@ -19,6 +19,11 @@ public:
 
     Model *getModel();
 
+    //load
+    //save
+    void save(Stream& stream) override;
+    void load(Stream& stream);
+
     ~ModelNode();
 };
 
