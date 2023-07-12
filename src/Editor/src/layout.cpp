@@ -593,7 +593,7 @@ if(selected !=0)
         world = worldx + worldy + worldz;
         glm::vec4 positionInParent = parentInverse * glm::vec4(position, 0);
 
-        PLOGE<<"position in parent is "<<positionInParent.x<<" "<<positionInParent.y<<" "<<positionInParent.z;
+        PLOGD<<"position in parent is "<<positionInParent.x<<" "<<positionInParent.y<<" "<<positionInParent.z;
         //selected->m_LocalTranslation = glm::translate(selected->m_LocalTranslation, position);
         selected->m_localTranslationMat = glm::translate(selected->m_localTranslationMat, glm::vec3(positionInParent));
         
@@ -765,7 +765,7 @@ void  EditorUI::EditorProperties()
                         if (ImGui::Selectable(m_AM->MouseActionsVector[n]->GetName().c_str(), is_selected)) {
                             item_current_idx = n;
                             m_AM->currentMouseKeyMap->set(key, m_AM->MouseActionsVector[n]);
-                            PLOGE << m_AM->currentMouseKeyMap->get(key)->GetName();
+                            PLOGD << m_AM->currentMouseKeyMap->get(key)->GetName();
                         }
 
                         // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)

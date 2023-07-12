@@ -10,8 +10,8 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture
     this->vertices = vertices;
         this->indices = indices;
         this->textures = textures;
-        PLOGE<<sizeof(glm::vec3) << " " << sizeof(Vertex);
-        PLOGE<<"creating mesh";
+        PLOGD<<sizeof(glm::vec3) << " " << sizeof(Vertex);
+        PLOGD<<"creating mesh";
         // now that we have all the required data, set the vertex buffers and its attribute pointers.
         setupMesh();
 }

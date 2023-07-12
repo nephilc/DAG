@@ -58,7 +58,7 @@ unsigned int TextureFromFile1(const char *path, const string &directory, bool ga
     // loads a Model1 with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
     void Model1::loadModel1(string const &path)
     {
-                PLOGE<<"calling Model1 constructor";
+                PLOGD<<"calling Model1 constructor";
 
         // read file via ASSIMP
         Assimp::Importer importer;
@@ -84,7 +84,7 @@ unsigned int TextureFromFile1(const char *path, const string &directory, bool ga
         // process each mesh located at the current node
         for(unsigned int i = 0; i < node->mNumMeshes; i++)
         {
-            PLOGE<<"NUMBER OF MEHSES" << node->mNumMeshes;
+            PLOGD<<"NUMBER OF MEHSES" << node->mNumMeshes;
             // the node object only contains indices to index the actual objects in the scene. 
             // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];

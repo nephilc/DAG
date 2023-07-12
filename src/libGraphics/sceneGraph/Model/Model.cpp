@@ -44,7 +44,7 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
     Model* Model::loadModel(string const& path,string const& fileName, bool gamma)
     {
-        PLOGE<<"calling Model Loader";
+        PLOGD<<"calling Model Loader";
 
         Model* model = new Model(path, fileName);
 
@@ -86,7 +86,7 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
     // processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
     void Model::processNode(aiNode *node, const aiScene *scene)
     {
-        PLOGE<<"NUMBER OF MESHES IN THIS NODE:" << node->mName.C_Str()<<"IS "<< node->mNumMeshes;
+        PLOGD<<"NUMBER OF MESHES IN THIS NODE:" << node->mName.C_Str()<<"IS "<< node->mNumMeshes;
 
         // process each mesh located at the current node
         for(unsigned int i = 0; i < node->mNumMeshes; i++)

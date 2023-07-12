@@ -14,7 +14,7 @@ glm::mat4 Node::projection = glm::mat4(1.0f);
 //if no parent the model will be equal to the world
 Node::Node(/* args */)
 {
-    PLOGE<< "calling node constructor." ;
+    PLOGD<< "calling node constructor." ;
     m_parent = 0;//not initializing this pointer var, give a bug in the root node's tranform.
     m_world = m_local = m_localRotationMat= m_localTranslationMat=m_localScaleMat = glm::mat4(1.0f);
     
@@ -36,7 +36,7 @@ Node::Node(/* args */)
 
 Node::~Node()
 {
-    PLOGE<<"CALLING NODE DESTRUCTOR";
+    PLOGD<<"CALLING NODE DESTRUCTOR";
     for (int i = 0; i < (int)m_children.size(); i++)
     {
         Node* child = detachChildAt(i);

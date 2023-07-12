@@ -58,7 +58,7 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
     void Model::loadModel(string const &path)
     {
-                PLOGE<<"calling Model constructor";
+                PLOGD<<"calling Model constructor";
 
         // read file via ASSIMP
         Assimp::Importer importer;

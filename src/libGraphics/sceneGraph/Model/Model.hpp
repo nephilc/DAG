@@ -90,7 +90,7 @@ public:
 	{
 		auto& boneInfoMap = m_BoneInfoMap;
 		int& boneCount = m_BoneCounter;
-		PLOGE<<"number of bones in mesh " <<mesh->mName.C_Str()<<" is"<< mesh->mNumBones;
+		PLOGD<<"number of bones in mesh " <<mesh->mName.C_Str()<<" is"<< mesh->mNumBones;
 
 		for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
 		{
