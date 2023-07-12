@@ -44,7 +44,7 @@ EditorUI::~EditorUI()
 
 void EditorUI::test()
 {
-    PLOGE<<editorUI->app->m_acWindowTitle;
+    PLOGD<<"App access test, Window title: "<<editorUI->app->m_acWindowTitle;
 
 }
 
