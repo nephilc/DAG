@@ -172,13 +172,91 @@ AssetManager* AssetManager::getInstance()
     else return am;
 }
 
-void AssetManager::loadShader(string vpath, string fpath, string name)
+Shader* AssetManager::loadShader(string vpath, string fpath, string namesConcat)
 {
-    Shader *shader = new Shader(vpath.c_str(), fpath.c_str());
-    shader->SetName(name);
-    shaders[name] = shader;
-    v_shaders.push_back(shader);
+    bool shouldLoad = false;
+    std::cout<<namesConcat<<std::endl;
+    if (models.count(namesConcat) > 0) {
+        Shader *foundShader = shaders[namesConcat];
+        if(foundShader->m_vertexPath != vpath || foundShader->m_fragmentPath != fpath)
+        { 
+            PLOGE<<"Thes two programs have the same Code name but different paths, Duplicate filenames for the same kind of files should be removed";
+            PLOGE<<vpath;
+            PLOGE<<fpath;
+            return nullptr;
+        }
+        PLOGI<<namesConcat<<" Already Exists";
+        return foundShader;
+
+        
+    }
+    else 
+    {
+        Shader *shader = new Shader(vpath.c_str(), fpath.c_str());
+        if (shader!= nullptr)
+        {
+            shaders[namesConcat] = shader;
+            shader->SetName(namesConcat);
+            shaders[namesConcat] = shader;
+            v_shaders.push_back(shader);
+            return shader;
+
+            //if name already exists append the object id to it.
+            /*
+            std::ostringstream oss;
+            oss << fileName << model->GetID();
+            string newName = oss.str();
+            models[newName] = model;
+            model->SetName(newName);
+            v_models.push_back(model);
+            */
+        }
+        else 
+        {
+            PLOGE << "FAILED TO LOAD SHADER AT" << namesConcat;
+            return nullptr;
+        }
+
+            
+    }
+    
 }
+
+Shader* AssetManager::loadShader(string vpath, string fpath, Stream &stream)
+{
+    string vfileName = fileNameFromPath(vpath);
+    string ffileName = fileNameFromPath(fpath);
+    string concat = vfileName+ffileName;
+    Shader* shader = loadShader(vpath, fpath, concat);
+    shader->load(stream);//dont need to override the shader load, call the objects load directly
+    return shader;
+}
+
+
+
+
+Shader* AssetManager::loadShader(string vpath, string fpath)
+{
+    string vfileName = fileNameFromPath(vpath);
+    string ffileName = fileNameFromPath(fpath);
+    string concat = vfileName+ffileName;
+    Shader* shader = loadShader(vpath, fpath, concat);
+ //   shader->load(stream);//dont need to override the shader load, call the objects load directly
+    return shader;
+}
+
+
+
+std::string AssetManager::fileNameFromPath(std::string path)
+{
+    string fileName;
+    std::stringstream ss(path);
+     while (std::getline(ss, fileName, '/')) {
+        continue;
+    }
+    return fileName;
+}
+
 Model* AssetManager::getModel(const string name)
 {
     return models[name];

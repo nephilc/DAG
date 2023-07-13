@@ -131,8 +131,14 @@ public:
     ~AssetManager();
     void loadModel(string path);
     void loadScene(string path);
-    void loadShader(string vpath, string fpath, string name);
+    Shader* loadShader(string vpath, string fpath, string namesConcat);
+    Shader* loadShader(string vpath, string fpath, Stream &stream);
+    Shader* loadShader(string vpath, string fpath);
     void loadAnimation(string vpath, Model* model);
+
+///////util
+std::string fileNameFromPath(std::string path);
+
 
     //the path should include the fileName
     void saveScene(string filePath);
