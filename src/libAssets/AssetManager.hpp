@@ -132,7 +132,7 @@ public:
     void loadModel(string path);
     void loadScene(string path);
     Shader* loadShader(string vpath, string fpath, string namesConcat);
-    Shader* loadShader(string vpath, string fpath, Stream &stream);
+    Shader* loadShader(Stream &stream);
     Shader* loadShader(string vpath, string fpath);
     void loadAnimation(string vpath, Model* model);
 

@@ -222,11 +222,14 @@ Shader* AssetManager::loadShader(string vpath, string fpath, string namesConcat)
     
 }
 
-Shader* AssetManager::loadShader(string vpath, string fpath, Stream &stream)
+Shader* AssetManager::loadShader(Stream &stream)
 {
-    string vfileName = fileNameFromPath(vpath);
-    string ffileName = fileNameFromPath(fpath);
-    string concat = vfileName+ffileName;
+    string concat = stream.readln();
+    string vpath = stream.readln();
+    string fpath = stream.readln();
+    //string vfileName = fileNameFromPath(vpath);
+    //string ffileName = fileNameFromPath(fpath);
+    //string concat = vfileName+ffileName;
     Shader* shader = loadShader(vpath, fpath, concat);
     shader->load(stream);//dont need to override the shader load, call the objects load directly
     return shader;

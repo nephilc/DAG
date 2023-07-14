@@ -1,4 +1,8 @@
 #include "Shader.hpp"
+
+
+IMPLEMENT_RTTI(Shader, Object)
+
 //the shader doesnn't know which backend it is using
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
     {
@@ -138,3 +142,17 @@ void Shader::setVec2(const std::string &name, const glm::vec2 &value) const
     {
         backend::getBackend()->setMat4(ID,name,mat);
     };
+
+void Shader::load(Stream& stream)
+{   
+    Object::load(stream);
+}
+void Shader::save(Stream& stream)
+{
+    stream.writeln(TYPE.GetName());
+    stream.writeln(m_programNamesSum);
+    stream.writeln(m_vertexPath);
+    stream.writeln(m_fragmentPath);
+    Object::save(stream);
+
+}
