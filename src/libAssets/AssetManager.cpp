@@ -176,7 +176,7 @@ Shader* AssetManager::loadShader(string vpath, string fpath, string namesConcat)
 {
     bool shouldLoad = false;
     std::cout<<namesConcat<<std::endl;
-    if (models.count(namesConcat) > 0) {
+    if (shaders.count(namesConcat) > 0) {
         Shader *foundShader = shaders[namesConcat];
         if(foundShader->m_vertexPath != vpath || foundShader->m_fragmentPath != fpath)
         { 
