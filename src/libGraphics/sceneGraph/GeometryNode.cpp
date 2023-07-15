@@ -59,10 +59,16 @@ void GeometryNode::save(Stream& stream)
 }
 void GeometryNode::load(Stream& stream)
 {
-    string typeName = stream.readln();//eading the type line should be in the child loop, so that we create the right kind of node, we assume the type of the root node
-    if (typeName != TYPE.GetName()) PLOGE << "Wrong loader, Expected " << TYPE.GetName() << " found in file" << typeName;
+    PLOGE<<"geometrynode loader";
+    //string typeName = stream.readln();//eading the type line should be in the child loop, so that we create the right kind of node, we assume the type of the root node
+    //if (typeName != TYPE.GetName()) PLOGE << "Wrong loader, Expected " << TYPE.GetName() << " found in file" << typeName;
     //load model stuff
-    AssetManager::getInstance()->loadShader(stream);
+    stream.readln();
+    m_shader = AssetManager::getInstance()->loadShader(stream);
+    PLOGE<<"geometrynode loader end";
+    //always append a read line before calling another node's load
+    
+    stream.readln();
     Node::load(stream);//right this doesntknow it is loading a geometry node, we need function pointers
 
 }

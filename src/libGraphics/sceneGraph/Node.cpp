@@ -310,12 +310,17 @@ glm::mat4& Node::getWorldTransform()
     return m_world;
 }
 
-
+#include<NodeFactory.hpp>
 //do just the same as the save
 void Node::load(Stream& stream) 
-{
+{   
+    /*
+    if(m_parent!=nullptr)
+    {
     string typeName = stream.readln();//eading the type line should be in the child loop, so that we create the right kind of node, we assume the type of the root node
     if (typeName != TYPE.GetName()) PLOGE << "Wrong loader, Expected " << TYPE.GetName() << " found in file" << typeName;
+    }
+    */
     stream.readln(16, glm::value_ptr(m_localTranslationMat));
     stream.readln(16, glm::value_ptr(m_localRotationMat));
     stream.readln(16, glm::value_ptr(m_localScaleMat));
@@ -344,7 +349,13 @@ void Node::load(Stream& stream)
         //well right heare you need to determine the type of the child
         //todo
         //read type line then call function pointer
-        Node* childNode = new Node();
+        //HERE WE GO
+
+        std::string nodeType = stream.readln();
+        Node* childNode = NodeFactory::create(nodeType);
+        PLOGE<<childNode->GetType().GetName()<<"NODE BEING CREATED";
+        //if (childNode->GetType().GetName() != TYPE.GetName()) PLOGE << "Wrong loader, Expected " << TYPE.GetName() << " found in file" << typeName;
+        //Node* childNode = new Node();
         attachChild(childNode);
         childNode->load(stream);
     }

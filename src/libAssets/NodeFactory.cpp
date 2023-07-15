@@ -31,9 +31,38 @@ Node *NodeFactory::create(const Rtti *type)
     }
     else if(type->IsExactly(GeometryNode::TYPE))
     {
+        PLOGE<<"geometry node matched";
     return new GeometryNode();
     }
     else if(type->IsExactly(ModelNode::TYPE))
+    {
+    return new ModelNode();
+    }
+    else
+    {
+
+    }
+    return nullptr;
+}
+
+Node *NodeFactory::create(const std::string &typeName)
+{
+    //if(!initialized) init();
+    //we can either create them directly or get the defaults from the asset manager, or add the default support in the node itself
+    if(Node::TYPE.GetName() ==typeName)
+    {
+        return new Node();
+    }
+    else if(AnimatedNode::TYPE.GetName()==typeName)
+    {
+    return new AnimatedNode();
+    }
+    else if(GeometryNode::TYPE.GetName()==typeName)
+    {
+        PLOGE<<"geometry node matched";
+    return new GeometryNode();
+    }
+    else if(ModelNode::TYPE.GetName()==typeName)
     {
     return new ModelNode();
     }

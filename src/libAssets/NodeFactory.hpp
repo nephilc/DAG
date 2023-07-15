@@ -11,6 +11,7 @@ public:
     NodeFactory(/* args */);
     static void init();
     static Node *create(const Rtti *type);
+    static Node *create(const std::string &typeName);
     ~NodeFactory();
 };
 
