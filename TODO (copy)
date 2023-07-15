@@ -1,0 +1,11 @@
+make the load functions staic, that way i can still keep things recursive. 
+or
+create factory functions in each class, that creates uninitialized scene members. we made sure they pose no problem in rendering.
+register them with the object class.
+call them after reading the type line when loading a Node.
+And voila.
+
+For other kinds of object we go thrgough the asset manager to avoid duplication.
+so the factory would be a node factory for Now. 
+
+Well, we do this because the parent doesnt know about its children, or any other objects.

@@ -1,4 +1,5 @@
-set(SRCS AssetManager.cpp Action.cpp KeyMap.cpp)
+#set(SRCS AssetManager.cpp Action.cpp KeyMap.cpp)
+file(GLOB SRCS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" )
 set(HDRS AssetManager.hpp Action.hpp KeyMap.hpp)
 
 add_library(Assets STATIC ${SRCS} ${HDRS} )

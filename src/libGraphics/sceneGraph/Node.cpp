@@ -342,6 +342,8 @@ void Node::load(Stream& stream)
     for (int i = 0; i < numberOfChildren; i++)
     {
         //well right heare you need to determine the type of the child
+        //todo
+        //read type line then call function pointer
         Node* childNode = new Node();
         attachChild(childNode);
         childNode->load(stream);
