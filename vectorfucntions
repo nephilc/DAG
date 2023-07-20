@@ -1,0 +1,3 @@
+matrix functions and tensor functions are vector functions.
+No need to think about every specific use case differently, we can can consider them to be vetors, which is what they are.
+That book even says so. Thus we can move past this issue.

@@ -4,7 +4,8 @@ bin
 .vs
 .vscode
 lib
-EditorBin
+EditorBin/3dmodels
+EditorBin/EDITORAPP
 build1
 out
 build2

@@ -1,0 +1,17 @@
+the same model laoded without animation shows no problem(pumpkin hulk).
+the same animation loaded in blender showws no problem, mixamo also shows no problem.
+there is a string chance that there is an issue with the way we do animation.
+
+Well, we can load all sorts of static models, of various sizes, no problem!
+We just need PBR.
+since we compute the matrices recursively, we can visualize them recursively.
+###bug analisys
+on the right hand: only the index seem to cause problems
+on the left hand: al finger cause problems, except the index
+
+the problem is present on other animations aswell, but i cant guess if it is exactly the same.
+for the left index, the stretching seems to start after the middle joint. same thing for the right index.
+
+for some animations, it loads, the animation starts to play, then i get int Bone::GetPositionIndex(float): Assertion `0' failed.;
+
+//maybe there is some channel that messes things up;
