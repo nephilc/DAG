@@ -16,6 +16,16 @@ message(${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 add_subdirectory(src)
 add_subdirectory(ThirdParty)
 
+#
+
+if(WIN32)
+
+
+    file(COPY ${ASSIMP_DLL} DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/EditorBin")
+    file(COPY ${GLFW_DLL} DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/EditorBin")
+
+endif()
+
 enable_testing()
 
 
