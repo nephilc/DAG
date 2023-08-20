@@ -1,6 +1,10 @@
 #include "Model.hpp"
 #include <plog/Log.h>
 #include <assimp/postprocess.h>
+#include<AssetManager.hpp>
+
+IMPLEMENT_RTTI(Model, Object)
+
 
 
 Model::Model(string const &path, string const& fileName, bool gamma) : gammaCorrection(gamma), path(path), fileName(fileName) 
@@ -249,4 +253,37 @@ unsigned int TextureFromFile_EM(const char *path, const string &directory, const
     }
 
     return textureID;
+}
+
+
+void Model::load(Stream& stream)
+{
+    Object::load(stream);
+}
+void Model::save(Stream& stream)
+{
+    stream.writeln(TYPE.GetName());
+    //save path relative to base path, without including basepath
+    //when loading prefix with basepath.
+    string relativePath;
+    string part;
+    bool record = false;
+    std::stringstream ss(path);
+    while (std::getline(ss, part, '/')) {
+        if (record) { 
+            if (!relativePath.empty()){
+                relativePath += "/";
+                relativePath += part;
+            }
+            else {
+                relativePath += part;
+            }
+        }
+        if (part == AssetManager::getInstance()->basePath) record = true;
+
+    }
+
+    stream.writeln(relativePath);
+    Object::save(stream);
+
 }

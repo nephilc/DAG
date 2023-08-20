@@ -70,7 +70,7 @@ ScreenCanvas* AssetManager::getScreenCanvas(const string name)
     return screenCanavases[name];
 }
 
-void AssetManager::loadModel(string path)//map filename to pointer, having two params may be redundant but the method can be repurposed
+Model* AssetManager::loadModel(string path)//map filename to pointer, having two params may be redundant but the method can be repurposed
 {
     string fileName;
     std::stringstream ss(path);
@@ -86,10 +86,10 @@ void AssetManager::loadModel(string path)//map filename to pointer, having two p
             PLOGE<<"Thes two models have the same file name but different paths, they should have different fileNames";
             PLOGE<<path;
             PLOGE<<foundModel->path;
-            return;
+            return nullptr;
         }
         PLOGI<<fileName<<" Already Exists";
-        return;
+        return foundModel;
 
         
     }
@@ -101,7 +101,7 @@ void AssetManager::loadModel(string path)//map filename to pointer, having two p
             models[fileName] = model;
             model->SetName(fileName);
             v_models.push_back(model);
-            return;
+            return model;
 
             //if name already exists append the object id to it.
             /*
@@ -116,13 +116,17 @@ void AssetManager::loadModel(string path)//map filename to pointer, having two p
         else 
         {
             PLOGE << "FAILED TO LOAD MODEL AT" << path;
-            return;
+            return nullptr;
         }
 
             
     }
 }
-
+Model* AssetManager::loadModel(Stream &stream) 
+{
+    string relativePath = stream.readln();
+    return loadModel(basePath + "/" + relativePath);
+}
 void AssetManager::loadAnimation(string vpath, Model* model)
 {
     Animation *animation = Animation::loadAnimation(vpath, model);
@@ -224,6 +228,7 @@ Shader* AssetManager::loadShader(string vpath, string fpath, string namesConcat)
 
 Shader* AssetManager::loadShader(Stream &stream)
 {
+    string shaderType = stream.readln();
 
     string concat = stream.readln();
     string vpath = stream.readln();
@@ -231,6 +236,7 @@ Shader* AssetManager::loadShader(Stream &stream)
     //string vfileName = fileNameFromPath(vpath);
     //string ffileName = fileNameFromPath(fpath);
     //string concat = vfileName+ffileName;
+    //string shaderType = stream.readln();
     Shader* shader = loadShader(vpath, fpath, concat);
     shader->load(stream);//dont need to override the shader load, call the objects load directly
     shader->SetName(concat);

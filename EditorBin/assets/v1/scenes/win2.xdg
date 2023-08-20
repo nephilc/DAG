@@ -1,0 +1,49 @@
+WorldNode
+1 1 1 1 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+WorldNode8
+0000029A931708E0 0000029A926B9450 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node9
+0000029A93173C70 0000029A93173A60 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node10
+LeafNode
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node11
+LeafNode
+ModelNode
+Model
+assets/common/models/pumkinHulk.fbx
+Object
+pumkinHulk.fbx
+GeometryNode
+Shader
+1.model_loading.vs1.model_loading.fs
+shaderPrograms/1.model_loading.vs
+shaderPrograms/1.model_loading.fs
+Object
+ourShader2
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+ModelNode15
+LeafNode

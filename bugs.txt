@@ -1,2 +1,4 @@
 cant load animation without a selected model.
 stop it from loading animations if no model is selected, or at least from reading missing bone info in that case.
+separate name and id when loading and saving scenes
+having the ability to load shaders.

@@ -43,6 +43,8 @@ unsigned int TextureFromFile_EM(const char *path, const string &directory,const 
 class Model : public Object
 {
 public:
+	DECLARE_RTTI
+
 
 	//importznt attributes for not reloading files twice
 	std::string fileName;
@@ -123,6 +125,11 @@ public:
 		}
 	}
 	static Model* loadModel(string const& path, string const& fileName, bool gamma = false);
+
+	//persistance
+	void load(Stream& stream);
+	void save(Stream& stream);
+
 
 private:
 //animation stuff

@@ -129,7 +129,9 @@ public:
 
 
     ~AssetManager();
-    void loadModel(string path);
+    Model* loadModel(string path);
+    Model* loadModel(Stream& stream);
+
     void loadScene(string path);
     Shader* loadShader(string vpath, string fpath, string namesConcat);
     Shader* loadShader(Stream &stream);
