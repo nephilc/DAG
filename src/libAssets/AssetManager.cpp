@@ -163,18 +163,29 @@ Model* AssetManager::loadModel(Stream &stream)
 }
 Animation* AssetManager::loadAnimation(string vpath, Model* model)
 {
-    //the animation should be indetified by its path
-    /*if (animations.count(model) > 0)
-    {
-        
-    }
-    else
-    {*/
-    Animation *animation = Animation::loadAnimation(vpath, model);
+    Animation* animation = Animation::loadAnimation(basePath + "/" + vpath, model);
     if (animation != nullptr) v_Animations.push_back(animation);
     else PLOGE << "CAnnot load ANimation AT" << vpath;
     return animation;
-    //}
+}
+Animation* AssetManager::loadAnimation(Stream& stream, Model* model)
+{
+    //we should be able to load an animation without a model, that was just a malformation in those mixamo models.
+    //we should remove that read missingbone data since we have no missing bone data.
+    string animationType = stream.readln();
+
+    if (animationType == noValue) return nullptr;
+    string relativePath = stream.readln();
+    if (model == nullptr) {
+        PLOGE << "FOR NOW WE CANNOT LOAD ANIMATION WITHOUT MODEL";
+        Animation* animation = new Animation();
+        animation->load(stream);//just to clear the object properties.
+        return nullptr;
+    }
+    
+    Animation* animation = loadAnimation(relativePath, model);
+    animation->load(stream);
+    return animation;
 }
 void AssetManager::loadScene(string filePath)
 {

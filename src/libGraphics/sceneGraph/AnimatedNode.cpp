@@ -93,12 +93,21 @@ Animator* AnimatedNode::getAnimator()
     return m_animator;
 }
 
-void AnimatedNode::save(Stream &stream)
+void AnimatedNode::save(Stream& stream)
 {
     stream.writeln(TYPE.GetName());
-    m_model->save(stream);
+    if (m_model == nullptr)
+        stream.writeln(AssetManager::getInstance()->noValue);
+    else
+        m_model->save(stream);
+ 
+    if (m_animation == nullptr)
+        stream.writeln(AssetManager::getInstance()->noValue);
+    else
+        m_animation->save(stream);
     //save model stuff
     GeometryNode::save(stream);
+
 
 }
 
@@ -107,14 +116,11 @@ void AnimatedNode::load(Stream &stream)
     //eading the type line should be in the child loop, so that we create the right kind of node, we assume the type of the root node
     //if (typeName != TYPE.GetName()) PLOGE << "Wrong loader, Expected " << TYPE.GetName() << " found in file" << typeName;
     //load model stuff
-    string typeName = stream.readln();//model type read
-    //we can just read the path here, or not
-    Model* model = AssetManager::getInstance()->loadModel(stream);
-    model->load(stream);
-    m_model = model;
+    m_model = AssetManager::getInstance()->loadModel(stream);
 
     //do the same thing for animation
-
+    m_animation = AssetManager::getInstance()->loadAnimation(stream, m_model);
+    m_animator->PlayAnimation(m_animation);
     GeometryNode::load(stream);
 
 

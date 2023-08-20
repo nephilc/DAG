@@ -65,8 +65,8 @@ void ModelNode::load(Stream& stream)
     //if (typeName != TYPE.GetName()) PLOGE << "Wrong loader, Expected " << TYPE.GetName() << " found in file" << typeName;
     //load model stuff
     //we can just read the path here, or not
-    Model* model = AssetManager::getInstance()->loadModel(stream);
-    m_model = model;
+    m_model  = AssetManager::getInstance()->loadModel(stream);
+     
     
     GeometryNode::load(stream);
 

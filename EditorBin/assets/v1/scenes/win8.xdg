@@ -1,0 +1,114 @@
+WorldNode
+1 1 1 1 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+WorldNode8
+000001B361E64BA0 000001B361C35990 000001B361C35BC0 000001B361C35DF0 000001B365072AD0 000001B365072F50 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node9
+000001B361E67B10 000001B361E66A90 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node10
+LeafNode
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node11
+LeafNode
+ModelNode
+Model
+common/models/pumkinHulk.fbx
+Object
+pumkinHulk.fbx
+GeometryNode
+Shader
+1.model_loading.vs1.model_loading.fs
+shaderPrograms/1.model_loading.vs
+shaderPrograms/1.model_loading.fs
+Object
+1.model_loading.vs1.model_loading.fs
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+ModelNode15
+LeafNode
+ModelNode
+Model
+common/models/pumkinHulk.fbx
+Object
+pumkinHulk.fbx
+GeometryNode
+Shader
+1.model_loading.vs1.model_loading.fs
+shaderPrograms/1.model_loading.vs
+shaderPrograms/1.model_loading.fs
+Object
+1.model_loading.vs1.model_loading.fs
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 -1.64003 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+ModelNode23
+LeafNode
+ModelNode
+noValue
+GeometryNode
+noValue
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+ModelNode24
+LeafNode
+AnimatedNode
+Model
+common/models/pumkinHulk.fbx
+Object
+pumkinHulk.fbx
+Animation
+common/models/pumkinHulk.fbx
+Object
+Animation26
+GeometryNode
+Shader
+animation.vs1.model_loading.fs
+shaderPrograms/animation.vs
+shaderPrograms/1.model_loading.fs
+Object
+animation.vs1.model_loading.fs
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+AnimatedNode25
+LeafNode
+AnimatedNode
+noValue
+noValue
+GeometryNode
+noValue
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+AnimatedNode28
+LeafNode

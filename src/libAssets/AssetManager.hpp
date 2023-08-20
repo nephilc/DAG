@@ -142,6 +142,8 @@ public:
     Shader* loadShader(Stream &stream);
     Shader* loadShader(string vpath, string fpath);
     Animation* loadAnimation(string vpath, Model* model);
+    Animation* loadAnimation(Stream& stream, Model* model);
+
 
 ///////util
 std::string fileNameFromPath(std::string path);
