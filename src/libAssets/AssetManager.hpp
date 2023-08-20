@@ -81,10 +81,14 @@ private:
 
     // "File://" subsitute
     std::string fileRoot;
+    //
 
 
 
 public:
+
+    static std::string noValue;//no value placeholder when saving or loading
+
     static std::string configFile;
     std::string basePath;//FILE:// this base path will have multiple uses
     //in the editor

@@ -52,7 +52,11 @@ void GeometryNode::save(Stream& stream)
 {
     stream.writeln(TYPE.GetName());
     //save model stuff
-    m_shader->save(stream);//if shader is null save null
+    if (m_shader == nullptr)
+        stream.writeln(AssetManager::getInstance()->noValue);
+    else
+        m_shader->save(stream);//if shader is null save null
+    
     Node::save(stream);
 
 
@@ -63,8 +67,8 @@ void GeometryNode::load(Stream& stream)
     //string typeName = stream.readln();//eading the type line should be in the child loop, so that we create the right kind of node, we assume the type of the root node
     //if (typeName != TYPE.GetName()) PLOGE << "Wrong loader, Expected " << TYPE.GetName() << " found in file" << typeName;
     //load model stuff
-    string somevalue = stream.readln();
-    m_shader = AssetManager::getInstance()->loadShader(stream);
+    string somevalue = stream.readln();//geometry node type
+    m_shader = AssetManager::getInstance()->loadShader(stream);//will get null ptr if no value has been saved
     PLOGE<<"geometrynode loader end";
     //always append a read line before calling another node's load
     

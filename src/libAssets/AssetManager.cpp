@@ -4,6 +4,9 @@
 
 FrameBuffer* AssetManager::mainBuffer = 0;
 std::string AssetManager::configFile= "xdg.cfg";
+
+std::string AssetManager::noValue = "noValue";//no value placeholder when saving or loading
+
 AssetManager::AssetManager(/* args */)
 {
     PLOGI<<"CREATING ASSETMANAGER";
@@ -149,8 +152,14 @@ std::string AssetManager::getSplitPathUsingBasePath(const string& fullPath)
 }
 Model* AssetManager::loadModel(Stream &stream) 
 {
+    string typeName = stream.readln();//model type read
+    if (typeName == noValue) return nullptr;
+
     string relativePath = stream.readln();
-    return loadModel(basePath + "/" + relativePath);
+    Model* loadedModel = loadModel(basePath + "/" + relativePath);
+    loadedModel->load(stream);
+
+    return loadedModel;
 }
 Animation* AssetManager::loadAnimation(string vpath, Model* model)
 {
@@ -263,6 +272,8 @@ Shader* AssetManager::loadShader(string vpath, string fpath, string namesConcat)
 Shader* AssetManager::loadShader(Stream &stream)
 {
     string shaderType = stream.readln();
+
+    if (shaderType == noValue) return nullptr;
 
     string concat = stream.readln();
     string vpath = stream.readln();
