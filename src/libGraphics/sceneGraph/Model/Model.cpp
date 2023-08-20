@@ -265,24 +265,7 @@ void Model::save(Stream& stream)
     stream.writeln(TYPE.GetName());
     //save path relative to base path, without including basepath
     //when loading prefix with basepath.
-    string relativePath;
-    string part;
-    bool record = false;
-    std::stringstream ss(path);
-    while (std::getline(ss, part, '/')) {
-        if (record) { 
-            if (!relativePath.empty()){
-                relativePath += "/";
-                relativePath += part;
-            }
-            else {
-                relativePath += part;
-            }
-        }
-        if (part == AssetManager::getInstance()->basePath) record = true;
-
-    }
-
+    string relativePath = AssetManager::getInstance()->getSplitPathUsingBasePath(path);
     stream.writeln(relativePath);
     Object::save(stream);
 

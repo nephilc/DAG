@@ -63,6 +63,7 @@ private:
     //vector would be much more practical in certain cases
     map<string, Model*> models;
     map<string, Shader*> shaders;
+    map<string, Animation*> animations;
     map<string, FrameBuffer*> frameBuffers;
     map<string, ScreenCanvas*> screenCanavases;
 
@@ -136,7 +137,7 @@ public:
     Shader* loadShader(string vpath, string fpath, string namesConcat);
     Shader* loadShader(Stream &stream);
     Shader* loadShader(string vpath, string fpath);
-    void loadAnimation(string vpath, Model* model);
+    Animation* loadAnimation(string vpath, Model* model);
 
 ///////util
 std::string fileNameFromPath(std::string path);
@@ -190,6 +191,9 @@ std::string fileNameFromPath(std::string path);
     void createKeyMap();
 
     void getDefault(const Rtti &type, Node* parent);
+
+
+    std::string getSplitPathUsingBasePath(const string& fullPath);
     
 
     //#################################################

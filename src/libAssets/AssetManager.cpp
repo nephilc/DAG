@@ -122,16 +122,50 @@ Model* AssetManager::loadModel(string path)//map filename to pointer, having two
             
     }
 }
+
+std::string AssetManager::getSplitPathUsingBasePath(const string& fullPath) 
+{
+    string relativePath;
+    string part;
+    bool record = false;
+    std::stringstream ss(fullPath);
+    while (std::getline(ss, part, '/')) {
+        if (record) {
+            if (!relativePath.empty()) {
+                relativePath += "/";
+                relativePath += part;
+            }
+            else {
+                relativePath += part;
+            }
+        }
+        if (part == basePath) record = true;
+
+    }
+    if(record)
+        return relativePath;
+    else
+        return fullPath;
+}
 Model* AssetManager::loadModel(Stream &stream) 
 {
     string relativePath = stream.readln();
     return loadModel(basePath + "/" + relativePath);
 }
-void AssetManager::loadAnimation(string vpath, Model* model)
+Animation* AssetManager::loadAnimation(string vpath, Model* model)
 {
+    //the animation should be indetified by its path
+    /*if (animations.count(model) > 0)
+    {
+        
+    }
+    else
+    {*/
     Animation *animation = Animation::loadAnimation(vpath, model);
     if (animation != nullptr) v_Animations.push_back(animation);
     else PLOGE << "CAnnot load ANimation AT" << vpath;
+    return animation;
+    //}
 }
 void AssetManager::loadScene(string filePath)
 {

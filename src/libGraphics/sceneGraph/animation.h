@@ -15,6 +15,8 @@
 #include <plog/Log.h>
 #include<Object.hpp>
 
+//#include<AssetManager.hpp>
+
 //load an animation for a specific model.
 //give it the loaded model and the path of the animation, which could be in the same model.
 //will need to create a bunch of these for every model.
@@ -33,6 +35,8 @@ class Animation : public Object
 {
 public:
 	DECLARE_RTTI
+
+	std::string animationPath;
 	Animation() = default;
 	Animation(const aiScene* scene, Model* model)
 	{
@@ -101,6 +105,8 @@ public:
 	//this is a static utility method, return a pointer to a loaded animation.
 	static Animation* loadAnimation(const std::string& animationPath, Model* model)
 	{
+
+
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
 		assert(scene && scene->mRootNode);//this is the assertion that gives errors, when i try to load thos other files
@@ -112,10 +118,17 @@ public:
 		}
 		*/
 		Animation* animation = new Animation(scene, model);
+
+		//animation->animationPath = AssetManager::getInstance()->getSplitPathUsingBasePath(animationPath);
+		animation->animationPath = animationPath;
+		
 		return animation;
 
 		
 	};
+	void load(Stream& stream);
+	void save(Stream& stream);
+
 
 private:
 //called second, now we read bone data, not recurs

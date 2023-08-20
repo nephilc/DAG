@@ -95,10 +95,29 @@ Animator* AnimatedNode::getAnimator()
 
 void AnimatedNode::save(Stream &stream)
 {
+    stream.writeln(TYPE.GetName());
+    m_model->save(stream);
+    //save model stuff
+    GeometryNode::save(stream);
+
 }
 
 void AnimatedNode::load(Stream &stream)
 {
+    //eading the type line should be in the child loop, so that we create the right kind of node, we assume the type of the root node
+    //if (typeName != TYPE.GetName()) PLOGE << "Wrong loader, Expected " << TYPE.GetName() << " found in file" << typeName;
+    //load model stuff
+    string typeName = stream.readln();//model type read
+    //we can just read the path here, or not
+    Model* model = AssetManager::getInstance()->loadModel(stream);
+    model->load(stream);
+    m_model = model;
+
+    //do the same thing for animation
+
+    GeometryNode::load(stream);
+
+
 }
 
 Model* AnimatedNode::getModel() 
