@@ -1,0 +1,2 @@
+cant load animation without a selected model.
+stop it from loading animations if no model is selected, or at least from reading missing bone info in that case.
