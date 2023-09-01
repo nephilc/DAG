@@ -805,30 +805,31 @@ void  EditorUI::EditorProperties()
 void  EditorUI::KeyMapsTab()
 {   
         if(ImGui::Button("+"))   m_AM->createKeyMap();
+        loadKeyMapButton();
 
-        vector<KeyMap*> vlshaders = m_AM->KeyMapsVector;
+        vector<KeyMap*> vlkms = m_AM->KeyMapsVector;
         // Left
         static int selected = 0;
         KeyMap* selectedS;
         {
-            KeyMap* shader;
+            KeyMap* km;
             ImGui::BeginChild("left pane1", ImVec2(150, 0), true);
-            for (int i = 0; i < vlshaders.size(); i++)
+            for (int i = 0; i < vlkms.size(); i++)
             {
                 // FIXME: Good candidate to use ImGuiSelectableFlags_SelectOnNav
-                shader = vlshaders[i];
+                km = vlkms[i];
                 char label[128];
-                sprintf(label, "%s", shader->GetName().c_str());
+                sprintf(label, "%s", km->GetName().c_str());
                 if (ImGui::Selectable(label, selected == i))
                     selected = i;
             }
             ImGui::EndChild();
         }
         ImGui::SameLine();
-        if(vlshaders.size()>0)
-        selectedS = vlshaders[selected];
+        if(vlkms.size()>0)
+        selectedS = vlkms[selected];
         // Right
-        if(vlshaders.size()>0)
+        if(vlkms.size()>0)
         {
             ImGui::BeginGroup();//this child window will scroll on it's own
             ImGui::BeginChild("item view1", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
@@ -839,6 +840,7 @@ void  EditorUI::KeyMapsTab()
                
                 if (ImGui::BeginTabItem("KeyMap Details"))
                 {
+                    saveKeyMapButton(selectedS);
                     ObjectProperties(selectedS);
                     ImGui::Separator();
                     if (ImGui::BeginListBox("listbox 1"))

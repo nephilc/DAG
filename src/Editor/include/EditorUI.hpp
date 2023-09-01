@@ -74,6 +74,10 @@ void FramebuffersWindow(bool *p_open);
 void  ScreenCanvasesWindow(bool* p_open);
 void  TextEditorWindow();
 
+void loadKeyMapButton();
+void saveKeyMapButton(KeyMap* km);
+
+
 
 void saveText();
 

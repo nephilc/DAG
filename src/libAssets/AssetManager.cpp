@@ -206,6 +206,25 @@ void AssetManager::loadScene(string filePath)
     setCurrentScene(newScene);
 }
 
+void AssetManager::loadKeyMap(string fullPath) 
+{
+    string path = getSplitPathUsingBasePath(fullPath);
+    Stream stream(path, READ_MODE);
+
+    KeyMap *km = new KeyMap();
+    km->load(stream);
+    KeyMapsVector.push_back(km);
+    
+}
+
+//create another version where you pass the key map and saves it in the same file, specified in the file attribute
+void AssetManager::saveKeyMap(string fullPath, KeyMap *km)
+{
+    string path = getSplitPathUsingBasePath(fullPath);
+    Stream stream(path, WRITE_MODE);
+
+    km->save(stream);
+}
 
 
 

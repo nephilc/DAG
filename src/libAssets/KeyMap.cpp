@@ -3,6 +3,13 @@
 
 IMPLEMENT_RTTI(KeyMap, Object)
 
+
+KeyMap::KeyMap() {
+
+}
+
+
+
 KeyMap::KeyMap(KeyMapType type):m_at(type) {
     SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
 }

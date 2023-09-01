@@ -144,6 +144,9 @@ public:
     Animation* loadAnimation(string vpath, Model* model);
     Animation* loadAnimation(Stream& stream, Model* model);
 
+    void loadKeyMap(string fullPath);
+    void saveKeyMap(string fullPath, KeyMap* km);
+
 
 ///////util
 std::string fileNameFromPath(std::string path);
@@ -173,6 +176,7 @@ std::string fileNameFromPath(std::string path);
     const vector<Animation*>& getAnimations() const;
     const vector<FrameBuffer*>& getFrameBuffers() const;
     const vector<ScreenCanvas*>& getScreenCanvases() const;
+
 
     FrameBuffer* getCurrentFrameBuffer();
     void makeBufferCurrent(FrameBuffer *buffer);

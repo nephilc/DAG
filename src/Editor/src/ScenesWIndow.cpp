@@ -522,8 +522,68 @@ void EditorUI::saveSceneButton() {
         std::cout << file_dialog.ext << std::endl;              // Access ext separately (For SAVE mode)
         //Do writing of files based on extension here
         //stream.myfile.close();
-        
+
         m_AM->saveScene(file_dialog.selected_path + ".xdg");
+
+    }
+}
+
+
+void EditorUI::loadKeyMapButton() {
+    bool save = false;
+    ImGui::SameLine();
+    // Create the button
+    if (ImGui::Button("load key map"))
+    {
+        save = true;
+        //open pop up model to get the location where to save the file
+        // open stream to file
+        // save the asset managers current scene, pass the stream to it.
+        //save scene
+    }
+    if (save)
+        ImGui::OpenPopup("Load Key Map");
+
+
+    if (file_dialog.showFileDialog("Load Key Map", imgui_addons::ImGuiFileBrowser::DialogMode::SAVE, ImVec2(700, 310), "*.kmf"))
+    {
+        std::cout << file_dialog.selected_fn << std::endl;      // The name of the selected file or directory in case of Select Directory dialog mode
+        std::cout << file_dialog.selected_path << std::endl;    // The absolute path to the selected file
+        std::cout << file_dialog.ext << std::endl;              // Access ext separately (For SAVE mode)
+        //Do writing of files based on extension here
+        //stream.myfile.close();
+
+        m_AM->loadKeyMap(file_dialog.selected_path + ".kmf");
+
+    }
+}
+
+
+void EditorUI::saveKeyMapButton(KeyMap* km) {
+    bool save = false;
+    ImGui::SameLine();
+    // Create the button
+    if (ImGui::Button("save key map"))
+    {
+        save = true;
+        //open pop up model to get the location where to save the file
+        // open stream to file
+        // save the asset managers current scene, pass the stream to it.
+        //save scene
+    }
+    if (save)
+        ImGui::OpenPopup("save Key Map");
+
+
+    if (file_dialog.showFileDialog("save Key Map", imgui_addons::ImGuiFileBrowser::DialogMode::SAVE, ImVec2(700, 310), "*.kmf"))
+    {
+        std::cout << file_dialog.selected_fn << std::endl;      // The name of the selected file or directory in case of Select Directory dialog mode
+        std::cout << file_dialog.selected_path << std::endl;    // The absolute path to the selected file
+        std::cout << file_dialog.ext << std::endl;              // Access ext separately (For SAVE mode)
+        //Do writing of files based on extension here
+        //stream.myfile.close();
+
+        m_AM->saveKeyMap(file_dialog.selected_path + ".kmf", km);
 
     }
 }

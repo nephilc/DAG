@@ -24,6 +24,7 @@ public:
 
 
 	KeyMap(KeyMapType type);
+	KeyMap();
 	KeyMap(std::string name, KeyMapType type);
 	~KeyMap();
 	 bool set(std::string key, Action *action);
