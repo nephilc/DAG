@@ -18,7 +18,7 @@ class CameraAction : public Action
 
 public:
 	CameraAction() {
-		SetName("CAMERA ACTION " + std::to_string(GetID()));
+		SetName("CAMERA ACTION");
 		Action::m_at = ALL;
 		camera = Application::getApplication()->getEditorCamera();
 	};

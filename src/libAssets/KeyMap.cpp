@@ -34,3 +34,13 @@ std::unordered_map<std::string, Action *> &KeyMap::getMap()
     // TODO: insert return statement here
     return internalKeyMap;
 }
+
+//persistance
+void KeyMap::load(Stream& stream)
+{
+    //identify actionns by their names, there are multiple  action vectors in the AssetManager class
+}
+void KeyMap::save(Stream& stream)
+{
+
+}

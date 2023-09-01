@@ -1,7 +1,7 @@
 #ifndef ACTION_HPP
 #define ACTION_HPP
 #include<Object.hpp>
-
+//the object name of an action has to be set programmatically, it shouldnt include the id so that it remains constant, it will be used to reference the action.
 enum ActionType {
 	KEY,
 	MOUSE,

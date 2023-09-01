@@ -17,15 +17,22 @@ class KeyMap : public Object
 {
 	DECLARE_RTTI
 public:
+
+	KeyMapType m_at;//persist
+	std::unordered_map<std::string, Action*> internalKeyMap;//persist
+
+
+
 	KeyMap(KeyMapType type);
 	KeyMap(std::string name, KeyMapType type);
 	~KeyMap();
-	KeyMapType m_at;
-    std::unordered_map<std::string, Action*> internalKeyMap;
-    bool set(std::string key, Action *action);
+	 bool set(std::string key, Action *action);
     Action* get(std::string key);
      std::unordered_map<std::string, Action*>& getMap();
-	
+	 //persistance
+	 void load(Stream& stream);
+	 void save(Stream& stream);
+
 private:
 
 };
