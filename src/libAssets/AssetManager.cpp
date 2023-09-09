@@ -7,6 +7,26 @@ std::string AssetManager::configFile= "xdg.cfg";
 
 std::string AssetManager::noValue = "noValue";//no value placeholder when saving or loading
 
+Action* AssetManager::getKeyAction(std::string actionName)
+{
+    for (Action* action : KeyActionsVector) 
+    {
+        if (action->GetName() == actionName) return action;
+    }
+    PLOGE << "ACTION NOT FOUND " << actionName;
+    return new Action();
+}
+
+Action* AssetManager::getMouseAction(std::string actionName)
+{
+    for (Action* action : MouseActionsVector)
+    {
+        if (action->GetName() == actionName) return action;
+    }
+    PLOGE << "ACTION NOT FOUND " << actionName;
+    return new Action();
+}
+
 AssetManager::AssetManager(/* args */)
 {
     PLOGI<<"CREATING ASSETMANAGER";
@@ -209,7 +229,7 @@ void AssetManager::loadScene(string filePath)
 void AssetManager::loadKeyMap(string fullPath) 
 {
     string path = getSplitPathUsingBasePath(fullPath);
-    Stream stream(path, READ_MODE);
+    Stream stream(basePath+"/"+ path, READ_MODE);
 
     KeyMap *km = new KeyMap();
     km->load(stream);
@@ -221,7 +241,7 @@ void AssetManager::loadKeyMap(string fullPath)
 void AssetManager::saveKeyMap(string fullPath, KeyMap *km)
 {
     string path = getSplitPathUsingBasePath(fullPath);
-    Stream stream(path, WRITE_MODE);
+    Stream stream(basePath+"/"+path, WRITE_MODE);
 
     km->save(stream);
 }

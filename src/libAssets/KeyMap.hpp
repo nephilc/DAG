@@ -5,8 +5,9 @@
 #include<Action.hpp>
 
 
+
 enum KeyMapType {
-	KEYBOARD_MAP,
+	KEYBOARD_MAP=0,
     MOUSE_MAP,
 	GAMEPAD_MAP
 };

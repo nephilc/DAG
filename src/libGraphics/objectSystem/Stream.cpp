@@ -15,6 +15,7 @@ Stream::Stream(std::string fileName, Mode mode)
 	if (!myfile.is_open())
 	{
 		PLOGE << "COULDN'T OPEN FILE";
+		PLOGE << fileName;
 		openSuccess=false;
 	}
 	else
@@ -42,6 +43,12 @@ void Stream::writeln(const std::string& str)
 {
 	PLOGI << "Writting" << str;
 	myfile << str << "\n";
+
+}
+void Stream::writeln(const int number)
+{
+	PLOGI << "Writting" << number;
+	myfile << number << "\n";
 
 }
 void Stream::write(const std::string& str)

@@ -545,7 +545,7 @@ void EditorUI::loadKeyMapButton() {
         ImGui::OpenPopup("Load Key Map");
 
 
-    if (file_dialog.showFileDialog("Load Key Map", imgui_addons::ImGuiFileBrowser::DialogMode::SAVE, ImVec2(700, 310), "*.kmf"))
+    if (file_dialog.showFileDialog("Load Key Map", imgui_addons::ImGuiFileBrowser::DialogMode::OPEN, ImVec2(700, 310), ".kmf"))
     {
         std::cout << file_dialog.selected_fn << std::endl;      // The name of the selected file or directory in case of Select Directory dialog mode
         std::cout << file_dialog.selected_path << std::endl;    // The absolute path to the selected file
@@ -553,7 +553,7 @@ void EditorUI::loadKeyMapButton() {
         //Do writing of files based on extension here
         //stream.myfile.close();
 
-        m_AM->loadKeyMap(file_dialog.selected_path + ".kmf");
+        m_AM->loadKeyMap(file_dialog.selected_path);
 
     }
 }
@@ -575,7 +575,7 @@ void EditorUI::saveKeyMapButton(KeyMap* km) {
         ImGui::OpenPopup("save Key Map");
 
 
-    if (file_dialog.showFileDialog("save Key Map", imgui_addons::ImGuiFileBrowser::DialogMode::SAVE, ImVec2(700, 310), "*.kmf"))
+    if (file_dialog.showFileDialog("save Key Map", imgui_addons::ImGuiFileBrowser::DialogMode::SAVE, ImVec2(700, 310), ".kmf"))
     {
         std::cout << file_dialog.selected_fn << std::endl;      // The name of the selected file or directory in case of Select Directory dialog mode
         std::cout << file_dialog.selected_path << std::endl;    // The absolute path to the selected file

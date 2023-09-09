@@ -143,6 +143,9 @@ public:
     Shader* loadShader(string vpath, string fpath);
     Animation* loadAnimation(string vpath, Model* model);
     Animation* loadAnimation(Stream& stream, Model* model);
+    Action* getKeyAction(std::string actionName);
+    Action* getMouseAction(std::string actionName);
+
 
     void loadKeyMap(string fullPath);
     void saveKeyMap(string fullPath, KeyMap* km);

@@ -34,6 +34,8 @@ public:
 	void write(const std::string& str);
 	void writeln(int iQuantity, const float* afValue);//important for saving transforms, or any kind of array
 	void write(void* ptr);
+	void writeln(const int number);
+
 	//void write
 
 	std::string readln();
