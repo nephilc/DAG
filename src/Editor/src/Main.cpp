@@ -59,12 +59,16 @@ int Application::Main (int iQuantity, char** apcArgument)
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        processInput();
+        processInput(deltaTime);
         if (imode == SIMULATION) {//i can move this to the process input function
             for (string& key : keysPressed)
             {
-                if(getAssetManager()->currentKeyboardKeyMap!=nullptr)
+                if(getAssetManager()->currentKeyboardKeyMap!=nullptr && inputDevice==KEYBOARD_MOUSE)
                 getAssetManager()->currentKeyboardKeyMap->get(key)->KeyAction(deltaTime);
+                else if (getAssetManager()->currentGamepadKeyMap !=nullptr)
+                {
+                    //getAssetManager()->currentGamePadKeyMap->get(key)->KeyAction(deltaTime);//doing it directly in process input should be faster
+                }
             }
         }
         //m_FB is where you draw the nodes

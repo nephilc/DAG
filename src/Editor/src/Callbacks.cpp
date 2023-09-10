@@ -57,7 +57,7 @@ void Application::passCallbacks()
     glfwSetJoystickCallback(joystickCallback);
     
 }
-int Application::processInput()
+int Application::processInput(float deltaTime)
 {
     /*
 	if (glfwGetKey(m_window, GLFW_KEY_TAB) == GLFW_PRESS)
@@ -77,15 +77,34 @@ int Application::processInput()
 */	 
     GLFWgamepadstate state;
 
-    if (glfwGetGamepadState(GLFW_JOYSTICK_1, &state))
+    if (glfwGetGamepadState(GLFW_JOYSTICK_1, &state) && inputDevice==GAMEPAD)
     {
         //PLOGI << "gamepad input";
 
         if (state.buttons[GLFW_GAMEPAD_BUTTON_A])
         {
             //input_jump();
-            PLOGI << "gamepad input";
+            
         }
+        for (int i = 0; i < 15; ++i)
+        {
+            if (state.buttons[i] == GLFW_PRESS)
+            {
+                PLOGI << "gamepad input Press "<< GLFWGamePadMapping[i];
+                //addKeyPressed(GLFWGamePadMapping[i]);
+                if (getAssetManager()->currentGamepadKeyMap != nullptr)
+                {
+                    getAssetManager()->currentGamepadKeyMap->get(GLFWGamePadMapping[i])->KeyAction(deltaTime);
+                }
+            }
+            if (state.buttons[i] == GLFW_RELEASE)
+            {
+                //PLOGI << "gamepad input Release " << GLFWGamePadMapping[i];
+                //removeKeyPressed(GLFWGamePadMapping[i]);
+                //it seems like if it isnt pressed it is in release mode.
+            }
+
+            }
 
         //input_speed(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER]);
     }
@@ -184,11 +203,7 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
             {
                 std::string keyString = std::string(pressedName);
                 Application::getApplication()->addKeyPressed(keyString);
-                //if (application->getAssetManager()->cur/rentMouseActionMap != 0)
-                    //application->getAssetManager()->cur/rentKeyboardActionMap->at(keyString)->KeyAction(application->deltaTime);
-                //application->getApplication()->handleKeys(keyString, (float)glfwGetTime());
-                //application->getApplication()->keysPressed->push_back(keyString);
-                
+              
 
             }
             if (key <= GLFW_KEY_KP_9 && key >= GLFW_KEY_KP_0)
@@ -214,12 +229,7 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
             {
                 std::string keyString = std::string(pressedName);
                 Application::getApplication()->removeKeyPressed(keyString);
-                //if (application->getAssetManager()->cur/rentMouseActionMap != 0)
-                    //application->getAssetManager()->cur/rentKeyboardActionMap->at(keyString)->KeyAction(application->deltaTime);
-                //application->getApplication()->handleKeys(keyString, (float)glfwGetTime());
-                //application->getApplication()->keysPressed->push_back(keyString);
-
-
+                
             }
             if (key <= GLFW_KEY_KP_9 && key >= GLFW_KEY_KP_0)
             {

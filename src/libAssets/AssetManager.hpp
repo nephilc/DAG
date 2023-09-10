@@ -66,6 +66,7 @@ private:
     map<string, Animation*> animations;
     map<string, FrameBuffer*> frameBuffers;
     map<string, ScreenCanvas*> screenCanavases;
+    
 
     vector<Model*> v_models;
     vector<Node*> v_scenes;

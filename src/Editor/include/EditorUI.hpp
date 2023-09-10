@@ -76,6 +76,8 @@ void  TextEditorWindow();
 
 void loadKeyMapButton();
 void saveKeyMapButton(KeyMap* km);
+void inputDeviceListBox();
+
 
 
 

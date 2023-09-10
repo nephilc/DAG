@@ -16,6 +16,7 @@
 #include <AnimatedNode.hpp>
 //#include <__msvc_chrono.hpp>
 #include <queue>
+#include<map>
 
 
 enum input_mode
@@ -29,6 +30,11 @@ SIMULATION
 struct key_event {
     std::string key;
     float time_of_event;
+};
+
+enum InputDevice {
+    GAMEPAD,
+    KEYBOARD_MOUSE
 };
 
 class Application
@@ -46,7 +52,7 @@ private:
     int m_iWindowID;
     double m_dTime, m_dDeltaTime;
     static float lastX ;
-    static float lastY ;         
+    static float lastY ;
     static bool firstMouse;
 
     // timing
@@ -54,7 +60,11 @@ private:
     float lastFrame = 0.0f;
 
     static input_mode imode;
+
+    static InputDevice inputDevice;
    
+    map<int, string> GLFWGamePadMapping;
+
 
     //then this camera should be in the editor class.
     //or in the asset manager, this is a free camera not tied to a node
@@ -94,6 +104,8 @@ public:
     std::list<std::string> keysPressed;
     void addKeyPressed(std::string key);
     void removeKeyPressed(std::string key);
+    void populateGamePadMap();
+
 
 
 
@@ -119,7 +131,7 @@ public:
     
     
     
-    int processInput();
+    int processInput(float deltaTime);
     void showMainMenu();
     void disableCursor();
     void enableCursor();

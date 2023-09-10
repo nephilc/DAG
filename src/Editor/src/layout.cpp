@@ -688,6 +688,35 @@ void  EditorUI::TextEditorWindow()
 
 }
 
+void EditorUI::inputDeviceListBox()
+{
+    if (ImGui::BeginListBox("input Device"))
+    {
+
+        {
+            //item_current_idx = n;
+
+            bool is_selected = (app->inputDevice == KEYBOARD_MOUSE);
+            if (ImGui::Selectable("KEYBOARD_MOUSE", is_selected))
+                app->inputDevice = KEYBOARD_MOUSE;
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+
+            is_selected = (app->inputDevice == GAMEPAD);
+            if (ImGui::Selectable("GAMEPAD", is_selected))
+                app->inputDevice = GAMEPAD;
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+
+        }
+        ImGui::EndListBox();
+    }
+}
+
 void  EditorUI::EditorProperties()
 {
 
@@ -698,6 +727,7 @@ void  EditorUI::EditorProperties()
             {
                 if (ImGui::BeginTabItem("Some Poperties"))
                 {
+                    inputDeviceListBox();
         static float speed = app->camera->MovementSpeed;
         if (ImGui::InputFloat("Editor Camera speed", &speed))
             app->camera->MovementSpeed = speed;

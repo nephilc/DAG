@@ -6,6 +6,7 @@
 Application *Application::application = nullptr;
 EditorUI *Application::editorUI = nullptr;
 
+InputDevice Application::inputDevice = KEYBOARD_MOUSE;
 
 //when resizing we need to create a new framebuffer with different dimensions.
 //
@@ -89,6 +90,7 @@ void Application::init()
     //m_FB = new FrameBuffer(m_iWidth, m_iHeight);
     PLOGD<<"allocated modules";
     populateScanCodeMap();//make sure to call this after module allocation
+    populateGamePadMap();
     NodeFactory::init();
     //AnimatedNode::initAnimator();
 
@@ -154,6 +156,25 @@ void Application::populateScanCodeMap() {
     //keysPressed = new std::vector<std::string>
       //  ((assetManager->keyBoardVector.size() + assetManager->MouseVector.size() + assetManager->GamePadVector.size()));
 
+}
+
+void Application::populateGamePadMap() 
+{
+    GLFWGamePadMapping[0] = "A";
+    GLFWGamePadMapping[1] =  "B";
+    GLFWGamePadMapping[2] =  "X";
+    GLFWGamePadMapping[3] =  "Y";
+    GLFWGamePadMapping[4] = "LEFT_BUMPER";
+    GLFWGamePadMapping[5] = "RIGHT_BUMPER";
+    GLFWGamePadMapping[6] = "BACK";
+    GLFWGamePadMapping[7] = "START";
+    GLFWGamePadMapping[8] = "GUIDE";
+    GLFWGamePadMapping[9] = "LEFT_THUMB";
+    GLFWGamePadMapping[10] = "RIGHT_THUMB";
+    GLFWGamePadMapping[11] = "DPAD_UP";
+    GLFWGamePadMapping[12] = "DPAD_RIGHT";
+    GLFWGamePadMapping[13] = "DPAD_DOWN";
+    GLFWGamePadMapping[14] = "DPAD_LEFT";
 }
 
 
