@@ -75,6 +75,7 @@ int Application::processInput(float deltaTime)
 	   }
 	}
 */	 
+    //i could use the other method, but this one should be faster since we skip one mapping, maybe i'll just use the other for homogeneity
     GLFWgamepadstate state;
 
     if (glfwGetGamepadState(GLFW_JOYSTICK_1, &state) && inputDevice==GAMEPAD)
@@ -102,6 +103,20 @@ int Application::processInput(float deltaTime)
                 //PLOGI << "gamepad input Release " << GLFWGamePadMapping[i];
                 //removeKeyPressed(GLFWGamePadMapping[i]);
                 //it seems like if it isnt pressed it is in release mode.
+            }
+            for (int i = 0; i < 4; ++i)
+            {
+                if (abs(state.axes[i]) > 0.01)//could go 1e-4 or 3
+                {
+                    PLOGI << "AXES " << i << " is currently in use with value" << state.axes[i];
+                }
+            }
+            for (int i = 4; i < 6; ++i)
+            {
+                if (state.axes[i] != -1)
+                {
+                    PLOGI << "AXES " << i << " is currently in use with value" << state.axes[i];
+                }
             }
 
             }
