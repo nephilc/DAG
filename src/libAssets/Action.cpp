@@ -27,3 +27,9 @@ void Action::MouseAction(float xposIn, float yposIn, float xoffset, float yoffse
 void Action::GamePadAction()
 {
 }
+void Action::AxesAction2D(float xVal, float yVal)
+{
+}
+void Action::AxesAction1D(float val)
+{
+}

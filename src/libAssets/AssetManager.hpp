@@ -120,7 +120,7 @@ public:
     KeyMap* currentMouseKeyMap;
     KeyMap* currentKeyboardKeyMap;
     KeyMap* currentGamepadKeyMap;
-    
+    KeyMap* currentAxesKeyMap;
     std::vector<KeyMap*> KeyMapsVector;
 
 
@@ -130,6 +130,7 @@ public:
     /// </summary>
     std::vector<Action*> KeyActionsVector;//any key, controller and gamepad keys, have the same method signature
     std::vector<Action*> MouseActionsVector;//Mouse
+    std::vector<Action*> AxesActionsVector;
 
 
 

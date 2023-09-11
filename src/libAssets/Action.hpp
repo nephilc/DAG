@@ -5,7 +5,8 @@
 enum ActionType {
 	KEY,
 	MOUSE,
-	ALL
+	ALL,
+	AXES
 };
 //keyboard actions and mouse actions are not interchangeable
 //bu one could implement the same action as a key action and a cursor action in the same class
@@ -23,6 +24,8 @@ public:
 	virtual void KeyAction(float dt=0);
 	virtual void MouseAction(float xposIn, float yposIn, float xoffset, float yoffset);
 	virtual void GamePadAction();
+	virtual void AxesAction2D(float xVal, float yVal);
+	virtual void AxesAction1D(float val);
 
 private:
 

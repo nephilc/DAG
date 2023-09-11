@@ -91,7 +91,7 @@ int Application::processInput(float deltaTime)
         {
             if (state.buttons[i] == GLFW_PRESS)
             {
-                PLOGI << "gamepad input Press "<< GLFWGamePadMapping[i];
+                //PLOGI << "gamepad input Press "<< GLFWGamePadMapping[i];
                 //addKeyPressed(GLFWGamePadMapping[i]);
                 if (getAssetManager()->currentGamepadKeyMap != nullptr)
                 {
@@ -108,14 +108,14 @@ int Application::processInput(float deltaTime)
             {
                 if (abs(state.axes[i]) > 0.01)//could go 1e-4 or 3
                 {
-                    PLOGI << "AXES " << i << " is currently in use with value" << state.axes[i];
+                    //PLOGI << "AXES " << i << " is currently in use with value" << state.axes[i];
                 }
             }
             for (int i = 4; i < 6; ++i)
             {
                 if (state.axes[i] != -1)
                 {
-                    PLOGI << "AXES " << i << " is currently in use with value" << state.axes[i];
+                    //PLOGI << "AXES " << i << " is currently in use with value" << state.axes[i];
                 }
             }
 
@@ -342,6 +342,8 @@ void Application::cursor_position_callback(GLFWwindow* window,  double xposIn, d
     {
         if(application->getAssetManager()->currentMouseKeyMap!=nullptr)
         application->getAssetManager()->currentMouseKeyMap->get("Mouse Cursor")->MouseAction(xposIn, yposIn, xoffset, yoffset);
+        //this could be put in one map, no need for different kinds of Actions, different kinds of maps
+        
     }
 
 }

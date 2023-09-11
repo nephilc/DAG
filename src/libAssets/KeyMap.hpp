@@ -9,7 +9,8 @@
 enum KeyMapType {
 	KEYBOARD_MAP=0,
     MOUSE_MAP,
-	GAMEPAD_MAP
+	GAMEPAD_MAP,
+	AXES_MAP
 };
 
 //keyboard KeyMaps and mouse KeyMaps are not interchangeable

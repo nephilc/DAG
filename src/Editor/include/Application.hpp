@@ -64,6 +64,8 @@ private:
     static InputDevice inputDevice;
    
     map<int, string> GLFWGamePadMapping;
+    
+    std::vector<string> GLFW_Axes_Vector;
 
 
     //then this camera should be in the editor class.
@@ -105,6 +107,9 @@ public:
     void addKeyPressed(std::string key);
     void removeKeyPressed(std::string key);
     void populateGamePadMap();
+
+    void populateAxesVector();
+
 
 
 

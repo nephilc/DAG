@@ -81,7 +81,7 @@ void AssetManager::CreateDefaults()
     currentKeyboardKeyMap = nullptr;
     currentMouseKeyMap = nullptr;
     currentGamepadKeyMap = nullptr;
-
+    currentAxesKeyMap = nullptr;
 }
 
 AssetManager::~AssetManager()
@@ -539,9 +539,13 @@ void AssetManager::registerAction(Action* action)
     case MOUSE:
         MouseActionsVector.push_back(action);
         break;
+    case AXES:
+        AxesActionsVector.push_back(action);
+        break;
     case ALL:
         KeyActionsVector.push_back(action);
         MouseActionsVector.push_back(action);
+        AxesActionsVector.push_back(action);
         break;
     default:
         break;

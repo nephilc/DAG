@@ -91,6 +91,7 @@ void Application::init()
     PLOGD<<"allocated modules";
     populateScanCodeMap();//make sure to call this after module allocation
     populateGamePadMap();
+    populateAxesVector();
     NodeFactory::init();
     //AnimatedNode::initAnimator();
 
@@ -175,6 +176,14 @@ void Application::populateGamePadMap()
     GLFWGamePadMapping[12] = "DPAD_RIGHT";
     GLFWGamePadMapping[13] = "DPAD_DOWN";
     GLFWGamePadMapping[14] = "DPAD_LEFT";
+}
+
+void Application::populateAxesVector()
+{
+    GLFW_Axes_Vector.push_back("AXES_0_1");
+    GLFW_Axes_Vector.push_back("AXES_2_3");
+    GLFW_Axes_Vector.push_back("AXES_4");
+    GLFW_Axes_Vector.push_back("AXES_5");
 }
 
 
