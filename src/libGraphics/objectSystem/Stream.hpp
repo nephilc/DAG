@@ -35,6 +35,7 @@ public:
 	void writeln(int iQuantity, const float* afValue);//important for saving transforms, or any kind of array
 	void write(void* ptr);
 	void writeln(const int number);
+	bool eof();
 
 	//void write
 
@@ -47,6 +48,7 @@ public:
 
 	char* m_acBuffer;
 	bool isOpen();
+
 
 	bool openSuccess;
 private:

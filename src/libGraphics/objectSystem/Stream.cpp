@@ -7,9 +7,13 @@ Stream::Stream(std::string fileName, Mode mode)
 {
 	if(mode==WRITE_MODE)
 	myfile.open(fileName, std::ios::out);
-	else
+	else if(mode == READ_MODE)
 	{
 		myfile.open(fileName, std::ios::in);
+
+	}
+	else {
+		myfile.open(fileName, std::ios::trunc);
 
 	}
 	if (!myfile.is_open())
@@ -43,6 +47,7 @@ void Stream::writeln(const std::string& str)
 {
 	PLOGI << "Writting" << str;
 	myfile << str << "\n";
+
 
 }
 void Stream::writeln(const int number)
@@ -101,3 +106,10 @@ bool Stream::isOpen()
 {
     return openSuccess;
 }
+
+
+bool Stream::eof()
+{
+	return 	myfile.eof();
+}
+

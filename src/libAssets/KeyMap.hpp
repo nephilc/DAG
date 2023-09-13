@@ -4,7 +4,9 @@
 #include<unordered_map>
 #include<Action.hpp>
 
-
+//when opening a project or loading a game all keymaps should be loaded.
+//all keymaps should be put in the same common directory.
+//a db file would be under the common\KM directory to contain a list of all KeyMaps. That file would be "db.kmf".
 
 enum KeyMapType {
 	KEYBOARD_MAP=0,
@@ -22,7 +24,7 @@ public:
 
 	KeyMapType m_at;//persist
 	std::unordered_map<std::string, Action*> internalKeyMap;//persist
-
+	std::string fileName;
 
 
 	KeyMap(KeyMapType type);
@@ -35,7 +37,8 @@ public:
 	 //persistance
 	 void load(Stream& stream);
 	 void save(Stream& stream);
-
+	 std::string getFileName() { return fileName; };
+	 void setFileName(std::string newName) { this->fileName = newName; };
 private:
 
 };

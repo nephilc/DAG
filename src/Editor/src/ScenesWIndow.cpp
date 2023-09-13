@@ -583,7 +583,7 @@ void EditorUI::saveKeyMapButton(KeyMap* km) {
         //Do writing of files based on extension here
         //stream.myfile.close();
 
-        m_AM->saveKeyMap(file_dialog.selected_path + ".kmf", km);
+        m_AM->saveKeyMap(file_dialog.selected_path + ".kmf", km, file_dialog.selected_fn+".kmf");
 
     }
 }

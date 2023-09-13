@@ -1,11 +1,18 @@
 #include "AssetManager.hpp"
 #include <plog/Log.h>
 
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
 
 FrameBuffer* AssetManager::mainBuffer = 0;
 std::string AssetManager::configFile= "xdg.cfg";
 
 std::string AssetManager::noValue = "noValue";//no value placeholder when saving or loading
+
+std::string AssetManager::kmDBFile = "common/KM/db.kmf";//no value placeholder when saving or loading
+
 
 Action* AssetManager::getKeyAction(std::string actionName)
 {
@@ -238,16 +245,68 @@ void AssetManager::loadKeyMap(string fullPath)
 }
 
 //create another version where you pass the key map and saves it in the same file, specified in the file attribute
-void AssetManager::saveKeyMap(string fullPath, KeyMap *km)
-{
+void AssetManager::saveKeyMap(string fullPath, KeyMap *km, string fileName)
+{//well this function  will only be used in the editor, dont have to use Stream
+
+    updateKeymapDBFile(km, fileName);
+    km->setFileName(fileName);
+
+
     string path = getSplitPathUsingBasePath(fullPath);
     Stream stream(basePath+"/"+path, WRITE_MODE);
+    if(stream.isOpen())
+        km->save(stream);
 
-    km->save(stream);
+    //update db file "db.kmf"
+    //either you want to change the map fileName  or first time saving the map
+    //in this case you can just append to the db and remove the old file if km.fileName!=""
 }
 
 
+void AssetManager::updateKeymapDBFile(KeyMap* km, string newFile)
+{
+    std::fstream inputFile(basePath+"/"+kmDBFile, std::ios::in);
+    if (!inputFile) {
+        std::cerr << "Failed to open input file." << std::endl;
+        return ;
+    }
 
+    std::ofstream tempFile(basePath+"/"+"common/KM/temp.txt");
+    if (!tempFile) {
+        std::cerr << "Failed to open temporary file." << std::endl;
+        return ;
+    }
+    std::vector<std::string> lines;
+
+    std::string line;
+
+    while (std::getline(inputFile, line)) {
+        PLOGD << "comparing " << line << "  " << km->getFileName();
+        if (line != km->getFileName()) {
+            lines.push_back(line);
+        }
+    }
+    inputFile.close();
+
+    inputFile.open(basePath + "/" + kmDBFile, std::ios::out | std::ios::trunc);
+    if (!inputFile) {
+        std::cerr << "Failed to open input file for writing." << std::endl;
+        return ;
+    }
+
+    for (const std::string& modifiedLine : lines) {
+        inputFile << modifiedLine << std::endl;
+    }
+    inputFile << newFile;
+
+    inputFile.close();
+    tempFile.close();
+    std::string tempFileName = basePath + "/" + "common/KM/temp.txt";
+    if (remove(tempFileName.c_str()) != 0) {
+        std::cerr << "Error deleting temporary file." << std::endl;
+    }
+
+}
 void AssetManager::saveScene(string filePath) 
 {
 

@@ -89,6 +89,7 @@ private:
 public:
 
     static std::string noValue;//no value placeholder when saving or loading
+    static std::string kmDBFile;//no value placeholder when saving or loading
 
     static std::string configFile;
     std::string basePath;//FILE:// this base path will have multiple uses
@@ -150,9 +151,9 @@ public:
 
 
     void loadKeyMap(string fullPath);
-    void saveKeyMap(string fullPath, KeyMap* km);
+    void saveKeyMap(string fullPath, KeyMap* km, string fileName);
 
-
+    void updateKeymapDBFile(KeyMap* km, string newFile);
 ///////util
 std::string fileNameFromPath(std::string path);
 
