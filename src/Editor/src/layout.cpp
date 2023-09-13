@@ -952,6 +952,7 @@ void  EditorUI::KeyMapsTab()
                 if (ImGui::BeginTabItem("KeyMap Details"))
                 {
                     saveKeyMapButton(selectedS);
+                    updateKeyMapButton(selectedS);
                     ObjectProperties(selectedS);
                     ImGui::Separator();
                     if (ImGui::BeginListBox("listbox 1"))

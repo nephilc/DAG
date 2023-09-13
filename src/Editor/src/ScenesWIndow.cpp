@@ -583,11 +583,21 @@ void EditorUI::saveKeyMapButton(KeyMap* km) {
         //Do writing of files based on extension here
         //stream.myfile.close();
 
-        m_AM->saveKeyMap(file_dialog.selected_path + ".kmf", km, file_dialog.selected_fn+".kmf");
+        m_AM->saveKeyMap(file_dialog.selected_path + ".kmf", km, file_dialog.selected_fn+".kmf", false);
 
     }
 }
 
+
+void EditorUI::updateKeyMapButton(KeyMap* km) {
+    ImGui::SameLine();
+    // Create the button
+    if (ImGui::Button("update key map"))
+    {
+        if(!km->getFileName().empty())
+        m_AM->saveKeyMap("", km,"",  true);
+    }
+}
 
 void EditorUI::loadAnimationButton(AnimatedNode* AniNode) {
     bool save = false;

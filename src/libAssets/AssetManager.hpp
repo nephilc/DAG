@@ -151,7 +151,7 @@ public:
 
 
     void loadKeyMap(string fullPath);
-    void saveKeyMap(string fullPath, KeyMap* km, string fileName);
+    void saveKeyMap(string fullPath, KeyMap* km, string fileName, bool trunc);
 
     void updateKeymapDBFile(KeyMap* km, string newFile);
 ///////util

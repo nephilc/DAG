@@ -66,6 +66,7 @@ void KeyMap::load(Stream& stream)
 {
     Object::load(stream);
     m_at = (KeyMapType)stoi(stream.readln());
+    fileName = stream.readln();
     int KMSize = stoi(stream.readln());
     for (int i = 0; i < KMSize; ++i)
     {
@@ -84,6 +85,7 @@ void KeyMap::save(Stream& stream)
 {
     Object::save(stream);
     stream.writeln(m_at);
+    stream.writeln(fileName);
     stream.writeln(internalKeyMap.size());
     for (auto i = internalKeyMap.begin(); i != internalKeyMap.end(); ++i) 
     {

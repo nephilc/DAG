@@ -245,18 +245,24 @@ void AssetManager::loadKeyMap(string fullPath)
 }
 
 //create another version where you pass the key map and saves it in the same file, specified in the file attribute
-void AssetManager::saveKeyMap(string fullPath, KeyMap *km, string fileName)
+void AssetManager::saveKeyMap(string fullPath, KeyMap *km, string fileName, bool trunc)
 {//well this function  will only be used in the editor, dont have to use Stream
 
-    updateKeymapDBFile(km, fileName);
-    km->setFileName(fileName);
+    if (!trunc) {
+        updateKeymapDBFile(km, fileName);
+        km->setFileName(fileName);
 
 
-    string path = getSplitPathUsingBasePath(fullPath);
-    Stream stream(basePath+"/"+path, WRITE_MODE);
-    if(stream.isOpen())
-        km->save(stream);
-
+        string path = getSplitPathUsingBasePath(fullPath);
+        Stream stream(basePath + "/" + path, WRITE_MODE);
+        if (stream.isOpen())
+            km->save(stream);
+    }
+    else {
+        Stream stream(basePath + "/" +"common/KM/"+ km->getFileName(), TRUNC_MODE);
+        if (stream.isOpen())
+            km->save(stream);
+    }
     //update db file "db.kmf"
     //either you want to change the map fileName  or first time saving the map
     //in this case you can just append to the db and remove the old file if km.fileName!=""
@@ -302,6 +308,14 @@ void AssetManager::updateKeymapDBFile(KeyMap* km, string newFile)
     inputFile.close();
     tempFile.close();
     std::string tempFileName = basePath + "/" + "common/KM/temp.txt";
+    if (!km->getFileName().empty())
+    {
+        string fileToDelete = basePath + "/" + "common/KM/" + km->getFileName();
+        if (remove(fileToDelete.c_str()) != 0) {
+            std::cerr << "Error deleting OLD FILE " << std::endl;
+        }
+    }
+
     if (remove(tempFileName.c_str()) != 0) {
         std::cerr << "Error deleting temporary file." << std::endl;
     }

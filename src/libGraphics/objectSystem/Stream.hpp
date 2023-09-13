@@ -10,7 +10,8 @@
 
 enum Mode {
 	READ_MODE,
-	WRITE_MODE
+	WRITE_MODE,
+	TRUNC_MODE
 };
 
 class Object;

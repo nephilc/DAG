@@ -13,7 +13,7 @@ Stream::Stream(std::string fileName, Mode mode)
 
 	}
 	else {
-		myfile.open(fileName, std::ios::trunc);
+		myfile.open(fileName, std::ios::out | std::ios::trunc);
 
 	}
 	if (!myfile.is_open())
