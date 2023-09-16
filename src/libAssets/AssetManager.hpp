@@ -83,6 +83,8 @@ private:
     // "File://" subsitute
     std::string fileRoot;
     //
+    static std::string kmPath ;//no value placeholder when saving or loading
+
 
 
 
@@ -152,6 +154,10 @@ public:
 
     void loadKeyMap(string fullPath);
     void saveKeyMap(string fullPath, KeyMap* km, string fileName, bool trunc);
+
+    void loadAllKeyMaps();
+    void updateAllKeyMaps();
+
 
     void updateKeymapDBFile(KeyMap* km, string newFile);
 ///////util

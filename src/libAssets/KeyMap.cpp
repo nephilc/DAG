@@ -42,8 +42,10 @@ KeyMap::~KeyMap()
 
 bool KeyMap::set(std::string key, Action *action)
 {
-    
-    internalKeyMap[key] = action;
+    if (action == Action::NoAction)
+        internalKeyMap.erase(key);
+    else
+        internalKeyMap[key] = action;
 
     return true;
 }

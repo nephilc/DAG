@@ -24,6 +24,10 @@ int Application::Main (int iQuantity, char** apcArgument)
 
     assetManager->registerAction(new CameraAction());
     assetManager->registerAction(new CameraActionUP());
+    //after registering all actions
+    assetManager->loadAllKeyMaps();
+
+
     WorldNode *worldNode = new WorldNode(1.0, 1.0, 1.0, 1.0);
     //worldNode->SetName("WORLD NODE");
     Node* node0 =  new Node();

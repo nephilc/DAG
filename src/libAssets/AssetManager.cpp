@@ -12,6 +12,7 @@ std::string AssetManager::configFile= "xdg.cfg";
 std::string AssetManager::noValue = "noValue";//no value placeholder when saving or loading
 
 std::string AssetManager::kmDBFile = "common/KM/db.kmf";//no value placeholder when saving or loading
+std::string AssetManager::kmPath = "common/KM";//no value placeholder when saving or loading
 
 
 Action* AssetManager::getKeyAction(std::string actionName)
@@ -321,6 +322,29 @@ void AssetManager::updateKeymapDBFile(KeyMap* km, string newFile)
     }
 
 }
+
+void AssetManager::loadAllKeyMaps() {
+    Stream keyMapDB(basePath + "/" + kmDBFile, READ_MODE);
+    if (!keyMapDB.isOpen()) {
+        PLOGE << "FAILED TO OPEN KMAP DB FILE";
+        return;
+    }
+    while (!keyMapDB.eof())
+    {
+        loadKeyMap(kmPath+ "/"+ keyMapDB.readln());
+    }
+}
+void AssetManager::updateAllKeyMaps() {
+    for (KeyMap* km : KeyMapsVector) 
+    {
+        if(km->fileName!=""){
+        saveKeyMap("", km, "", true);
+        }
+        else
+            PLOGW << "The following key map hqs no file, Please Consider Saving into A file: " << km->GetName();
+    }
+}
+
 void AssetManager::saveScene(string filePath) 
 {
 

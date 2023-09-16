@@ -599,6 +599,15 @@ void EditorUI::updateKeyMapButton(KeyMap* km) {
     }
 }
 
+void EditorUI::updateAllKeyMapsButton() {
+    ImGui::SameLine();
+    // Create the button
+    if (ImGui::Button("update ALL key maps"))
+    {
+            m_AM->updateAllKeyMaps();
+    }
+}
+
 void EditorUI::loadAnimationButton(AnimatedNode* AniNode) {
     bool save = false;
     ImGui::SameLine();

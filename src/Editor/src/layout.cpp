@@ -917,6 +917,7 @@ void  EditorUI::KeyMapsTab()
 {   
         if(ImGui::Button("+"))   m_AM->createKeyMap();
         loadKeyMapButton();
+        updateAllKeyMapsButton();
 
         vector<KeyMap*> vlkms = m_AM->KeyMapsVector;
         // Left
@@ -930,7 +931,9 @@ void  EditorUI::KeyMapsTab()
                 // FIXME: Good candidate to use ImGuiSelectableFlags_SelectOnNav
                 km = vlkms[i];
                 char label[128];
-                sprintf(label, "%s", km->GetName().c_str());
+                string keyMapLabel = km->getFileName()=="" ?  km->GetName() +" *": km->GetName();
+
+                sprintf(label, "%s", keyMapLabel.c_str());
                 if (ImGui::Selectable(label, selected == i))
                     selected = i;
             }

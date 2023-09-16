@@ -79,6 +79,9 @@ void saveKeyMapButton(KeyMap* km);
 void updateKeyMapButton(KeyMap* km);
 void inputDeviceListBox();
 
+void updateAllKeyMapsButton();
+
+
 
 
 
