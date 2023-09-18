@@ -12,7 +12,7 @@ enum ActionType {
 //bu one could implement the same action as a key action and a cursor action in the same class
 class Action : public Object
 {
-	DECLARE_RTTI
+	//DECLARE_RTTI
 public:
     static  Action *NoAction;
 
@@ -33,6 +33,7 @@ private:
 
 
 
+//IMPLEMENT_RTTI(Action, Object)
 
 
 #endif // !ACTION_HPP

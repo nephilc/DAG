@@ -14,7 +14,7 @@ The reason for this is that the number of action files may become relativlty hig
 
 class CameraActionUP : public Action
 {
-	DECLARE_RTTI
+	//DECLARE_RTTI
 
 public:
 	CameraActionUP() {
@@ -43,7 +43,7 @@ private:
 };
 
 
-IMPLEMENT_RTTI(CameraActionUP, Action)
+//IMPLEMENT_RTTI(CameraActionUP, Action)
 
 
 #endif // !CAMERAACTION_HPP

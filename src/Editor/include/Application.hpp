@@ -162,5 +162,9 @@ public:
     void loopEnd();
     void loopContent();
 
+
+
+    void registerActions();
+
 };
 #endif

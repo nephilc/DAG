@@ -6,6 +6,7 @@ bool NodeFactory::initialized = false;
 
 void NodeFactory::init()
 {
+    Rtti::typeList.reserve(20);
     for (Rtti* type : Rtti::typeList)
     {
         if(type->IsDerived(Node::TYPE))

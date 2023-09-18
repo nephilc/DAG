@@ -2,8 +2,6 @@
 #include<glbe.hpp>
 #include<WorldNode.hpp>
 #include<ScreenCanvas.hpp>
-#include<CameraAction.hpp>
-#include<CameraActionUp.hpp>
 
 //if you have many instances of a certain type that need to be edited, there will be the notion of the current object, and ops associated with it.
 //app cpu usage may depend on a number of factors.
@@ -21,9 +19,7 @@ int Application::Main (int iQuantity, char** apcArgument)
 
     m_dTime = glfwGetTimerValue();
     //glEnable(GL_DEPTH_TEST);
-
-    assetManager->registerAction(new CameraAction());
-    assetManager->registerAction(new CameraActionUP());
+    registerActions();
     //after registering all actions
     assetManager->loadAllKeyMaps();
 

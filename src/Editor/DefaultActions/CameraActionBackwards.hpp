@@ -1,7 +1,5 @@
-#ifndef CAMERAACTIONDOWN_HPP
-#define CAMERAACTIONDOWN_HPP
-
-
+#ifndef CAMERAACTIONBACKWARDS_HPP
+#define CAMERAACTIONBACKWARDS_HPP
 #include<Action.hpp>
 #include<Application.hpp>//the assetManager could be a signleton, so that i could access it directly
 #include<Camera.hpp>
@@ -14,18 +12,18 @@ The reason for this is that the number of action files may become relativlty hig
 */
 
 
-class CameraActionDown : public Action
+class CameraActionBackwards : public Action
 {
 	//DECLARE_RTTI
 
 public:
-	CameraActionDown() {
-		SetName("CAMERA ACTION DOWN");
+	CameraActionBackwards() {
+		SetName("CAMERA ACTION BACKWARDS");
 		Action::m_at = ALL;
 		camera = Application::getApplication()->getEditorCamera();
 	};
 
-	~CameraActionDown() {
+	~CameraActionBackwards() {
 	};
 
 	void KeyAction(float dt) override {
@@ -43,7 +41,7 @@ private:
 };
 
 
-//IMPLEMENT_RTTI(CameraActionDown, Action)
+//IMPLEMENT_RTTI(CameraActionBackwards, Action)
 
 
 #endif // !CAMERAACTION_HPP

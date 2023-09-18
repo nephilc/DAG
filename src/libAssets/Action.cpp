@@ -1,11 +1,11 @@
 #include<Action.hpp>
 
 
-IMPLEMENT_RTTI(Action, Object)
+//IMPLEMENT_RTTI(Action, Object)
 Action *Action::NoAction = new Action("No Action");
 
 Action::Action() {
-    SetName((this->GetType().GetName() + std::to_string(GetID())));//had to do it here
+    SetName("SOME ACTION" + std::to_string(GetID()));//had to do it here
 }
 
 Action::Action(std::string name) {

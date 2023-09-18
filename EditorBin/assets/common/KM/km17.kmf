@@ -1,6 +1,7 @@
 Object
-KeyMap17
+CameraMouseMap
 1
 km17.kmf
-1
+2
 a>CAMERA ACTION UP
+Mouse Cursor>CAMERA ACTION LOOK
