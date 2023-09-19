@@ -52,8 +52,10 @@ bool KeyMap::set(std::string key, Action *action)
 
 Action *KeyMap::get(std::string key)
 {
+    if(internalKeyMap.empty())
+        return Action::NoAction;
     if(internalKeyMap.find(key) == internalKeyMap.end())
-    return Action::NoAction;
+        return Action::NoAction;
     return internalKeyMap.at(key);
 }
 

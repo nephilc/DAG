@@ -104,13 +104,23 @@ int Application::processInput(float deltaTime)
                 //removeKeyPressed(GLFWGamePadMapping[i]);
                 //it seems like if it isnt pressed it is in release mode.
             }
-            for (int i = 0; i < 4; ++i)
-            {
-                if (abs(state.axes[i]) > 0.01)//could go 1e-4 or 3
+
+                if (abs(state.axes[0]) > 0.01 || abs(state.axes[1]) > 0.01)//could go 1e-4 or 3
                 {
-                    //PLOGI << "AXES " << i << " is currently in use with value" << state.axes[i];
+                    PLOGI << "AXES " << GLFW_Axes_Vector[0] << " is currently in use with value" << state.axes[0] << " " << state.axes[1];
+                    if (getAssetManager()->currentAxesKeyMap != nullptr)
+                        getAssetManager()->currentAxesKeyMap->get(GLFW_Axes_Vector[0])->AxesAction2D(state.axes[0], state.axes[1]);
+                    //PLOGI << GLFW_Axes_Vector[floor(i / 2)];
+
                 }
-            }
+                if (abs(state.axes[2]) > 0.01 || abs(state.axes[3]) > 0.01)//could go 1e-4 or 3
+                {
+                    PLOGI << "AXES " << GLFW_Axes_Vector[1] << " is currently in use with value" << state.axes[2]<<" " << state.axes[3];
+                    if (getAssetManager()->currentAxesKeyMap != nullptr)
+                        getAssetManager()->currentAxesKeyMap->get(GLFW_Axes_Vector[1])->AxesAction2D(state.axes[2], state.axes[3]);
+                    //PLOGI << GLFW_Axes_Vector[floor(i / 2)];
+
+                }
             for (int i = 4; i < 6; ++i)
             {
                 if (state.axes[i] != -1)

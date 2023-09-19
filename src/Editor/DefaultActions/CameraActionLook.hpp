@@ -35,6 +35,12 @@ public:
 	};
 	void GamePadAction() override {
 	};
+	virtual void AxesAction2D(float xVal, float yVal) {
+		camera->ProcessMouseMovement(xVal, yVal);
+	}
+	virtual void AxesAction1D(float val){
+	}
+
 
 private:
 	Camera* camera;

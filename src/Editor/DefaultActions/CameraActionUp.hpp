@@ -27,7 +27,7 @@ public:
 	};
 
 	void KeyAction(float dt) override {
-		camera->ProcessKeyboard(FORWARD, dt);
+		camera->ProcessKeyboard(UP, dt);
 
 	};
 	void MouseAction(float xposIn, float yposIn, float xoffset, float yoffset) override {
