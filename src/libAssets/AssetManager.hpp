@@ -150,6 +150,7 @@ public:
     Animation* loadAnimation(Stream& stream, Model* model);
     Action* getKeyAction(std::string actionName);
     Action* getMouseAction(std::string actionName);
+    Action* getAxesAction(std::string actionName);
 
 
     void loadKeyMap(string fullPath);

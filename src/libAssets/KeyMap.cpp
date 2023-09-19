@@ -80,7 +80,10 @@ void KeyMap::load(Stream& stream)
     internalKeyMap[parts[0]] = AssetManager::getInstance()->getKeyAction(parts[1]);
     if(m_at==MOUSE_MAP)
         internalKeyMap[parts[0]] = AssetManager::getInstance()->getMouseAction(parts[1]);
-
+    if (m_at == GAMEPAD_MAP)
+        internalKeyMap[parts[0]] = AssetManager::getInstance()->getKeyAction(parts[1]);
+    if (m_at == AXES_MAP)
+        internalKeyMap[parts[0]] = AssetManager::getInstance()->getAxesAction(parts[1]);
     }
 
     //identify actionns by their names, there are multiple  action vectors in the AssetManager class

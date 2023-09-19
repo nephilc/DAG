@@ -35,6 +35,16 @@ Action* AssetManager::getMouseAction(std::string actionName)
     return new Action();
 }
 
+Action* AssetManager::getAxesAction(std::string actionName)
+{
+    for (Action* action : AxesActionsVector)
+    {
+        if (action->GetName() == actionName) return action;
+    }
+    PLOGE << "ACTION NOT FOUND " << actionName;
+    return new Action();
+}
+
 AssetManager::AssetManager(/* args */)
 {
     PLOGI<<"CREATING ASSETMANAGER";
