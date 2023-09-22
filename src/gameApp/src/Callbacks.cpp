@@ -243,7 +243,6 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
             {
                 imode = EDITOR;
                 application->enableCursor();
-                editorUI->updateInputFlags(EDITOR);
 
             }
 
@@ -296,14 +295,12 @@ void Application::key_callback(GLFWwindow* window, int key, int scancode, int ac
 	   { 
 	   	imode = EDITOR;
 	   	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);	   	
-        editorUI->updateInputFlags(imode);
 
 	   }
 	   else{ 
         
 	   imode = WORLD;
 	   glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	    editorUI->updateInputFlags(imode);
 
 	   }
 	}
