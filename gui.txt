@@ -1,0 +1,11 @@
+alright so we will have a guiscreen object tobe rendered,
+elements in te gui screen will have hitboxes
+the gui will have access to the assetmanager to display and modify the state, switch between screens, switch between scenes
+
+call render on the current gui after calling render on the current screen.
+
+pretty much it will be immediate mode.
+
+Logging Gui screen
+
+gui elements will have bouding boxes for interaction
