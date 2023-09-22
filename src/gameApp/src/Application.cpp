@@ -9,7 +9,7 @@ InputDevice Application::inputDevice = KEYBOARD_MOUSE;
 
 //when resizing we need to create a new framebuffer with different dimensions.
 //
-//mesh instance object
+//mesh instance object-
 //the instance object types.
 //draw state enum
 
@@ -189,12 +189,9 @@ void Application::populateAxesVector()
 void Application::allocateModules()
 {
     assert(application!=nullptr);
-    editorUI = EditorUI::getEditorUI(application);
     //for some reason the application pointer doesnt get update above
-    editorUI->app = application;
     assetManager = AssetManager::getInstance();
 	camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
-    editorUI->m_AM = assetManager;
 
 
 }
@@ -202,7 +199,6 @@ void Application::allocateModules()
 void Application::deallocateModules()
 {   delete camera;
     delete assetManager;
-    delete editorUI;
     
 }
 
