@@ -9,3 +9,11 @@ pretty much it will be immediate mode.
 Logging Gui screen
 
 gui elements will have bouding boxes for interaction
+
+design mobile first.
+
+large squares........
+
+well there is usually three gui screens, or three, one for pause, one for in game, one for begining menu.
+a  gui screen can cause a change in the current gui screen, or a change in the current scene.
+keys, well one key like the escape key can cause that aswell, that is changing between in game and pause.

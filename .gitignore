@@ -10,3 +10,6 @@ build1
 out
 build2
 build*
+gameBin/3dmodels
+gameBin/*dll
+gameBin/GameEXE*

@@ -13,7 +13,6 @@
 int Application::Main (int iQuantity, char** apcArgument)
 {
         
-    editorUI->test();
     glbe::getBackend()->displayTest();
     assetManager->CreateDefaults();
 
@@ -24,7 +23,7 @@ int Application::Main (int iQuantity, char** apcArgument)
     assetManager->loadAllKeyMaps();
 
 
-    WorldNode *worldNode = new WorldNode(1.0, 1.0, 1.0, 1.0);
+    WorldNode *worldNode = new WorldNode(1.0, 0.0, 0.0, 1.0);
     //worldNode->SetName("WORLD NODE");
     Node* node0 =  new Node();
     Node* node1 =  new Node();
@@ -37,6 +36,9 @@ int Application::Main (int iQuantity, char** apcArgument)
     assetManager->addScene(worldNode);
 
     assetManager->createScreenCanvas(1300, 800, "sc1");
+
+
+    Shader* screenShader = assetManager->loadShader("shaderPrograms/framebuffer.vs", "shaderPrograms/framebuffer.fs");
     //ScreenCanvas sc();
 
     //node1->attachChild(aniNode);
@@ -48,6 +50,27 @@ int Application::Main (int iQuantity, char** apcArgument)
     //frameshader.use();
     //frameshader.setInt("screenTexture", 0);
     //populateScanCodeMap();
+    float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+        // positions   // texCoords
+        -1.0f,  1.0f,  0.0f, 1.0f,
+        -1.0f, -1.0f,  0.0f, 0.0f,
+         1.0f, -1.0f,  1.0f, 0.0f,
+
+        -1.0f,  1.0f,  0.0f, 1.0f,
+         1.0f, -1.0f,  1.0f, 0.0f,
+         1.0f,  1.0f,  1.0f, 1.0f
+    };
+
+    unsigned int quadVAO, quadVBO;
+    glGenVertexArrays(1, &quadVAO);
+    glGenBuffers(1, &quadVBO);
+    glBindVertexArray(quadVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
     
 
@@ -105,14 +128,13 @@ int Application::Main (int iQuantity, char** apcArgument)
         glClear(GL_COLOR_BUFFER_BIT);
 
         //i_fram... is used by the camera not the framebuffer
-        editorUI->sceneView(0, &application->m_iFrameWidth, &application->m_iFrameHeight, &view[0][0], &projection[0][0], &application->idm[0][0], &application->model[0][0]);
-        bool open = true;
+       
+        screenShader->use();
+        glBindVertexArray(quadVAO);
+        glDisable(GL_DEPTH_TEST);
+        glBindTexture(GL_TEXTURE_2D, assetManager->getMainBuffer()->GetID());
+        glDrawArrays(GL_TRIANGLES, 0, 6);
 
-
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-        //ImGui::UpdatePlatformWindows();
-        //ImGui::RenderPlatformWindowsDefault();
         
         glfwSwapBuffers(m_window);
         glfwPollEvents();
