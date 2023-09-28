@@ -2,6 +2,7 @@
 #include<glbe.hpp>
 #include<WorldNode.hpp>
 #include<ScreenCanvas.hpp>
+#include<NDCsquare.hpp>
 
 //if you have many instances of a certain type that need to be edited, there will be the notion of the current object, and ops associated with it.
 //app cpu usage may depend on a number of factors.
@@ -36,7 +37,9 @@ int Application::Main (int iQuantity, char** apcArgument)
     assetManager->addScene(worldNode);
 
     assetManager->createScreenCanvas(1300, 800, "sc1");
+    assetManager->loadScene(assetManager->basePath + "/" + "v1/scenes/win8.xdg");
 
+    assetManager->setCurrentScene(assetManager->getScenes()[1]);
 
     Shader* screenShader = assetManager->loadShader("shaderPrograms/framebuffer.vs", "shaderPrograms/framebuffer.fs");
     //ScreenCanvas sc();
@@ -50,28 +53,11 @@ int Application::Main (int iQuantity, char** apcArgument)
     //frameshader.use();
     //frameshader.setInt("screenTexture", 0);
     //populateScanCodeMap();
-    float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-        // positions   // texCoords
-        -1.0f,  1.0f,  0.0f, 1.0f,
-        -1.0f, -1.0f,  0.0f, 0.0f,
-         1.0f, -1.0f,  1.0f, 0.0f,
+    
 
-        -1.0f,  1.0f,  0.0f, 1.0f,
-         1.0f, -1.0f,  1.0f, 0.0f,
-         1.0f,  1.0f,  1.0f, 1.0f
-    };
-
-    unsigned int quadVAO, quadVBO;
-    glGenVertexArrays(1, &quadVAO);
-    glGenBuffers(1, &quadVBO);
-    glBindVertexArray(quadVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-
+    NDCsquare* ndcSquare = new NDCsquare();
+    //just to set up the viwport of the main buffer correctly, pre resize
+    glfwGetWindowSize(m_window,&m_iWidth, &m_iHeight);
     
 
     while (!glfwWindowShouldClose(m_window))
@@ -97,7 +83,6 @@ int Application::Main (int iQuantity, char** apcArgument)
         //m_FB is where you draw the nodes
         //there is also the default frame buffer
         //application->m_FB->use();
-        assetManager->getScreenCanvas("sc1")->draw(currentFrame, deltaTime);
         //the viewport needs to be the same size as the framebuffer, thats it
         //the camera on the other hand has to do with the way the user view something, the window
         //we use the frame width, which is why we get the impression that the image is not stretched or  compressed
@@ -121,7 +106,9 @@ int Application::Main (int iQuantity, char** apcArgument)
         assetManager->getCurrentScene()->Draw(camera, deltaTime);
         //handle_input(deltaTime);
 
-        glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+        glBindFramebuffer(GL_FRAMEBUFFER, 0); 
+        glViewport(0,0, m_iWidth, m_iHeight);
+        // back to default
         //glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
         glEnable(GL_DEPTH_TEST);    
         glClearColor(1.0f, 1.0f, 0.0f, 1.0f); 
@@ -129,21 +116,13 @@ int Application::Main (int iQuantity, char** apcArgument)
 
         //i_fram... is used by the camera not the framebuffer
        
-        screenShader->use();
-        glBindVertexArray(quadVAO);
-        glDisable(GL_DEPTH_TEST);
-        glBindTexture(GL_TEXTURE_2D, assetManager->getMainBuffer()->GetID());
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        ndcSquare->draw(assetManager->getMainBuffer()->GetID());
 
         
         glfwSwapBuffers(m_window);
         glfwPollEvents();
 
-              //  PLOGE<<"about to handle detachements";
-
-        //assetManager->scene->handleDetachements();
-            //PLOGE<<"MAIN AFTER HANDLING ALL DETACHS";
-
+             
 
     }
     /*

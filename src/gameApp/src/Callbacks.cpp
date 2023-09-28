@@ -55,6 +55,7 @@ void Application::passCallbacks()
     glfwSetScrollCallback(m_window, scroll_callback);
     glfwSetDropCallback(m_window, drop_callback);
     glfwSetJoystickCallback(joystickCallback);
+    glfwSetWindowSizeCallback(m_window, window_size_callback);
     
 }
 int Application::processInput(float deltaTime)
@@ -166,9 +167,9 @@ void Application::framebuffer_size_callback(GLFWwindow* window, int width, int h
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     //glViewport(0, 0, width, height);
-    glViewport(0, 0, m_iWidth, m_iHeight);
-    m_iWidth = m_iFrameWidth ;//these are for the camera
-    m_iHeight = m_iFrameHeight ;
+    glViewport(0, 0, width, height);
+    m_iWidth = width ;//these are for the camera
+    m_iHeight = height ;
     PLOGD<<width <<" " <<height;
     PLOGD<<m_iWidth <<"   ii " <<m_iHeight;
 
@@ -352,6 +353,15 @@ void Application::cursor_position_callback(GLFWwindow* window,  double xposIn, d
         //this could be put in one map, no need for different kinds of Actions, different kinds of maps
         
     }
+
+}
+void Application::window_size_callback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+    m_iWidth = width;//these are for the camera
+    m_iHeight = height;
+    PLOGD << width << " " << height;
+    PLOGD << m_iWidth << "   ii " << m_iHeight;
 
 }
 

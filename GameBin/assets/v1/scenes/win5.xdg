@@ -1,0 +1,68 @@
+WorldNode
+1 1 1 1 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+WorldNode8
+000001220CCB0230 000001220CA96B40 000001220CA966E0 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node9
+000001220CCB0440 000001220CCB18E0 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node10
+LeafNode
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node11
+LeafNode
+ModelNode
+Model
+common/models/pumkinHulk.fbx
+Object
+pumkinHulk.fbx
+GeometryNode
+Shader
+1.model_loading.vs1.model_loading.fs
+shaderPrograms/1.model_loading.vs
+shaderPrograms/1.model_loading.fs
+Object
+1.model_loading.vs1.model_loading.fs
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+ModelNode15
+LeafNode
+ModelNode
+Model
+common/models/pumkinHulk.fbx
+Object
+pumkinHulk.fbx
+GeometryNode
+Shader
+1.model_loading.vs1.model_loading.fs
+shaderPrograms/1.model_loading.vs
+shaderPrograms/1.model_loading.fs
+Object
+1.model_loading.vs1.model_loading.fs
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 -1.64003 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+ModelNode23
+LeafNode

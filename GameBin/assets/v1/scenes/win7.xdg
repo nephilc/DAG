@@ -1,0 +1,102 @@
+WorldNode
+1 1 1 1 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+WorldNode8
+0000021E02DA1E90 0000021E02B73B30 0000021E02B743F0 0000021E02B72E10 0000021E05FBB1E0 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node9
+0000021E02DA20A0 0000021E02DA3330 
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node10
+LeafNode
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+Node11
+LeafNode
+ModelNode
+Model
+common/models/pumkinHulk.fbx
+Object
+pumkinHulk.fbx
+GeometryNode
+Shader
+1.model_loading.vs1.model_loading.fs
+shaderPrograms/1.model_loading.vs
+shaderPrograms/1.model_loading.fs
+Object
+1.model_loading.vs1.model_loading.fs
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+ModelNode15
+LeafNode
+ModelNode
+Model
+common/models/pumkinHulk.fbx
+Object
+pumkinHulk.fbx
+GeometryNode
+Shader
+1.model_loading.vs1.model_loading.fs
+shaderPrograms/1.model_loading.vs
+shaderPrograms/1.model_loading.fs
+Object
+1.model_loading.vs1.model_loading.fs
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 -1.64003 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+ModelNode23
+LeafNode
+ModelNode
+noValue
+GeometryNode
+noValue
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+ModelNode24
+LeafNode
+AnimatedNode
+Model
+common/models/pumkinHulk.fbx
+Object
+pumkinHulk.fbx
+Animation
+common/models/pumkinHulk.fbx
+Object
+Animation26
+GeometryNode
+Shader
+animation.vs1.model_loading.fs
+shaderPrograms/animation.vs
+shaderPrograms/1.model_loading.fs
+Object
+ourShader1
+Node
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+Object
+AnimatedNode25
+LeafNode

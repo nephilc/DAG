@@ -45,6 +45,7 @@ Shader* ScreenCanvas::getShader()
 
 ScreenCanvas::~ScreenCanvas()
 {
+
 }
 
 
