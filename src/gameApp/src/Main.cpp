@@ -98,6 +98,9 @@ int Application::Main (int iQuantity, char** apcArgument)
         //we use the frame width, which is why we get the impression that the image is not stretched or  compressed
         //glViewport(0, 0, assetManager->getMainBuffer()->getWidth(), assetManager->getMainBuffer()->getHeight());
         assetManager->getMainBuffer()->use();
+        //ye^this was missing
+        glViewport(0, 0, (float)assetManager->getMainBuffer()->getWidth(), (float)assetManager->getMainBuffer()->getHeight());
+
         //glEnable(GL_DEPTH_TEST);
         //PLOGD<<"starting redner1";
 
@@ -114,8 +117,10 @@ int Application::Main (int iQuantity, char** apcArgument)
 //###############################################insert a call to gl viewport here
         //glViewport(0, 0, assetManager->getMainBuffer()->getWidth(), assetManager->getMainBuffer()->getHeight());
         assetManager->getCurrentScene()->Draw(camera, deltaTime);
-      
-     
+        font.RenderText("Health: 100", -1.0f, 0.9f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+        font2.RenderText("DAGGER Engine", 0.0f, -0.9f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
+        //well the y seem to render fine, but the x seem to be distoreted
+        PLOGD << (float)assetManager->getMainBuffer()->getWidth();
         //handle_input(deltaTime);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0); 
@@ -131,8 +136,6 @@ int Application::Main (int iQuantity, char** apcArgument)
 
         //#######################################################################well i can just decide what buffer to draw on this square
         ndcSquare->draw(assetManager->getMainBuffer()->GetID());
-        font.RenderText("This is sample text", 0.1f, 0.1f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-        font2.RenderText("(C) LearnOpenGL.com", 0.0f, 0.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
 
         
         glfwSwapBuffers(m_window);
