@@ -36,7 +36,6 @@ int Application::Main (int iQuantity, char** apcArgument)
     assetManager->setCurrentScene(worldNode);
     assetManager->addScene(worldNode);
 
-    assetManager->createScreenCanvas(1300, 800, "sc1");
     assetManager->loadScene(assetManager->basePath + "/" + "v1/scenes/win8.xdg");
 
     assetManager->setCurrentScene(assetManager->getScenes()[1]);
@@ -93,7 +92,7 @@ int Application::Main (int iQuantity, char** apcArgument)
 
         //PLOGD<<"starting render";
         
-        glm::mat4 projection = glm::perspective(glm::radians(camera->Zoom), (float)m_iFrameWidth / (float)m_iFrameHeight, 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(camera->Zoom), (float)assetManager->getMainBuffer()->getWidth() / (float)assetManager->getMainBuffer()->getHeight(), 0.1f, 100.0f);
         glm::mat4 view = camera->GetViewMatrix();
         /*
         node0->projection = projection;
@@ -116,6 +115,8 @@ int Application::Main (int iQuantity, char** apcArgument)
 
         //i_fram... is used by the camera not the framebuffer
        
+
+        //#######################################################################well i can just decide what buffer to draw on this square
         ndcSquare->draw(assetManager->getMainBuffer()->GetID());
 
         
