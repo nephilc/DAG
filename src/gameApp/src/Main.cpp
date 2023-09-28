@@ -114,7 +114,7 @@ int Application::Main (int iQuantity, char** apcArgument)
 //###############################################insert a call to gl viewport here
         //glViewport(0, 0, assetManager->getMainBuffer()->getWidth(), assetManager->getMainBuffer()->getHeight());
         assetManager->getCurrentScene()->Draw(camera, deltaTime);
-
+      
      
         //handle_input(deltaTime);
 
@@ -131,8 +131,8 @@ int Application::Main (int iQuantity, char** apcArgument)
 
         //#######################################################################well i can just decide what buffer to draw on this square
         ndcSquare->draw(assetManager->getMainBuffer()->GetID());
-        font.RenderText("This is sample text", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-        font2.RenderText("(C) LearnOpenGL.com", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
+        font.RenderText("This is sample text", 0.1f, 0.1f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+        font2.RenderText("(C) LearnOpenGL.com", 0.0f, 0.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
 
         
         glfwSwapBuffers(m_window);

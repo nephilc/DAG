@@ -125,12 +125,15 @@ void Font::RenderText(std::string text, float x, float y, float scale, glm::vec3
     for (c = text.begin(); c != text.end(); c++) 
     {
         Character ch = Characters[*c];
+        float xFactor = 2.f / 1280.0f;
+        float yFactor = 2.f / 720.0f;
+        float xpos = x + ch.Bearing.x * scale * xFactor;
+        float ypos = y - (ch.Size.y - ch.Bearing.y) * scale * yFactor;
 
-        float xpos = x + ch.Bearing.x * scale;
-        float ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+        float w = ch.Size.x * scale*xFactor;
+        float h = ch.Size.y * scale*yFactor;
 
-        float w = ch.Size.x * scale;
-        float h = ch.Size.y * scale;
+       
         // update VBO for each character
         float vertices[6][4] = {
             { xpos,     ypos + h,   0.0f, 0.0f },            
@@ -151,7 +154,7 @@ void Font::RenderText(std::string text, float x, float y, float scale, glm::vec3
         // render quad
         glDrawArrays(GL_TRIANGLES, 0, 6);
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-        x += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+        x += (ch.Advance >> 6)*xFactor * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
     }
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
