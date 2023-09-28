@@ -4,6 +4,14 @@
 #include<ScreenCanvas.hpp>
 #include<NDCsquare.hpp>
 
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
+
+#include<Font.hpp>
+
+
 //if you have many instances of a certain type that need to be edited, there will be the notion of the current object, and ops associated with it.
 //app cpu usage may depend on a number of factors.
 //sometimes one gets some, relative spikes in cpu usage, like 2% more, on certaain events, then it goes back to orbit around  a stable value.
@@ -59,6 +67,9 @@ int Application::Main (int iQuantity, char** apcArgument)
     glfwGetWindowSize(m_window,&m_iWidth, &m_iHeight);
     
 
+    Font font("Arial.ttf");
+    Font font2("Debrosee-ALPnL.ttf");
+
     while (!glfwWindowShouldClose(m_window))
     {
 
@@ -103,6 +114,8 @@ int Application::Main (int iQuantity, char** apcArgument)
 //###############################################insert a call to gl viewport here
         //glViewport(0, 0, assetManager->getMainBuffer()->getWidth(), assetManager->getMainBuffer()->getHeight());
         assetManager->getCurrentScene()->Draw(camera, deltaTime);
+
+     
         //handle_input(deltaTime);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0); 
@@ -110,14 +123,16 @@ int Application::Main (int iQuantity, char** apcArgument)
         // back to default
         //glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
         glEnable(GL_DEPTH_TEST);    
-        glClearColor(1.0f, 1.0f, 0.0f, 1.0f); 
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f); 
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //i_fram... is used by the camera not the framebuffer
        
 
         //#######################################################################well i can just decide what buffer to draw on this square
         ndcSquare->draw(assetManager->getMainBuffer()->GetID());
+        font.RenderText("This is sample text", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+        font2.RenderText("(C) LearnOpenGL.com", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
 
         
         glfwSwapBuffers(m_window);
